@@ -48,7 +48,7 @@ jobs:
           prerelease: false
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: core/sds-aspect-meta-model-python/dist/sds-aspect-meta-model-python-${{steps.SDS_version.outputs.SdsVersion}}.tar.gz
-          tag: ${{steps.SDS_version.outputs.SdsVersion}}
+          tag: ${{ github.ref }}
 
       - name: Create GitHub release
         if: ${{ (contains( github.ref, 'b' )) }}
@@ -59,4 +59,4 @@ jobs:
           prerelease: true
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: core/sds-aspect-meta-model-python/dist/sds-aspect-meta-model-python-${{steps.SDS_version.outputs.SdsVersion}}.tar.gz
-          tag: ${{steps.SDS_version.outputs.SdsVersion}}
+          tag: ${{ github.ref }}
