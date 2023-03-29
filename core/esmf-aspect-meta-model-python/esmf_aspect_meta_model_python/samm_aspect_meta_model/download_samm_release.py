@@ -1,4 +1,4 @@
-#  Copyright (c) 2023 Robert Bosch Manufacturing Solutions GmbH
+#  Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
 #
 #  See the AUTHORS file(s) distributed with this work for additional
 #  information regarding authorship.
@@ -29,7 +29,7 @@ def download_jar(version):
     """Downloads the release .JAR of the samm for the selected version"""
 
     print(f"Start downloading SAMM Version {version}")
-    url = f"https://github.com/eclipse-esmf/esmf-semantic-aspect-meta-model/releases/download/v{version}/esmf-semantic-aspect-meta-model-{version}.jar"
+    url = f"https://repo1.maven.org/maven2/org/eclipse/esmf/esmf-semantic-aspect-meta-model/{version}/esmf-semantic-aspect-meta-model-{version}.jar"
 
     request = requests.get(url, allow_redirects=True)
 
