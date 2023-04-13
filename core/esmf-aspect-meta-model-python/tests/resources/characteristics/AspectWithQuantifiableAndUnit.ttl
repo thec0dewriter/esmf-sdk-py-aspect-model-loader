@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
+# Copyright (c) 2023 Robert Bosch Manufacturing Solutions GmbH
 #
 # See the AUTHORS file(s) distributed with this work for
 # additional information regarding authorship.
@@ -25,6 +25,6 @@
 :TestQuantifiable a samm-c:Quantifiable ;
    samm:preferredName "Test Quantifiable"@en ;
    samm:description "This is a test Quantifiable"@en ;
-   samm:see <http://openmanufacturing.org> ;
+   samm:see <https://eclipse-esmf.github.io> ;
    samm:dataType xsd:float ;
    samm-c:unit unit:hertz .

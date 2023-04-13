@@ -1,9 +1,11 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Version number of the release'
+        required: true
 
 jobs:
   gh_tagged_release:
@@ -22,6 +24,29 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Setup Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Set versions
+        run: |
+          release_version=${{ github.event.inputs.release_version }}
+          release_branch_name=${release_version%.*}.x
+          echo "release_branch_name=$release_branch_name" >> $GITHUB_ENV
+
+      - name: Set antora version
+        run: yq eval -i '.version = "${{ github.event.inputs.release_version }}"' documentation/python-sdk-guide/antora.yml
+
+      - name: Commit version changes and push to upstream repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ env.release_branch_name }}
+          commit_user_name: github-actions
+          commit_user_email: github-actions@github.com
+          commit_author: Author <actions@github.com>
+          file_pattern: 'documentation/python-sdk-guide/antora.yml'
+
       - name: Install poetry ${{ matrix.poetry-version }}
         run: |
           python -m ensurepip
@@ -32,31 +57,37 @@ jobs:
         id: ESMF_version
         run: |
           cd core/esmf-aspect-meta-model-python
-          poetry version ${GITHUB_REF/refs\/tags\/v/}
+          poetry version ${{ github.event.inputs.release_version }}
           poetry install
           poetry run download-samm-release
           poetry build
           echo "EsmfVersion=poetry version -s" >> $GITHUB_ENV
           echo "::set-output name=EsmfVersion::$(poetry version -s)"
 
-      - name: Create GitHub release
+      - name: "Create Github release (full)"
         if: ${{ (!contains( github.ref, 'b' )) }}
-        uses: svenstaro/upload-release-action@latest
+        uses: softprops/action-gh-release@v1
+        id: esmf_sdk_js_release
         with:
-          file_glob: true
-          overwrite: true
+          body: "Release version ${{steps.ESMF_version.outputs.EsmfVersion}}."
+          tag_name: v${{ github.event.inputs.release_version }}
+          target_commitish: ${{ env.release_branch_name }}
+          draft: false
           prerelease: false
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: core/esmf-aspect-meta-model-python/dist/esmf-aspect-meta-model-python-${{steps.ESMF_version.outputs.EsmfVersion}}.tar.gz
-          tag: ${{ github.ref }}
+          files: core/esmf-aspect-meta-model-python/dist/esmf-aspect-meta-model-python-${{steps.ESMF_version.outputs.EsmfVersion}}.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
 
-      - name: Create GitHub release
+      - name: "Create Github release (milestone)"
         if: ${{ (contains( github.ref, 'b' )) }}
-        uses: svenstaro/upload-release-action@latest
+        uses: softprops/action-gh-release@v1
+        id: sds_sdk_js_release
         with:
-          file_glob: true
-          overwrite: true
+          body: "Release version ${{steps.ESMF_version.outputs.EsmfVersion}}."
+          tag_name: v${{ github.event.inputs.release_version }}
+          target_commitish: ${{ env.release_branch_name }}
+          draft: false
           prerelease: true
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: core/esmf-aspect-meta-model-python/dist/esmf-aspect-meta-model-python-${{steps.ESMF_version.outputs.EsmfVersion}}.tar.gz
-          tag: ${{ github.ref }}
+          files: core/esmf-aspect-meta-model-python/dist/esmf-aspect-meta-model-python-${{steps.ESMF_version.outputs.EsmfVersion}}.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
