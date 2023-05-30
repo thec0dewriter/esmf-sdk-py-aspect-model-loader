@@ -10,17 +10,17 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import typing
+
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.characteristics.enumeration import Enumeration
-from esmf_aspect_meta_model_python.impl.characteristics.default_enumeration import (
-    DefaultEnumeration,
-)
+from esmf_aspect_meta_model_python.impl.characteristics.default_enumeration import DefaultEnumeration
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
-from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
-from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
+from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
+from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
 
 class EnumerationInstantiator(InstantiatorBase[Enumeration]):
@@ -29,12 +29,8 @@ class EnumerationInstantiator(InstantiatorBase[Enumeration]):
 
         data_type = self._get_data_type(element_node)
 
-        value_collection_node = self._aspect_graph.value(
-            subject=element_node, predicate=self._sammc.get_urn(SAMMC.values)
-        )
-        value_nodes = RdfHelper.get_rdf_list_values(
-            value_collection_node, self._aspect_graph
-        )
+        value_collection_node = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.values))
+        value_nodes = RdfHelper.get_rdf_list_values(value_collection_node, self._aspect_graph)
         values = [self.__to_enum_node_value(value_node) for value_node in value_nodes]
 
         if data_type is None:
@@ -64,9 +60,7 @@ class EnumerationInstantiator(InstantiatorBase[Enumeration]):
                     property_name = property_urn.split("#")[1]
                     actual_value: typing.Optional[typing.Any]
                     if self.__is_collection_value(property_urn):
-                        actual_value = self.__instantiate_enum_collection(
-                            property_value
-                        )
+                        actual_value = self.__instantiate_enum_collection(property_value)
                     else:
                         actual_value = self.__to_enum_node_value(property_value)
                     value[property_name] = actual_value
@@ -84,12 +78,8 @@ class EnumerationInstantiator(InstantiatorBase[Enumeration]):
             )
 
     def __is_collection_value(self, property_subject: str) -> bool:
-        characteristic = self._aspect_graph.value(
-            subject=property_subject, predicate=self._samm.get_urn(SAMM.characteristic)
-        )
-        characteristic_type = self._aspect_graph.value(
-            subject=characteristic, predicate=rdflib.RDF.type
-        )
+        characteristic = self._aspect_graph.value(subject=property_subject, predicate=self._samm.get_urn(SAMM.characteristic))
+        characteristic_type = self._aspect_graph.value(subject=characteristic, predicate=rdflib.RDF.type)
         return characteristic_type in self._sammc.collections_urns()
 
     def __instantiate_enum_collection(self, value_list) -> typing.List[typing.Dict]:

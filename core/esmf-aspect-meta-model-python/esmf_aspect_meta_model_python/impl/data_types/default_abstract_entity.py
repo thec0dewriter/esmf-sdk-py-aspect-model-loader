@@ -14,12 +14,8 @@ from typing import List, Optional
 from esmf_aspect_meta_model_python.base.data_types.abstract_entity import AbstractEntity
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.impl.data_types.default_complex_type import (
-    DefaultComplexType,
-)
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
+from esmf_aspect_meta_model_python.impl.data_types.default_complex_type import DefaultComplexType
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultAbstractEntity(DefaultComplexType, AbstractEntity):
@@ -35,7 +31,4 @@ class DefaultAbstractEntity(DefaultComplexType, AbstractEntity):
 
     @property
     def extending_elements(self) -> List[ComplexType]:
-        return [
-            DefaultComplexType._instances[element_subject]
-            for element_subject in self.__extending_elements
-        ]
+        return [DefaultComplexType._instances[element_subject] for element_subject in self.__extending_elements]

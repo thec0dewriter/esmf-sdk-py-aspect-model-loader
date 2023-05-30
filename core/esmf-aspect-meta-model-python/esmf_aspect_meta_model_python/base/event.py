@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import List
 
 from esmf_aspect_meta_model_python.base.base import Base
@@ -25,9 +26,7 @@ class Event(Base, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return issubclass(subclass, Base) and hasattr(
-            subclass, PropertyFunc.fget_name(cls.parameters)
-        )
+        return issubclass(subclass, Base) and hasattr(subclass, PropertyFunc.fget_name(cls.parameters))
 
     @property
     def parameters(self) -> List[Property]:

@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from typing import Optional
+
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.cache_strategy import CacheStrategy
 
@@ -48,15 +49,11 @@ class DefaultElementCache(CacheStrategy):
         self._instance_cache[model_element.urn] = model_element
         return model_element
 
-    def add_element(
-        self, name: str, model_element: Base, overwrite: bool = False
-    ) -> None:
+    def add_element(self, name: str, model_element: Base, overwrite: bool = False) -> None:
         cached_element = self.get(name)
         if not overwrite and cached_element:
             return
 
         if cached_element:
-            print(
-                f"Element with the name ${name} already exist. Overwrite existing element."
-            )
+            print(f"Element with the name ${name} already exist. Overwrite existing element.")
         self._instance_cache[name] = model_element

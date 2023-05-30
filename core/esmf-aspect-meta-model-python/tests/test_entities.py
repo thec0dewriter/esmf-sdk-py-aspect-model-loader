@@ -11,13 +11,7 @@
 
 from pathlib import Path
 
-from esmf_aspect_meta_model_python import (
-    AspectLoader,
-    Enumeration,
-    ComplexType,
-    AbstractEntity,
-    Quantifiable,
-)
+from esmf_aspect_meta_model_python import AbstractEntity, AspectLoader, ComplexType, Enumeration, Quantifiable
 
 RESOURCE_PATH = Path("tests/resources/entity")
 
@@ -103,10 +97,7 @@ def test_aspect_with_abstract_entity():
 
     assert entity_property.get_preferred_name("en") == "Entity Property"
     entity_property_characteristic = entity_property.characteristic
-    assert (
-        entity_property_characteristic.urn
-        == "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#Text"
-    )
+    assert entity_property_characteristic.urn == "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#Text"
 
     abstract_entity = entity.extends
     assert abstract_entity is not None
@@ -194,20 +185,14 @@ def test_aspect_with_abstract_coordinate_properties_list() -> None:
     assert float_3d_coordinate_properties[0].name == "extending_x"
     assert float_3d_coordinate_properties[0].extends is not None
     assert float_3d_coordinate_properties[0].extends.name == "x"
-    assert (
-        float_3d_coordinate_properties[0].extends.urn
-        == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#x"
-    )
+    assert float_3d_coordinate_properties[0].extends.urn == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#x"
     assert float_3d_coordinate_properties[0].characteristic is not None
     assert float_3d_coordinate_properties[0].characteristic.name == "FloatValue"
 
     assert float_3d_coordinate_properties[1].name == "extending_y"
     assert float_3d_coordinate_properties[1].extends is not None
     assert float_3d_coordinate_properties[1].extends.name == "y"
-    assert (
-        float_3d_coordinate_properties[1].extends.urn
-        == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#y"
-    )
+    assert float_3d_coordinate_properties[1].extends.urn == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#y"
     assert float_3d_coordinate_properties[1].characteristic is not None
     assert float_3d_coordinate_properties[1].characteristic.name == "FloatValue"
 
@@ -252,9 +237,7 @@ def test_multiple_attribute_inheritance_entity() -> None:
     """test inheritance of description, preferred name and see attributes
     for multiple extending entities.
     """
-    file_path = (
-        RESOURCE_PATH / "AspectWithMultipleAbstractEntitiesMultipleAttributes.ttl"
-    )
+    file_path = RESOURCE_PATH / "AspectWithMultipleAbstractEntitiesMultipleAttributes.ttl"
     aspect_loader = AspectLoader()
     aspect = aspect_loader.load_aspect_model(file_path)
 
@@ -314,14 +297,8 @@ def test_attribute_inheritance_property() -> None:
     assert "http://example.com/2" in extending_property.see
     assert extending_property.get_preferred_name("en") == "Abstract Property english"
     assert extending_property.get_preferred_name("de") == "Abstract Property german"
-    assert (
-        extending_property.get_description("en")
-        == "This is an Abstract Property english"
-    )
-    assert (
-        extending_property.get_description("de")
-        == "This is an Abstract Property german"
-    )
+    assert extending_property.get_description("en") == "This is an Abstract Property english"
+    assert extending_property.get_description("de") == "This is an Abstract Property german"
 
 
 def test_multiple_properties_same_extend() -> None:
@@ -443,10 +420,7 @@ def test_aspect_with_time_series():
     assert isinstance(time_series_entity, ComplexType)
     assert time_series_entity.is_complex is True
     assert time_series_entity.name == "TestTimeSeriesEntity"
-    assert (
-        time_series_entity.urn
-        == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#TestTimeSeriesEntity"
-    )
+    assert time_series_entity.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#TestTimeSeriesEntity"
 
     assert len(time_series_entity.properties) == 1
     assert len(time_series_entity.all_properties) == 3
@@ -468,9 +442,7 @@ def test_aspect_with_time_series():
     assert abstract_value.is_abstract is True
     assert timestamp.is_abstract is False
 
-    assert extending_value.get_preferred_name(
-        "en"
-    ) == abstract_value.get_preferred_name("en")
+    assert extending_value.get_preferred_name("en") == abstract_value.get_preferred_name("en")
     assert extending_value.get_description("en") == abstract_value.get_description("en")
     assert timestamp.get_preferred_name("en") == "Timestamp"
 
@@ -493,10 +465,7 @@ def test_aspect_with_time_series_with_complex_type() -> None:
     assert isinstance(data_type, ComplexType)
     assert data_type.is_complex is True
     assert data_type.name == "TestTimeSeriesEntity"
-    assert (
-        data_type.urn
-        == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#TestTimeSeriesEntity"
-    )
+    assert data_type.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#TestTimeSeriesEntity"
 
     assert len(data_type.properties) == 1
     assert len(data_type.all_properties) == 3
@@ -527,9 +496,7 @@ def test_aspect_with_file_resource_entity() -> None:
     fileResource = characteristic.data_type
     assert isinstance(fileResource, ComplexType)
     assert fileResource.is_complex
-    assert (
-        fileResource.urn == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#FileResource"
-    )
+    assert fileResource.urn == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#FileResource"
     assert fileResource.name == "FileResource"
     assert fileResource.get_preferred_name("en") == "File Resource"
     assert fileResource.get_description("en") == "A file in a specific format"
@@ -547,15 +514,9 @@ def test_aspect_with_file_resource_entity() -> None:
     assert mime_type_characteristic is not None
 
     assert resource_characteristic.name == "ResourcePath"
-    assert (
-        resource_characteristic.data_type.urn
-        == "http://www.w3.org/2001/XMLSchema#anyURI"
-    )
+    assert resource_characteristic.data_type.urn == "http://www.w3.org/2001/XMLSchema#anyURI"
     assert mime_type_characteristic.name == "MimeType"
-    assert (
-        mime_type_characteristic.data_type.urn
-        == "http://www.w3.org/2001/XMLSchema#string"
-    )
+    assert mime_type_characteristic.data_type.urn == "http://www.w3.org/2001/XMLSchema#string"
 
 
 def test_aspect_with_entity_extending_file_resource() -> None:
@@ -567,17 +528,12 @@ def test_aspect_with_entity_extending_file_resource() -> None:
     advancedFileResource = characteristic.data_type
     assert isinstance(advancedFileResource, ComplexType)
     assert advancedFileResource.is_complex
-    assert (
-        advancedFileResource.urn
-        == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#AdvancedFileResource"
-    )
+    assert advancedFileResource.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#AdvancedFileResource"
     assert advancedFileResource.name == "AdvancedFileResource"
     assert len(advancedFileResource.properties) == 1
     assert len(advancedFileResource.all_properties) == 3
 
     fileResource = advancedFileResource.extends
     assert fileResource is not None
-    assert (
-        fileResource.urn == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#FileResource"
-    )
+    assert fileResource.urn == "urn:samm:org.eclipse.esmf.samm:entity:2.0.0#FileResource"
     assert fileResource.name == "FileResource"

@@ -23,9 +23,7 @@ class DataType(HasUrn, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(
-            subclass, DataType.is_scalar, DataType.is_complex
-        )
+        return PropertyFunc.has_properties(subclass, DataType.is_scalar, DataType.is_complex)
 
     @property
     def is_scalar(self) -> bool:

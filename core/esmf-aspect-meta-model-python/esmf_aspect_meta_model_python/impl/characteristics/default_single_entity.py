@@ -9,12 +9,8 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from esmf_aspect_meta_model_python.base.characteristics.single_entity import (
-    SingleEntity,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import (
-    DefaultCharacteristic,
-)
+from esmf_aspect_meta_model_python.base.characteristics.single_entity import SingleEntity
+from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
 
 
 class DefaultSingleEntity(DefaultCharacteristic, SingleEntity):

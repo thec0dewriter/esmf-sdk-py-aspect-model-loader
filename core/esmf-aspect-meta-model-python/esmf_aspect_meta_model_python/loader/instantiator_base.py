@@ -10,15 +10,15 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import TypeVar, Optional, TYPE_CHECKING, Generic, Dict, Any
+
+from typing import TYPE_CHECKING, Any, Dict, Generic, Optional, TypeVar
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
@@ -28,9 +28,7 @@ if TYPE_CHECKING:
     # Conditional imports are often classified as code smells but here
     # it is the only solution that allows consistent type hinting and avoids circular imports.
     # Do not remove this import even if it is marked as unused.
-    from esmf_aspect_meta_model_python.loader.model_element_factory import (
-        ModelElementFactory,
-    )
+    from esmf_aspect_meta_model_python.loader.model_element_factory import ModelElementFactory
 
 T = TypeVar("T")
 
@@ -100,9 +98,7 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
         Returns:
             object that wraps all the information (samm_version, urn, name, preferred_names, descriptions, see)
         """
-        return MetaModelBaseAttributes.from_meta_model_element(
-            element_subject, self._aspect_graph, self._samm, self._meta_model_version
-        )
+        return MetaModelBaseAttributes.from_meta_model_element(element_subject, self._aspect_graph, self._samm, self._meta_model_version)
 
     def _get_child(self, parent_subject: Node, child_predicate, required=False):
         """
@@ -121,9 +117,7 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
         Raises:
             ValueError: if the child is required but does not exist.
         """
-        child_subject = self._aspect_graph.value(
-            subject=parent_subject, predicate=child_predicate
-        )
+        child_subject = self._aspect_graph.value(subject=parent_subject, predicate=child_predicate)
         if child_subject is None and required:
             raise ValueError(
                 f"Child {child_predicate} is required \
@@ -136,9 +130,7 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
         else:
             return self._model_element_factory.create_element(child_subject)
 
-    def _get_list_children(
-        self, element_subject: Node, list_predicate: rdflib.URIRef
-    ) -> list:
+    def _get_list_children(self, element_subject: Node, list_predicate: rdflib.URIRef) -> list:
         """Extracts all children of an rdf list from the given element and
         returns a list of the instances. Used for samm:properties, samm:operations and samm:events
         Arguments:
@@ -149,9 +141,7 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
             a list of the instantiated elements
         """
         children = []
-        list_node = self._aspect_graph.value(
-            subject=element_subject, predicate=list_predicate
-        )
+        list_node = self._aspect_graph.value(subject=element_subject, predicate=list_predicate)
         children_nodes = RdfHelper.get_rdf_list_values(list_node, self._aspect_graph)
 
         for child_node in children_nodes:
@@ -176,9 +166,7 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
             predicate=self._sammc.get_urn(SAMMC.element_characteristic),
         )
         if element_characteristic_node is None:
-            data_type_node = self._aspect_graph.value(
-                subject=element_node, predicate=self._samm.get_urn(SAMM.data_type)
-            )
+            data_type_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.data_type))
         else:
             # some characteristics (Collection, List, TimeSeries, etc.) may have
             # an attribute "element_characteristic". If it is given, then take

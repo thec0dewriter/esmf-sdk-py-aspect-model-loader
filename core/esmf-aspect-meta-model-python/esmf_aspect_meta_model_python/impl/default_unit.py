@@ -9,14 +9,12 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from typing import Set, Optional
+from typing import Optional, Set
 
 from esmf_aspect_meta_model_python.base.quantity_kind import QuantityKind
 from esmf_aspect_meta_model_python.base.unit import Unit
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
 from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultUnit(BaseImpl, Unit):

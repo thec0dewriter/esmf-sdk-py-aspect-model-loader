@@ -24,6 +24,4 @@ class UNIT(Namespace):
         """returns the URN string of the given element type.
         Example: get_urn(SAMM.reference_unit) -> "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#referenceUnit"
         """
-        return rdflib.URIRef(
-            f"{UNIT.__samm_prefix}{self.__meta_model_version}#{element_type}"
-        )
+        return rdflib.URIRef(f"{UNIT.__samm_prefix}{self.__meta_model_version}#{element_type}")

@@ -9,12 +9,8 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from esmf_aspect_meta_model_python.base.characteristics.collection.time_series import (
-    TimeSeries,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.collection.default_sorted_set import (
-    DefaultSortedSet,
-)
+from esmf_aspect_meta_model_python.base.characteristics.collection.time_series import TimeSeries
+from esmf_aspect_meta_model_python.impl.characteristics.collection.default_sorted_set import DefaultSortedSet
 
 
 class DefaultTimeSeries(DefaultSortedSet, TimeSeries):

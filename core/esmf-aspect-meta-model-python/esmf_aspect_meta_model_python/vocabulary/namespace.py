@@ -10,7 +10,9 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import Optional, Union
+
 import rdflib  # type: ignore
 
 

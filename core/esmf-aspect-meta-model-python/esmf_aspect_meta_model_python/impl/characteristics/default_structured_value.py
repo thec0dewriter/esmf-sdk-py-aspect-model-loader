@@ -11,16 +11,10 @@
 
 from typing import List
 
-from esmf_aspect_meta_model_python.base.characteristics.structured_value import (
-    StructuredValue,
-)
+from esmf_aspect_meta_model_python.base.characteristics.structured_value import StructuredValue
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import (
-    DefaultCharacteristic,
-)
+from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultStructuredValue(DefaultCharacteristic, StructuredValue):

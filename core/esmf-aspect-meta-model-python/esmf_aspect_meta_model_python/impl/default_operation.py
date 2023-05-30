@@ -9,14 +9,12 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from typing import Optional, List
+from typing import List, Optional
 
 from esmf_aspect_meta_model_python.base.operation import Operation
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
 from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultOperation(BaseImpl, Operation):

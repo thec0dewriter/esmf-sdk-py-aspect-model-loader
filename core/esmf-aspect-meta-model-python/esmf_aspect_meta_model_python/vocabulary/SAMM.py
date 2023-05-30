@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import rdflib  # type: ignore
+
 from .namespace import Namespace
 
 

@@ -11,12 +11,8 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
-    Characteristic,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.default_single_entity import (
-    DefaultSingleEntity,
-)
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
+from esmf_aspect_meta_model_python.impl.characteristics.default_single_entity import DefaultSingleEntity
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 
 

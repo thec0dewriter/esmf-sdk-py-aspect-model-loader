@@ -12,6 +12,7 @@
 import abc
 
 from typing import List
+
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 

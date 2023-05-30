@@ -11,19 +11,11 @@
 
 from typing import Optional
 
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
-    Characteristic,
-)
-from esmf_aspect_meta_model_python.base.characteristics.collection.collection import (
-    Collection,
-)
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
+from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import (
-    DefaultCharacteristic,
-)
+from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultCollection(DefaultCharacteristic, Collection):

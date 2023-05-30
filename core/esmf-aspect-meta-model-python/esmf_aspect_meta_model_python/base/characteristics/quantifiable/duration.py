@@ -11,9 +11,7 @@
 
 import abc
 
-from esmf_aspect_meta_model_python.base.characteristics.quantifiable.quantifiable import (
-    Quantifiable,
-)
+from esmf_aspect_meta_model_python.base.characteristics.quantifiable.quantifiable import Quantifiable
 
 
 class Duration(Quantifiable, metaclass=abc.ABCMeta):

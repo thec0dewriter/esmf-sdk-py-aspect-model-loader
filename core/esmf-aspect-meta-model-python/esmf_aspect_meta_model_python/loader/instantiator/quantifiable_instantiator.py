@@ -11,12 +11,8 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.quantifiable.quantifiable import (
-    Quantifiable,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_quantifiable import (
-    DefaultQuantifiable,
-)
+from esmf_aspect_meta_model_python.base.characteristics.quantifiable.quantifiable import Quantifiable
+from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_quantifiable import DefaultQuantifiable
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 

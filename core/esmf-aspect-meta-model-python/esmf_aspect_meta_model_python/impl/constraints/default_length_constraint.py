@@ -11,15 +11,9 @@
 
 from typing import Optional
 
-from esmf_aspect_meta_model_python.base.contraints.length_constraint import (
-    LengthConstraint,
-)
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
-from esmf_aspect_meta_model_python.impl.constraints.default_constraint import (
-    DefaultConstraint,
-)
+from esmf_aspect_meta_model_python.base.contraints.length_constraint import LengthConstraint
+from esmf_aspect_meta_model_python.impl.constraints.default_constraint import DefaultConstraint
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultLengthConstraint(DefaultConstraint, LengthConstraint):

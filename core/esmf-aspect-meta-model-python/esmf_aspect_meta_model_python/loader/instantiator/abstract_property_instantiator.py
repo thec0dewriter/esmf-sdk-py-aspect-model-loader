@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.property import Property
@@ -49,15 +50,11 @@ class AbstractPropertyInstantiator(InstantiatorBase[Property]):
         else:
             raise ValueError("Invalid syntax for Abstract Property")
 
-    def _create_property_direct_reference(
-        self, element_node: rdflib.URIRef
-    ) -> Property:
+    def _create_property_direct_reference(self, element_node: rdflib.URIRef) -> Property:
         """The given node is a named node representing the property"""
         meta_model_base_attributes = self._get_base_attributes(element_node)
 
-        example_value = self._aspect_graph.value(
-            subject=element_node, predicate=self._samm.get_urn(SAMM.example_value)
-        )
+        example_value = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.example_value))
 
         return DefaultProperty(
             meta_model_base_attributes,
@@ -69,31 +66,15 @@ class AbstractPropertyInstantiator(InstantiatorBase[Property]):
     def _create_property_blank_node(self, element_node: rdflib.BNode) -> Property:
         """The given node is a blank node holding a reference to the property
         and having additional attributes like optional or not_in_payload"""
-        optional = (
-            self._aspect_graph.value(
-                subject=element_node, predicate=self._samm.get_urn(SAMM.optional)
-            )
-            is not None
-        )
-        not_in_payload = (
-            self._aspect_graph.value(
-                subject=element_node, predicate=self._samm.get_urn(SAMM.not_in_payload)
-            )
-            is not None
-        )
-        payload_name = self._get_child(
-            element_node, self._samm.get_urn(SAMM.payload_name)
-        )
+        optional = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.optional)) is not None
+        not_in_payload = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.not_in_payload)) is not None
+        payload_name = self._get_child(element_node, self._samm.get_urn(SAMM.payload_name))
 
-        property_node = self._aspect_graph.value(
-            subject=element_node, predicate=self._samm.get_urn(SAMM.property)
-        )
+        property_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property))
 
         meta_model_base_attributes = self._get_base_attributes(property_node)
 
-        example_value = self._aspect_graph.value(
-            subject=property_node, predicate=self._samm.get_urn(SAMM.example_value)
-        )
+        example_value = self._aspect_graph.value(subject=property_node, predicate=self._samm.get_urn(SAMM.example_value))
 
         return DefaultProperty(
             meta_model_base_attributes,

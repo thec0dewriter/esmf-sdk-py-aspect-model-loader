@@ -10,11 +10,10 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import Optional
 
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
-    Characteristic,
-)
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
 class Collection(Characteristic, metaclass=abc.ABCMeta):

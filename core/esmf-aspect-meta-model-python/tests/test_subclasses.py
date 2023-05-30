@@ -22,6 +22,7 @@ issubclass() and isinstance() behave correctly.
 #   SPDX-License-Identifier: MPL-2.0
 
 from typing import Any
+
 from esmf_aspect_meta_model_python import (
     AbstractEntity,
     Aspect,

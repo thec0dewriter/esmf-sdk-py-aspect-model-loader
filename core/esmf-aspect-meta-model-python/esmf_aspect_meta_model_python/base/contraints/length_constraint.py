@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import Optional
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
@@ -25,9 +26,7 @@ class LengthConstraint(Constraint, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(
-            subclass, LengthConstraint.min_value, LengthConstraint.max_value
-        )
+        return PropertyFunc.has_properties(subclass, LengthConstraint.min_value, LengthConstraint.max_value)
 
     @property
     def min_value(self) -> Optional[int]:

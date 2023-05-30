@@ -10,12 +10,14 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import Optional, List
+
+from typing import List, Optional
+
 import rdflib  # type: ignore
 
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase, T
-from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
+from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 
 
 class ComplexTypeInstantiator(InstantiatorBase[T], metaclass=abc.ABCMeta):
@@ -36,9 +38,7 @@ class ComplexTypeInstantiator(InstantiatorBase[T], metaclass=abc.ABCMeta):
         Returns:
             urn of the extended element
         """
-        extended_element_node = self._aspect_graph.value(
-            subject=entity_subject, predicate=self._samm.get_urn(SAMM.extends)
-        )
+        extended_element_node = self._aspect_graph.value(subject=entity_subject, predicate=self._samm.get_urn(SAMM.extends))
         if extended_element_node is None:
             return None
         if extended_element_node not in self._instantiating_now:
@@ -60,9 +60,7 @@ class ComplexTypeInstantiator(InstantiatorBase[T], metaclass=abc.ABCMeta):
             list of urns of the extended element
         """
         elements: List[str] = []
-        all_element_subjects = self._aspect_graph.subjects(
-            predicate=self._samm.get_urn(SAMM.extends), object=entity_subject
-        )
+        all_element_subjects = self._aspect_graph.subjects(predicate=self._samm.get_urn(SAMM.extends), object=entity_subject)
         for element_subject in all_element_subjects:
             if element_subject not in self._instantiating_now:
                 self._model_element_factory.create_element(element_subject)

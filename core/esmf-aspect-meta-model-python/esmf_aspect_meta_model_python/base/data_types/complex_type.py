@@ -10,12 +10,13 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import List, Optional
 
+from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
 from esmf_aspect_meta_model_python.base.property import Property
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 from esmf_aspect_meta_model_python.base.structure_element import StructureElement
-from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
 
 
 class ComplexType(DataType, StructureElement, metaclass=abc.ABCMeta):

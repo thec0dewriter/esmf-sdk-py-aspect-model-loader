@@ -10,18 +10,18 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import sys
-from typing import Optional, List, Union
+
+from typing import List, Optional, Union
 
 import rdflib  # type: ignore
-from rdflib import term, Graph, BNode
+
+from rdflib import BNode, Graph, term
 from rdflib.term import Node
 
 
 class RdfHelper:
     @staticmethod
-    def get_rdf_list_values(
-        rdf_list: Optional[BNode], aspect_graph: Graph
-    ) -> List[term.Identifier]:
+    def get_rdf_list_values(rdf_list: Optional[BNode], aspect_graph: Graph) -> List[term.Identifier]:
         """A collection in rdf is a binary tree. The top of the tree is a blank node.
         One predicate of the node is connected to the first element of the collection.
         The other predicate is connected to a node with the rest of the binary tree.
@@ -36,24 +36,16 @@ class RdfHelper:
         """
         list_elements: List[term.Identifier] = []
 
-        first_entry: Optional[term.Identifier] = aspect_graph.value(
-            subject=rdf_list, predicate=rdflib.RDF.first
-        )
+        first_entry: Optional[term.Identifier] = aspect_graph.value(subject=rdf_list, predicate=rdflib.RDF.first)
 
         if first_entry is not None:
             list_elements = [first_entry]
-            remaining_entries: Optional[term.BNode] = aspect_graph.value(
-                subject=rdf_list, predicate=rdflib.RDF.rest
-            )
-            list_elements.extend(
-                RdfHelper.get_rdf_list_values(remaining_entries, aspect_graph)
-            )
+            remaining_entries: Optional[term.BNode] = aspect_graph.value(subject=rdf_list, predicate=rdflib.RDF.rest)
+            list_elements.extend(RdfHelper.get_rdf_list_values(remaining_entries, aspect_graph))
         return list_elements
 
     @staticmethod
-    def find_named_parent(
-        meta_model_element: Node, aspect_graph: rdflib.Graph, counter: int = 0
-    ) -> tuple:
+    def find_named_parent(meta_model_element: Node, aspect_graph: rdflib.Graph, counter: int = 0) -> tuple:
         """This method searches in the aspect graph for a named parent.
         If the found parent is a blank node search recursively for the
         grand parent.
@@ -74,12 +66,8 @@ class RdfHelper:
         if counter >= sys.getrecursionlimit():
             return result
 
-        for subject, predicate in aspect_graph.subject_predicates(
-            object=meta_model_element
-        ):
-            if isinstance(subject, rdflib.URIRef) and isinstance(
-                predicate, rdflib.URIRef
-            ):
+        for subject, predicate in aspect_graph.subject_predicates(object=meta_model_element):
+            if isinstance(subject, rdflib.URIRef) and isinstance(predicate, rdflib.URIRef):
                 result = subject, predicate, counter
             else:
                 # search for grand parent
@@ -97,8 +85,6 @@ class RdfHelper:
 
             to_python(Literal) -> literal as Python type (e.g., int or string)
         """
-        if isinstance(
-            to_be_python, (rdflib.URIRef, rdflib.BNode, rdflib.Graph, rdflib.Literal)
-        ):
+        if isinstance(to_be_python, (rdflib.URIRef, rdflib.BNode, rdflib.Graph, rdflib.Literal)):
             return to_be_python.toPython()  # type: ignore
         raise TypeError("Unknown toPython type.")

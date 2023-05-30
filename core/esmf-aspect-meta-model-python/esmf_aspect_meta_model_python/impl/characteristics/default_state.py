@@ -9,16 +9,12 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from typing import List, Any
+from typing import Any, List
 
 from esmf_aspect_meta_model_python.base.characteristics.state import State
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
-    MetaModelBaseAttributes,
-)
-from esmf_aspect_meta_model_python.impl.characteristics.default_enumeration import (
-    DefaultEnumeration,
-)
+from esmf_aspect_meta_model_python.impl.characteristics.default_enumeration import DefaultEnumeration
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultState(DefaultEnumeration, State):

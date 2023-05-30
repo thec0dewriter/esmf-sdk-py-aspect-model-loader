@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import List, Optional
 
 from esmf_aspect_meta_model_python.base.base import Base
@@ -25,9 +26,7 @@ class Operation(Base, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(
-            subclass, Operation.input_properties, Operation.output_property
-        )
+        return PropertyFunc.has_properties(subclass, Operation.input_properties, Operation.output_property)
 
     @property
     def input_properties(self) -> List[Property]:

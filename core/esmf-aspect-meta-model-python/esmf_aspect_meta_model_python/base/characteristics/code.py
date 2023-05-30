@@ -11,9 +11,7 @@
 
 import abc
 
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
-    Characteristic,
-)
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
 class Code(Characteristic, metaclass=abc.ABCMeta):

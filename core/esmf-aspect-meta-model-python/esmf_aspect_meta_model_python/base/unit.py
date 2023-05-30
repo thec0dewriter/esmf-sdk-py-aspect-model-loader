@@ -10,11 +10,12 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import Set, Optional
+
+from typing import Optional, Set
 
 from esmf_aspect_meta_model_python.base.base import Base
-from esmf_aspect_meta_model_python.base.quantity_kind import QuantityKind
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
+from esmf_aspect_meta_model_python.base.quantity_kind import QuantityKind
 
 
 class Unit(Base, metaclass=abc.ABCMeta):

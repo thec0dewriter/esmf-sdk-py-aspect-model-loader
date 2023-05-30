@@ -23,7 +23,5 @@ from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 class EventInstantiator(InstantiatorBase[Event]):
     def _create_instance(self, element_node: Node) -> Event:
         meta_model_base_attributes = self._get_base_attributes(element_node)
-        parameters: List[Property] = self._get_list_children(
-            element_node, self._samm.get_urn(SAMM.parameters)
-        )
+        parameters: List[Property] = self._get_list_children(element_node, self._samm.get_urn(SAMM.parameters))
         return DefaultEvent(meta_model_base_attributes, parameters)
