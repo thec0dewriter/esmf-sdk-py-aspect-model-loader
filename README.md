@@ -1,4 +1,4 @@
-# SDS SDK Python Aspect Model loader
+# ESMF SDK Python Aspect Model loader
 
 ## Table of Contents
 
@@ -7,9 +7,9 @@
 - [Getting Started](#getting-started)
 - [SDK Structure](#sdk-structure)
 - [Python Core Components](#python-core-components)
-    - [sds-aspect-meta-model-python](#sds-aspect-meta-model-python)
+    - [esmf-aspect-meta-model-python](#esmf-aspect-meta-model-python)
 - [Version Handling](#version-handling)
-    - [BAMM Versioning](#bamm-versioning)
+    - [SAMM Versioning](#samm-versioning)
     - [API Versioning](#api-versioning)
 - [About](#about)
     - [Building](#building)
@@ -21,11 +21,11 @@
 
 ## Introduction
 
-The SDS SDK Python Aspect Model loader contains artifacts and resources for all parties that intent to use, extend or
-integrate with the BAMM Aspect Meta Model, e.g., Solution Developers,
+The ESMF SDK Python Aspect Model loader contains artifacts and resources for all parties that intent to use, extend or
+integrate with the Semantic Aspect Meta Model, e.g., Solution Developers,
 Domain Experts or OEMs.
 
-At its core are components which help to work with the BAMM Aspect Meta Model (BAMM).
+At its core are components which help to work with the Semantic Aspect Meta Model (SAMM).
 
 This repository contains a detailed developer documentation written in AsciiDoc. The source files (AsciiDoc) are
 located [here](documentation/python-sdk-guide)
@@ -34,11 +34,11 @@ and are built using
 
 ## Getting help
 
-Are you having trouble with SDS SDK Python? We want to help!
+Are you having trouble with ESMF SDK Python? We want to help!
 
-* Check the [developer documentation](https://openmanufacturingplatform.github.io)
-* Having issues with the SDS SDK Python? Open
-  a [GitHub issue](https://github.com/OpenManufacturingPlatform/sds-sdk-py-aspect-model-loader/issues).
+* Check the [developer documentation](https://eclipse-esmf.github.io)
+* Having issues with the ESMF SDK Python? Open
+  a [GitHub issue](https://github.com/eclipse-esmf/esmf-sdk-py-aspect-model-loader/issues).
 
 ## Getting Started
 
@@ -50,10 +50,10 @@ concepts for each component can be found in the respective subfolders or subrepo
 To ease navigation through the SDK and its components, the following structure is employed:
 
 ```
-sds-sdk-python
+esmf-sdk-py-aspect-model-loader
  │
  ├─── core                                      # e.g. meta model implementation etc.
- │     ├─── sds-aspect-meta-model-python
+ │     ├─── esmf-aspect-meta-model-python
  │     ├─── ...
  └─── samples                                   # sample projects to get you started quickly
 ```
@@ -61,11 +61,11 @@ sds-sdk-python
 ## Python Core Components
 
 The Python core components are those to be consumed by developers that aim to build applications or tools dealing with
-BAMM.
+SAMM.
 
-### sds-aspect-meta-model-python
+### esmf-aspect-meta-model-python
 
-Contains the Python implementation of the BAMM.
+Contains the Python implementation of the SAMM.
 
 An aspect meta model can be primarily used dynamically instantiate an Aspect Model. This is done by tooling and
 applications that don't have any a-prior knowledge except for the aspect model file/URN and also don't or can't use
@@ -73,26 +73,26 @@ generated source code artifacts. Any form of source code generator will use the 
 
 ## Version Handling
 
-The aspect meta model loader work with the BAMM versions specified in the [download_bamm_release.py](core/sds-aspect-meta-model-python/sds_aspect_meta_model_python//bamm_aspect_meta_model/download_bamm_release.py). This version will be used for deployment.
+The aspect meta model loader work with the SAMM versions specified in the [download_samm_release.py](core/esmf-aspect-meta-model-python/esmf_aspect_meta_model_python//samm_aspect_meta_model/download_samm_release.py). This version will be used for deployment.
 
-As BAMM evolves over time, the Aspect Meta Model Loader should also adapt and evolve accordingly.
-Due to this fact it is important to understand the versioning concept that is applied to the BAMM,
+As SAMM evolves over time, the Aspect Meta Model Loader should also adapt and evolve accordingly.
+Due to this fact it is important to understand the versioning concept that is applied to the SAMM,
 APIs and SDK components that are derived from them.
 
 In case of a prerelease there will be a postfix added and it will be released under Github.
 The way to access the artifact is described
 in [Github-Installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#installing-a-package)
 
-### BAMM Versioning
+### SAMM Versioning
 
-For the BAMM, semantic versioning (`major.minor.micro`) is applied with the following rules:
+For the SAMM, semantic versioning (`major.minor.micro`) is applied with the following rules:
 
 * A breaking change increases the `major` part
 * Backwards compatible new features increase the `minor` part
 * Changes to existing features or bug fixes increase the `micro` part
 
-A new BAMM version always comprises new releases of the aspect meta model loader that depend on the BAMM, 
-and new releases of aspect meta model loader may be crafted that are built on the existing BAMM version.
+A new SAMM version always comprises new releases of the aspect meta model loader that depend on the SAMM, 
+and new releases of aspect meta model loader may be crafted that are built on the existing SAMM version.
 
 ## About
 
@@ -141,7 +141,7 @@ introducing too many transitive dependencies downstream.
 ### Documentation
 
 Further documentation and howto's are provided in the
-official [Python SDK User Documentation](https://openmanufacturingplatform.github.io/sds-documentation/python-sdk-guide/1.0.0/index.html)
+official [Python SDK User Documentation](https://eclipse-esmf.github.io/python-sdk-guide/index.html)
 
 ### License
 

@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        poetry-version: [ 1.1.13 ]
+        poetry-version: [ 1.5.0 ]
         os: [ ubuntu-latest ]
 
     steps:
@@ -28,24 +28,24 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
 
-      - name: build sds-aspect
+      - name: build esmf-aspect
         run: |
-          cd core/sds-aspect-meta-model-python
+          cd core/esmf-aspect-meta-model-python
           poetry install
-          poetry run download-bamm-release
+          poetry run download-samm-release
           poetry build
 
       - name: run tests
         run: |
-          cd core/sds-aspect-meta-model-python
+          cd core/esmf-aspect-meta-model-python
           poetry run pytest
 
       - name: run MyPy
         run: |
-          cd core/sds-aspect-meta-model-python
+          cd core/esmf-aspect-meta-model-python
           poetry run mypy .
 
       - name: run black
         uses: psf/black@stable
         with:
-          options: "--check --verbose --line-length=160"
+          options: "--check --line-length=160"
