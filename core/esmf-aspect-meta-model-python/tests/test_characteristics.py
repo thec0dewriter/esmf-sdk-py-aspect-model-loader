@@ -48,19 +48,19 @@ def test_loading_aspect_with_collection():
 def test_loading_aspect_with_set():
     file_path = RESOURCE_PATH / "AspectWithSet.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model(file_path)
+    aspect = aspect_loader.load_aspect_model(file_path)  # noqa: F841
 
 
 def test_loading_aspect_with_sorted_set():
     file_path = RESOURCE_PATH / "AspectWithSortedSet.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model(file_path)
+    aspect = aspect_loader.load_aspect_model(file_path)  # noqa: F841
 
 
 def test_loading_aspect_with_list():
     file_path = RESOURCE_PATH / "AspectWithList.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model(file_path)
+    aspect = aspect_loader.load_aspect_model(file_path)  # noqa: F841
 
 
 def test_loading_aspect_with_collection_with_element_characteristic():
