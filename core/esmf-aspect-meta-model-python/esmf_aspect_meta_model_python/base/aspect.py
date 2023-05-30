@@ -26,7 +26,9 @@ class Aspect(StructureElement, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, Aspect.operations, Aspect.events, Aspect.is_collection_aspect) and issubclass(subclass, StructureElement)
+        return PropertyFunc.has_properties(
+            subclass, Aspect.operations, Aspect.events, Aspect.is_collection_aspect
+        ) and issubclass(subclass, StructureElement)
 
     @property
     def operations(self) -> List[Operation]:

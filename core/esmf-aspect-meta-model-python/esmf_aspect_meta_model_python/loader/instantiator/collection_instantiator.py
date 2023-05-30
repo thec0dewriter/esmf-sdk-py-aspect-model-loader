@@ -11,8 +11,12 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
-from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import DefaultCollection
+from esmf_aspect_meta_model_python.base.characteristics.collection.collection import (
+    Collection,
+)
+from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import (
+    DefaultCollection,
+)
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 
@@ -20,10 +24,14 @@ from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorB
 class CollectionInstantiator(InstantiatorBase[Collection]):
     def _create_instance(self, element_node: Node) -> Collection:
         meta_model_base_attributes = self._get_base_attributes(element_node)
-        element_characteristic = self._get_child(element_node, self._sammc.get_urn(SAMMC.element_characteristic))
+        element_characteristic = self._get_child(
+            element_node, self._sammc.get_urn(SAMMC.element_characteristic)
+        )
         data_type = self._get_data_type(element_node)
 
         if data_type is None:
             raise TypeError("Data type can't be None.")
 
-        return DefaultCollection(meta_model_base_attributes, data_type, element_characteristic)
+        return DefaultCollection(
+            meta_model_base_attributes, data_type, element_characteristic
+        )

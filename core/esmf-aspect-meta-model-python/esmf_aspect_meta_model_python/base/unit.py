@@ -25,7 +25,14 @@ class Unit(Base, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, Unit.symbol, Unit.code, Unit.reference_unit, Unit.conversion_factor, Unit.quantity_kinds)
+        return PropertyFunc.has_properties(
+            subclass,
+            Unit.symbol,
+            Unit.code,
+            Unit.reference_unit,
+            Unit.conversion_factor,
+            Unit.quantity_kinds,
+        )
 
     @property
     def symbol(self) -> Optional[str]:

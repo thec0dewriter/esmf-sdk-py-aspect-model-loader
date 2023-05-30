@@ -45,7 +45,9 @@ def extract_jar(version):
     archive = zipfile.ZipFile(f"esmf-aspect-meta-model-{version}.jar")
     for file in archive.namelist():
         if file.startswith("samm"):
-            archive.extract(file, "./esmf_aspect_meta_model_python/samm_aspect_meta_model")
+            archive.extract(
+                file, "./esmf_aspect_meta_model_python/samm_aspect_meta_model"
+            )
     archive.close()
     print("Done extracting files.")
 

@@ -19,7 +19,9 @@ from esmf_aspect_meta_model_python.base.base import Base
 
 from esmf_aspect_meta_model_python.loader import instantiator
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase, T
-from esmf_aspect_meta_model_python.loader.default_element_cache import DefaultElementCache
+from esmf_aspect_meta_model_python.loader.default_element_cache import (
+    DefaultElementCache,
+)
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 from esmf_aspect_meta_model_python.vocabulary.UNIT import UNIT
@@ -31,7 +33,12 @@ class ModelElementFactory:
     is delegated to instantiator classes.
     """
 
-    def __init__(self, meta_model_version: str, aspect_graph: rdflib.Graph, cache: DefaultElementCache):
+    def __init__(
+        self,
+        meta_model_version: str,
+        aspect_graph: rdflib.Graph,
+        cache: DefaultElementCache,
+    ):
         self._samm = SAMM(meta_model_version)
         self._sammc = SAMMC(meta_model_version)
         self._unit = UNIT(meta_model_version)
@@ -59,7 +66,9 @@ class ModelElementFactory:
         if self._instantiators.keys().__contains__(element_type):
             instance = self._instantiators[element_type].get_instance(element_node)
         else:
-            instance = self._create_instantiator(element_type).get_instance(element_node)
+            instance = self._create_instantiator(element_type).get_instance(
+                element_node
+            )
 
         if isinstance(instance, Base):
             self._cache.resolve_instance(instance)
@@ -68,7 +77,9 @@ class ModelElementFactory:
 
     def _get_element_type(self, element_node: Node) -> str:
         """Gets the element type of a node and returns it."""
-        element_type_urn = self._aspect_graph.value(subject=element_node, predicate=rdflib.RDF.type)
+        element_type_urn = self._aspect_graph.value(
+            subject=element_node, predicate=rdflib.RDF.type
+        )
         element_type = self._samm.get_name(element_type_urn)
 
         if element_type is None:
@@ -76,12 +87,18 @@ class ModelElementFactory:
             # 1. A property that extends another property
             # 2. A property or abstract property that is defined as a blank node
             # 3. A scalar
-            if self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.extends)):
+            if self._aspect_graph.value(
+                subject=element_node, predicate=self._samm.get_urn(SAMM.extends)
+            ):
                 element_type = "Property"
-            elif self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property)):
+            elif self._aspect_graph.value(
+                subject=element_node, predicate=self._samm.get_urn(SAMM.property)
+            ):
                 # property is a blank node and can either be a property or
                 # an abstract property. Therefore, get the type of the subnode.
-                property_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property))
+                property_node = self._aspect_graph.value(
+                    subject=element_node, predicate=self._samm.get_urn(SAMM.property)
+                )
                 element_type = self._get_element_type(property_node)
             else:
                 element_type = "Scalar"
@@ -122,7 +139,9 @@ class ModelElementFactory:
 
         # converts the class name (e.g. AspectInstantiator) to lowercase with
         # underscore (e.g. aspect_instantiator)
-        module_name = re.sub(r"(?<=[a-z])[A-Z]|(?<!^)[A-Z](?=[a-z])", r"_\g<0>", class_name).lower()
+        module_name = re.sub(
+            r"(?<=[a-z])[A-Z]|(?<!^)[A-Z](?=[a-z])", r"_\g<0>", class_name
+        ).lower()
         return f"{instantiator.__name__}.{module_name}", class_name
 
     def get_samm(self) -> SAMM:

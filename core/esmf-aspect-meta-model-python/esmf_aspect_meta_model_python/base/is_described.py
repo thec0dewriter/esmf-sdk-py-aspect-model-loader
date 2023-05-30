@@ -25,7 +25,13 @@ class IsDescribed(HasUrn, metaclass=abc.ABCMeta):
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
         return (
-            PropertyFunc.has_properties(subclass, IsDescribed.name, IsDescribed.preferred_names, IsDescribed.descriptions, IsDescribed.see)
+            PropertyFunc.has_properties(
+                subclass,
+                IsDescribed.name,
+                IsDescribed.preferred_names,
+                IsDescribed.descriptions,
+                IsDescribed.see,
+            )
             and callable(subclass.get_preferred_name)
             and callable(subclass.get_description)
         )

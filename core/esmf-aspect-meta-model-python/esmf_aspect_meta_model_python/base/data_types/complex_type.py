@@ -21,7 +21,13 @@ from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
 class ComplexType(DataType, StructureElement, metaclass=abc.ABCMeta):
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, ComplexType.all_properties, ComplexType.is_abstract_entity, ComplexType.extends, ComplexType.is_scalar)
+        return PropertyFunc.has_properties(
+            subclass,
+            ComplexType.all_properties,
+            ComplexType.is_abstract_entity,
+            ComplexType.extends,
+            ComplexType.is_scalar,
+        )
 
     @property
     def all_properties(self) -> List[Property]:

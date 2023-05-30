@@ -31,9 +31,21 @@ class AspectInstantiator(InstantiatorBase[Aspect]):
         if not isinstance(element_node, rdflib.URIRef):
             raise TypeError("An Aspect needs to be defined as a named node.")
 
-        properties: List[Property] = self._get_list_children(element_node, self._samm.get_urn(SAMM.properties))
-        operations: List[Operation] = self._get_list_children(element_node, self._samm.get_urn(SAMM.operations))
-        events: List[Event] = self._get_list_children(element_node, self._samm.get_urn(SAMM.events))
+        properties: List[Property] = self._get_list_children(
+            element_node, self._samm.get_urn(SAMM.properties)
+        )
+        operations: List[Operation] = self._get_list_children(
+            element_node, self._samm.get_urn(SAMM.operations)
+        )
+        events: List[Event] = self._get_list_children(
+            element_node, self._samm.get_urn(SAMM.events)
+        )
         is_collection_aspect = False
 
-        return DefaultAspect(meta_model_base_attributes, properties, operations, events, is_collection_aspect)
+        return DefaultAspect(
+            meta_model_base_attributes,
+            properties,
+            operations,
+            events,
+            is_collection_aspect,
+        )

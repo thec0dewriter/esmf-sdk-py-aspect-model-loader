@@ -20,4 +20,10 @@ class GitFile:
 
     @staticmethod
     def from_json(json_dct):
-        return GitFile(json_dct["name"], json_dct["path"], json_dct["sha"], json_dct["size"], json_dct["download_url"])
+        return GitFile(
+            json_dct["name"],
+            json_dct["path"],
+            json_dct["sha"],
+            json_dct["size"],
+            json_dct["download_url"],
+        )

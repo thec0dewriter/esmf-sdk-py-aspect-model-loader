@@ -10,7 +10,9 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from esmf_aspect_meta_model_python.base.characteristics.collection.set import Set
-from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import DefaultCollection
+from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import (
+    DefaultCollection,
+)
 
 
 class DefaultSet(DefaultCollection, Set):

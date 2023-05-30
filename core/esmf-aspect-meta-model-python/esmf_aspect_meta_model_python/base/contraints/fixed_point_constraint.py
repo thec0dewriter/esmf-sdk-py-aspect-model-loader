@@ -24,7 +24,9 @@ class FixedPointConstraint(Constraint, metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, FixedPointConstraint.scale, FixedPointConstraint.integer)
+        return PropertyFunc.has_properties(
+            subclass, FixedPointConstraint.scale, FixedPointConstraint.integer
+        )
 
     @property
     def scale(self) -> int:

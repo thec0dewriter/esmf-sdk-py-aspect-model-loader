@@ -11,17 +11,30 @@
 
 from typing import List
 
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
 from esmf_aspect_meta_model_python.base.characteristics.trait import Trait
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
+    Characteristic,
+)
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import (
+    DefaultCharacteristic,
+)
 
 
 class DefaultTrait(DefaultCharacteristic, Trait):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, base_characteristic: Characteristic, constraints: List[Constraint]):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        base_characteristic: Characteristic,
+        constraints: List[Constraint],
+    ):
         if base_characteristic is None:
-            raise AttributeError(f"No base characteristic given for the trait {self.urn}")
+            raise AttributeError(
+                f"No base characteristic given for the trait {self.urn}"
+            )
 
         if not constraints:
             raise AttributeError(f"No constraints given for the trait {self.urn}")

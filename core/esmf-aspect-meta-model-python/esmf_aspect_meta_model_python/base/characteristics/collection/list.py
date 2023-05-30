@@ -11,7 +11,9 @@
 
 import abc
 
-from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
+from esmf_aspect_meta_model_python.base.characteristics.collection.collection import (
+    Collection,
+)
 
 
 class List(Collection, metaclass=abc.ABCMeta):

@@ -12,7 +12,9 @@
 import abc
 import typing
 
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
+    Characteristic,
+)
 from esmf_aspect_meta_model_python.base.unit import Unit
 
 

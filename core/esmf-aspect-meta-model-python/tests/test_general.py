@@ -56,11 +56,18 @@ def test_aspect():
     assert characteristic.name == "Text"
     assert characteristic.get_preferred_name("en") == "Text"
     assert (
-        characteristic.get_description("en") == "Describes a Property which contains plain text. This is intended exclusively for human readable strings, "
+        characteristic.get_description("en")
+        == "Describes a Property which contains plain text. This is intended exclusively for human readable strings, "
         "not for identifiers, measurement values, etc."
     )
-    assert characteristic.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyOne"
-    assert characteristic.parent_elements[1].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyTwo"
+    assert (
+        characteristic.parent_elements[0].urn
+        == "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyOne"
+    )
+    assert (
+        characteristic.parent_elements[1].urn
+        == "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyTwo"
+    )
 
     data_type = characteristic.data_type
     assert data_type.is_scalar is True
@@ -94,13 +101,17 @@ def test_aspect_with_operation():
     assert len(operation1_input_properties) == 1
 
     assert operation1_input_properties[0].name == "input"
-    operation1_input_properties1_characteristic = operation1_input_properties[0].characteristic
+    operation1_input_properties1_characteristic = operation1_input_properties[
+        0
+    ].characteristic
     datatype = operation1_input_properties1_characteristic.data_type
     assert datatype.urn == "http://www.w3.org/2001/XMLSchema#string"
 
     operation1_output_properties = operation1.output_property
     assert operation1_output_properties.name == "output"
-    operation1_output_properties_characteristic = operation1_output_properties.characteristic
+    operation1_output_properties_characteristic = (
+        operation1_output_properties.characteristic
+    )
     datatype = operation1_output_properties_characteristic.data_type
     assert datatype.urn == "http://www.w3.org/2001/XMLSchema#string"
 
@@ -116,13 +127,17 @@ def test_aspect_with_operation():
     assert len(operation2_input_properties) == 1
 
     assert operation2_input_properties[0].name == "input"
-    operation2_input_properties1_characteristic = operation2_input_properties[0].characteristic
+    operation2_input_properties1_characteristic = operation2_input_properties[
+        0
+    ].characteristic
     datatype = operation2_input_properties1_characteristic.data_type
     assert datatype.urn == "http://www.w3.org/2001/XMLSchema#string"
 
     operation2_output_properties = operation2.output_property
     assert operation2_output_properties.name == "output"
-    operation2_output_properties_characteristic = operation2_output_properties.characteristic
+    operation2_output_properties_characteristic = (
+        operation2_output_properties.characteristic
+    )
     datatype = operation2_output_properties_characteristic.data_type
     assert datatype.urn == "http://www.w3.org/2001/XMLSchema#string"
 
@@ -133,7 +148,10 @@ def test_aspect_with_operation_no_output():
     aspect = aspect_loader.load_aspect_model(file_path)
     assert aspect.meta_model_version == "2.0.0"
     assert aspect.name == "AspectWithOperationNoOutput"
-    assert aspect.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#AspectWithOperationNoOutput"
+    assert (
+        aspect.urn
+        == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#AspectWithOperationNoOutput"
+    )
 
     properties = aspect.properties
     assert len(properties) == 0
@@ -153,7 +171,9 @@ def test_aspect_with_operation_no_output():
     assert len(operation1_input_properties) == 1
 
     assert operation1_input_properties[0].name == "input"
-    operation1_input_properties1_characteristic = operation1_input_properties[0].characteristic
+    operation1_input_properties1_characteristic = operation1_input_properties[
+        0
+    ].characteristic
     datatype = operation1_input_properties1_characteristic.data_type
     assert datatype.urn == "http://www.w3.org/2001/XMLSchema#string"
 
@@ -172,7 +192,9 @@ def test_aspect_with_operation_no_output():
     assert len(operation2_input_properties) == 1
 
     assert operation2_input_properties[0].name == "input"
-    operation2_input_properties1_characteristic = operation2_input_properties[0].characteristic
+    operation2_input_properties1_characteristic = operation2_input_properties[
+        0
+    ].characteristic
     datatype = operation2_input_properties1_characteristic.data_type
     assert datatype.urn == "http://www.w3.org/2001/XMLSchema#string"
 
@@ -235,7 +257,9 @@ def test_aspect_with_duplicate_property_with_payload_name() -> None:
 
 
 def test_aspect_with_duplicate_property_with_different_payload_names() -> None:
-    file_path = RESOURCE_PATH / "AspectWithDuplicatePropertyWithDifferentPayloadNames.ttl"
+    file_path = (
+        RESOURCE_PATH / "AspectWithDuplicatePropertyWithDifferentPayloadNames.ttl"
+    )
     aspect_loader = AspectLoader()
     aspect = aspect_loader.load_aspect_model(file_path)
 
@@ -302,7 +326,10 @@ def test_find_property_characteristic_by_name() -> None:
     assert len(result) == 1
     assert isinstance(result[0], BaseImpl)
     assert result[0].name == "BooleanTestCharacteristic"
-    assert result[0].urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    assert (
+        result[0].urn
+        == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    )
     assert len(result[0].preferred_names) == 0
     assert len(result[0].see) == 0
     assert len(result[0].descriptions) == 0
@@ -313,7 +340,9 @@ def test_find_properties_by_urn() -> None:
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
 
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyOne")
+    result = aspect_loader.find_by_urn(
+        "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyOne"
+    )
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "testPropertyOne"
@@ -322,7 +351,9 @@ def test_find_properties_by_urn() -> None:
     assert len(result.see) == 0
     assert len(result.descriptions) == 0
 
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyTwo")
+    result = aspect_loader.find_by_urn(
+        "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyTwo"
+    )
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "testPropertyTwo"
@@ -339,11 +370,16 @@ def test_find_property_characteristic_by_urn() -> None:
     file_path = RESOURCE_PATH / "AspectWithPropertyWithAllBaseAttributes.ttl"
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic")
+    result = aspect_loader.find_by_urn(
+        "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    )
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "BooleanTestCharacteristic"
-    assert result.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    assert (
+        result.urn
+        == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    )
     assert len(result.preferred_names) == 0
     assert len(result.see) == 0
     assert len(result.descriptions) == 0
@@ -356,7 +392,10 @@ def test_load_aspect_from_multiple_files() -> None:
     file_path1 = RESOURCE_PATH / "ProductTypes.ttl"
     file_path2 = RESOURCE_PATH / "ProductType_shared.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model_from_multiple_files([file_path1, file_path2], "urn:samm:org.eclipse.esmf.samm.file_path1:0.0.1#ProductTypes")
+    aspect = aspect_loader.load_aspect_model_from_multiple_files(
+        [file_path1, file_path2],
+        "urn:samm:org.eclipse.esmf.samm.file_path1:0.0.1#ProductTypes",
+    )
 
     assert aspect.meta_model_version == "2.0.0"
     assert aspect.name == "ProductTypes"
@@ -368,10 +407,21 @@ def test_load_aspect_from_multiple_files() -> None:
     assert first_property.data_type is not None
     data_type = first_property.data_type
     assert data_type.is_complex
-    assert data_type.urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#ProductType"
+    assert (
+        data_type.urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#ProductType"
+    )
     assert hasattr(data_type, "properties")
     data_type_properties = data_type.properties  # type: ignore
     assert len(data_type_properties) == 3
-    assert data_type_properties[0].urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#productClass"
-    assert data_type_properties[1].urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#productSubClass"
-    assert data_type_properties[2].urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#statisticsGroup"
+    assert (
+        data_type_properties[0].urn
+        == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#productClass"
+    )
+    assert (
+        data_type_properties[1].urn
+        == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#productSubClass"
+    )
+    assert (
+        data_type_properties[2].urn
+        == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#statisticsGroup"
+    )

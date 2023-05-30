@@ -27,7 +27,11 @@ class RangeConstraint(Constraint, metaclass=abc.ABCMeta):
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
         return PropertyFunc.has_properties(
-            subclass, RangeConstraint.min_value, RangeConstraint.max_value, RangeConstraint.upper_bound_definition, RangeConstraint.lower_bound_definition
+            subclass,
+            RangeConstraint.min_value,
+            RangeConstraint.max_value,
+            RangeConstraint.upper_bound_definition,
+            RangeConstraint.lower_bound_definition,
         )
 
     @property

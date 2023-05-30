@@ -9,13 +9,24 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from esmf_aspect_meta_model_python.base.contraints.fixed_point_constraint import FixedPointConstraint
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
-from esmf_aspect_meta_model_python.impl.constraints.default_constraint import DefaultConstraint
+from esmf_aspect_meta_model_python.base.contraints.fixed_point_constraint import (
+    FixedPointConstraint,
+)
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
+from esmf_aspect_meta_model_python.impl.constraints.default_constraint import (
+    DefaultConstraint,
+)
 
 
 class DefaultFixedPointConstraint(DefaultConstraint, FixedPointConstraint):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, scale: int, integer: int):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        scale: int,
+        integer: int,
+    ):
         super().__init__(meta_model_base_attributes)
         self._scale = scale
         self._integer = integer

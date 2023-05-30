@@ -13,12 +13,21 @@ from typing import List
 
 from esmf_aspect_meta_model_python.base.characteristics.enumeration import Enumeration
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
+from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import (
+    DefaultCharacteristic,
+)
 
 
 class DefaultEnumeration(DefaultCharacteristic, Enumeration):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, data_type: DataType, values: List):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        data_type: DataType,
+        values: List,
+    ):
         super().__init__(meta_model_base_attributes, data_type)
         self._values = values
 

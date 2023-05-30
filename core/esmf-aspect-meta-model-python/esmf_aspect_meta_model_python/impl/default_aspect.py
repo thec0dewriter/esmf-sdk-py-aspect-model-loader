@@ -15,7 +15,9 @@ from esmf_aspect_meta_model_python.base.aspect import Aspect
 from esmf_aspect_meta_model_python.base.operation import Operation
 from esmf_aspect_meta_model_python.base.property import Property
 from esmf_aspect_meta_model_python.base.event import Event
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
 from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
 
 

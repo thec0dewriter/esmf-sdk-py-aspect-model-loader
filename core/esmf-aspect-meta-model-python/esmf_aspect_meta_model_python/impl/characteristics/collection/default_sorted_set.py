@@ -9,8 +9,12 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from esmf_aspect_meta_model_python.base.characteristics.collection.sorted_set import SortedSet
-from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import DefaultCollection
+from esmf_aspect_meta_model_python.base.characteristics.collection.sorted_set import (
+    SortedSet,
+)
+from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import (
+    DefaultCollection,
+)
 
 
 class DefaultSortedSet(DefaultCollection, SortedSet):

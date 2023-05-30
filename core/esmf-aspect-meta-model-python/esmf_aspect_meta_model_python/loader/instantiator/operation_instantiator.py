@@ -29,7 +29,9 @@ class OperationInstantiator(InstantiatorBase[Operation]):
         """
         meta_model_base_attributes = self._get_base_attributes(element_node)
 
-        input: List[Property] = self._get_list_children(element_node, self._samm.get_urn(SAMM.input))
+        input: List[Property] = self._get_list_children(
+            element_node, self._samm.get_urn(SAMM.input)
+        )
         output = self._get_child(element_node, self._samm.get_urn(SAMM.output))
 
         return DefaultOperation(meta_model_base_attributes, input, output)

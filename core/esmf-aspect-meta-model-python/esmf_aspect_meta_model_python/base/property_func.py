@@ -29,7 +29,9 @@ class PropertyFunc:
         try:
             return callable_property.fget.__name__  # ignore: type
         except AttributeError as ex:
-            raise AttributeError("Unable to execute fget.__name__ for this argument.") from ex
+            raise AttributeError(
+                "Unable to execute fget.__name__ for this argument."
+            ) from ex
 
     @staticmethod
     def has_properties(obj: Any, *properties: Callable) -> bool:
@@ -43,4 +45,7 @@ class PropertyFunc:
         Returns:
             bool: return true if the object has all properties
         """
-        return all(hasattr(obj, PropertyFunc.fget_name(f_property)) for f_property in properties)
+        return all(
+            hasattr(obj, PropertyFunc.fget_name(f_property))
+            for f_property in properties
+        )

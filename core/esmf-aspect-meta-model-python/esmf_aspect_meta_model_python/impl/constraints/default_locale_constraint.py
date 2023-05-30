@@ -9,13 +9,21 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from esmf_aspect_meta_model_python.base.contraints.locale_constraint import LocaleConstraint
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
-from esmf_aspect_meta_model_python.impl.constraints.default_constraint import DefaultConstraint
+from esmf_aspect_meta_model_python.base.contraints.locale_constraint import (
+    LocaleConstraint,
+)
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
+from esmf_aspect_meta_model_python.impl.constraints.default_constraint import (
+    DefaultConstraint,
+)
 
 
 class DefaultLocaleConstraint(DefaultConstraint, LocaleConstraint):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, locale_code: str):
+    def __init__(
+        self, meta_model_base_attributes: MetaModelBaseAttributes, locale_code: str
+    ):
         super().__init__(meta_model_base_attributes)
         self._locale_code = locale_code
 

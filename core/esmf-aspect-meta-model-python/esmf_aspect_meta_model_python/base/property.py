@@ -13,7 +13,9 @@ import abc
 from typing import Optional, Any
 
 from esmf_aspect_meta_model_python.base.base import Base
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
+    Characteristic,
+)
 from esmf_aspect_meta_model_python.base.characteristics.trait import Trait
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc

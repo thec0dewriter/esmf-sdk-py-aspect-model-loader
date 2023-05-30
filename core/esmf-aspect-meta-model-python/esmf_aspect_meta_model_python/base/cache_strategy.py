@@ -52,7 +52,9 @@ class CacheStrategy(metaclass=abc.ABCMeta):
         """
         raise NotImplementedError
 
-    def add_element(self, name: str, model_element: Base, overwrite: bool = False) -> None:
+    def add_element(
+        self, name: str, model_element: Base, overwrite: bool = False
+    ) -> None:
         """Add element explicitly to the cache
 
         Args:

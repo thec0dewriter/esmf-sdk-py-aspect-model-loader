@@ -10,7 +10,9 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from esmf_aspect_meta_model_python.base.data_types.entity import Entity
-from esmf_aspect_meta_model_python.impl.data_types.default_complex_type import DefaultComplexType
+from esmf_aspect_meta_model_python.impl.data_types.default_complex_type import (
+    DefaultComplexType,
+)
 
 
 class DefaultEntity(DefaultComplexType, Entity):

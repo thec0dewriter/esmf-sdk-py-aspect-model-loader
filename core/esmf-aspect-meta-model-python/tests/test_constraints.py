@@ -49,7 +49,9 @@ def test_loading_aspect_with_constrained_collection():
 
     data_type = trait_characteristic.data_type
     assert data_type.is_scalar
-    assert base_characteristic.data_type.urn == "http://www.w3.org/2001/XMLSchema#integer"
+    assert (
+        base_characteristic.data_type.urn == "http://www.w3.org/2001/XMLSchema#integer"
+    )
 
 
 def test_loading_aspect_with_range_constraint():
@@ -137,7 +139,9 @@ def test_loading_aspect_with_multiple_one_value_constraints():
 
 
 def test_loading_aspect_with_range_constraint_incl_bound_definition():
-    file_path = RESOURCE_PATH / "AspectWithRangeConstraintInclBoundDefinitionProperties.ttl"
+    file_path = (
+        RESOURCE_PATH / "AspectWithRangeConstraintInclBoundDefinitionProperties.ttl"
+    )
     aspect_loader = AspectLoader()
     aspect = aspect_loader.load_aspect_model(file_path)
 
@@ -158,7 +162,10 @@ def test_loading_aspect_with_range_constraint_incl_bound_definition():
     assert isinstance(base_characteristic, Quantifiable)
     assert hasattr(base_characteristic, "unit")
     assert hasattr(base_characteristic.unit, "urn")
-    assert base_characteristic.unit.urn == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#metrePerSecond"
+    assert (
+        base_characteristic.unit.urn
+        == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#metrePerSecond"
+    )
 
 
 def test_loading_aspect_with_language_constraint():

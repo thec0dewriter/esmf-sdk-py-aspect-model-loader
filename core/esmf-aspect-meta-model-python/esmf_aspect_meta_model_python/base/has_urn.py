@@ -21,7 +21,9 @@ class HasUrn(metaclass=abc.ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, HasUrn.urn, HasUrn.meta_model_version)
+        return PropertyFunc.has_properties(
+            subclass, HasUrn.urn, HasUrn.meta_model_version
+        )
 
     @property
     def urn(self) -> Optional[str]:

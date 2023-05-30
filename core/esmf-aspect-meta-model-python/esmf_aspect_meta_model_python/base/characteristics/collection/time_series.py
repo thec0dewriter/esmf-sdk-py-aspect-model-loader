@@ -11,7 +11,9 @@
 
 import abc
 
-from esmf_aspect_meta_model_python.base.characteristics.collection.sorted_set import SortedSet
+from esmf_aspect_meta_model_python.base.characteristics.collection.sorted_set import (
+    SortedSet,
+)
 
 
 class TimeSeries(SortedSet, metaclass=abc.ABCMeta):

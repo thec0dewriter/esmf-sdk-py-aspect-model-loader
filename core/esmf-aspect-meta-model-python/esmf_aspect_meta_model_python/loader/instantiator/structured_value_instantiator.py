@@ -13,8 +13,12 @@ from typing import Any
 from rdflib import Literal
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.structured_value import StructuredValue
-from esmf_aspect_meta_model_python.impl.characteristics.default_structured_value import DefaultStructuredValue
+from esmf_aspect_meta_model_python.base.characteristics.structured_value import (
+    StructuredValue,
+)
+from esmf_aspect_meta_model_python.impl.characteristics.default_structured_value import (
+    DefaultStructuredValue,
+)
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
@@ -25,16 +29,28 @@ class StructuredValueInstantiator(InstantiatorBase[StructuredValue]):
         meta_model_base_attributes = self._get_base_attributes(element_node)
         data_type = self._get_data_type(element_node)
 
-        deconstruction_rule = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.deconstruction_rule)).toPython()
+        deconstruction_rule = self._aspect_graph.value(
+            subject=element_node,
+            predicate=self._sammc.get_urn(SAMMC.deconstruction_rule),
+        ).toPython()
 
-        element_nodes = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.elements))
-        element_node_list = RdfHelper.get_rdf_list_values(element_nodes, self._aspect_graph)
-        elements = [self.__to_element_node_value(element_node) for element_node in element_node_list]
+        element_nodes = self._aspect_graph.value(
+            subject=element_node, predicate=self._sammc.get_urn(SAMMC.elements)
+        )
+        element_node_list = RdfHelper.get_rdf_list_values(
+            element_nodes, self._aspect_graph
+        )
+        elements = [
+            self.__to_element_node_value(element_node)
+            for element_node in element_node_list
+        ]
 
         if data_type is None:
             raise TypeError("Data type can't be None.")
 
-        return DefaultStructuredValue(meta_model_base_attributes, data_type, deconstruction_rule, elements)
+        return DefaultStructuredValue(
+            meta_model_base_attributes, data_type, deconstruction_rule, elements
+        )
 
     def __to_element_node_value(self, element_node: Node) -> Any:
         """creates a property that is wrapped in a structured value"""

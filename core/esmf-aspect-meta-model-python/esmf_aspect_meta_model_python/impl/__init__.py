@@ -41,7 +41,9 @@ from .constraints.default_language_constraint import DefaultLanguageConstraint
 from .constraints.default_length_constraint import DefaultLengthConstraint
 from .constraints.default_locale_constraint import DefaultLocaleConstraint
 from .constraints.default_range_constraint import DefaultRangeConstraint
-from .constraints.default_regular_expression_constraint import DefaultRegularExpressionConstraint
+from .constraints.default_regular_expression_constraint import (
+    DefaultRegularExpressionConstraint,
+)
 
 from .data_types.default_abstract_entity import DefaultAbstractEntity
 from .data_types.default_complex_type import DefaultComplexType

@@ -11,8 +11,12 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.quantifiable.duration import Duration
-from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_duration import DefaultDuration
+from esmf_aspect_meta_model_python.base.characteristics.quantifiable.duration import (
+    Duration,
+)
+from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_duration import (
+    DefaultDuration,
+)
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 

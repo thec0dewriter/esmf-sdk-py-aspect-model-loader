@@ -11,7 +11,16 @@
 
 from pathlib import Path
 
-from esmf_aspect_meta_model_python import AspectLoader, Collection, Enumeration, Quantifiable, Duration, Measurement, StructuredValue, Either
+from esmf_aspect_meta_model_python import (
+    AspectLoader,
+    Collection,
+    Enumeration,
+    Quantifiable,
+    Duration,
+    Measurement,
+    StructuredValue,
+    Either,
+)
 
 RESOURCE_PATH = Path("tests/resources/characteristics")
 
@@ -25,7 +34,9 @@ def test_loading_aspect_with_collection():
     collection_characteristic = first_property.characteristic
     assert collection_characteristic.name == "testPropertyOne_characteristic"
     assert collection_characteristic.get_preferred_name("en") == "Test Collection"
-    assert collection_characteristic.get_description("en") == "This is a test collection."
+    assert (
+        collection_characteristic.get_description("en") == "This is a test collection."
+    )
     assert collection_characteristic.urn is None
 
     data_type = collection_characteristic.data_type
@@ -65,9 +76,15 @@ def test_loading_aspect_with_collection_with_element_characteristic():
     assert data_type.urn == "http://www.w3.org/2001/XMLSchema#string"
 
     element_characteristic = collection_characteristic.element_characteristic
-    assert element_characteristic.urn == "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#Text"
+    assert (
+        element_characteristic.urn
+        == "urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#Text"
+    )
 
-    assert element_characteristic.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestCollection"
+    assert (
+        element_characteristic.parent_elements[0].urn
+        == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestCollection"
+    )
 
 
 def test_loading_aspect_with_simple_enum():
@@ -107,7 +124,10 @@ def test_loading_aspect_with_quantifiable():
     assert len(unit.quantity_kinds) == 1
     for quantity_kind in unit.quantity_kinds:
         assert quantity_kind.name == "frequency"
-    assert unit.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestQuantifiable"
+    assert (
+        unit.parent_elements[0].urn
+        == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestQuantifiable"
+    )
 
 
 def test_loading_aspect_with_duration():
@@ -120,7 +140,10 @@ def test_loading_aspect_with_duration():
     assert isinstance(duration_characteristic, Duration)
     assert duration_characteristic.name == "TestDuration"
 
-    assert duration_characteristic.unit.urn == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#kilosecond"
+    assert (
+        duration_characteristic.unit.urn
+        == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#kilosecond"
+    )
 
 
 def test_loading_aspect_with_measurement():
@@ -133,7 +156,10 @@ def test_loading_aspect_with_measurement():
     assert isinstance(measurement_characteristic, Measurement)
     assert measurement_characteristic.name == "TestMeasurement"
 
-    assert measurement_characteristic.unit.urn == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#kelvin"
+    assert (
+        measurement_characteristic.unit.urn
+        == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#kelvin"
+    )
 
 
 def test_loading_aspect_with_structured_value():
@@ -146,7 +172,10 @@ def test_loading_aspect_with_structured_value():
     assert isinstance(structured_value_characteristic, StructuredValue)
     assert structured_value_characteristic.name == "StructuredDate"
 
-    assert structured_value_characteristic.deconstruction_rule == "(\\d{4})-(\\d{2})-(\\d{2})"
+    assert (
+        structured_value_characteristic.deconstruction_rule
+        == "(\\d{4})-(\\d{2})-(\\d{2})"
+    )
     elements = structured_value_characteristic.elements
     assert len(elements) == 5
 
@@ -185,11 +214,17 @@ def test_loading_aspect_with_either():
 
     left = either_characteristic.left
     assert left.name == "Text"
-    assert left.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestEither"
+    assert (
+        left.parent_elements[0].urn
+        == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestEither"
+    )
 
     right = either_characteristic.right
     assert right.name == "Boolean"
-    assert right.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestEither"
+    assert (
+        right.parent_elements[0].urn
+        == "urn:samm:org.eclipse.esmf.examples:1.0.0#TestEither"
+    )
 
 
 def test_loading_aspect_with_blank_node() -> None:

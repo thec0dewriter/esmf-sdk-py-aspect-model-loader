@@ -11,15 +11,21 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.contraints.encoding_constraint import EncodingConstraint
+from esmf_aspect_meta_model_python.base.contraints.encoding_constraint import (
+    EncodingConstraint,
+)
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
-from esmf_aspect_meta_model_python.impl.constraints.default_encoding_constraint import DefaultEncodingConstraint
+from esmf_aspect_meta_model_python.impl.constraints.default_encoding_constraint import (
+    DefaultEncodingConstraint,
+)
 
 
 class EncodingConstraintInstantiator(InstantiatorBase[EncodingConstraint]):
     def _create_instance(self, element_node: Node) -> EncodingConstraint:
         meta_model_base_attributes = self._get_base_attributes(element_node)
-        value = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.value)).toPython()
+        value = self._aspect_graph.value(
+            subject=element_node, predicate=self._samm.get_urn(SAMM.value)
+        ).toPython()
         value = value.split("#")[1]
         return DefaultEncodingConstraint(meta_model_base_attributes, value)

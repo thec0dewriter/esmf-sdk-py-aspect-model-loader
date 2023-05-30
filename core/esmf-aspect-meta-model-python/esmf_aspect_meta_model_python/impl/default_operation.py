@@ -13,12 +13,19 @@ from typing import Optional, List
 
 from esmf_aspect_meta_model_python.base.operation import Operation
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
 from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
 
 
 class DefaultOperation(BaseImpl, Operation):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, input_properties: List[Property], output_property: Optional[Property]):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        input_properties: List[Property],
+        output_property: Optional[Property],
+    ):
         super().__init__(meta_model_base_attributes)
         self._input_properties = input_properties
         self._output_property = output_property

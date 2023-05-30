@@ -14,11 +14,17 @@ from typing import List
 from esmf_aspect_meta_model_python import Property
 from esmf_aspect_meta_model_python.base.event import Event
 from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import (
+    MetaModelBaseAttributes,
+)
 
 
 class DefaultEvent(BaseImpl, Event):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, parameters: List[Property]):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        parameters: List[Property],
+    ):
         super().__init__(meta_model_base_attributes)
         self._parameters = parameters
 

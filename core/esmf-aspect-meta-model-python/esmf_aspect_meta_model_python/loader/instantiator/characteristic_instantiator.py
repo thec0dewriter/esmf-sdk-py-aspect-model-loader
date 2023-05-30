@@ -11,8 +11,12 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.base.characteristics.characteristic import (
+    Characteristic,
+)
+from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import (
+    DefaultCharacteristic,
+)
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 
 

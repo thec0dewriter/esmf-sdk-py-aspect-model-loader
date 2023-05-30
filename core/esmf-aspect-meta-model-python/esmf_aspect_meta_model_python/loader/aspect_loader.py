@@ -17,9 +17,15 @@ import rdflib  # type: ignore
 from esmf_aspect_meta_model_python.base.aspect import Aspect
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.loader.model_element_factory import ModelElementFactory
-from esmf_aspect_meta_model_python.loader.default_element_cache import DefaultElementCache
-from esmf_aspect_meta_model_python.resolver.aspect_meta_model_resolver import AspectMetaModelResolver
+from esmf_aspect_meta_model_python.loader.model_element_factory import (
+    ModelElementFactory,
+)
+from esmf_aspect_meta_model_python.loader.default_element_cache import (
+    DefaultElementCache,
+)
+from esmf_aspect_meta_model_python.resolver.aspect_meta_model_resolver import (
+    AspectMetaModelResolver,
+)
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 
 
@@ -44,7 +50,9 @@ class AspectLoader:
         """
         return self.load_aspect_model_from_multiple_files([file_path])
 
-    def load_aspect_model_from_multiple_files(self, file_paths: list[Union[str, Path]], aspect_urn: rdflib.URIRef | str = "") -> Aspect:
+    def load_aspect_model_from_multiple_files(
+        self, file_paths: list[Union[str, Path]], aspect_urn: rdflib.URIRef | str = ""
+    ) -> Aspect:
         """creates the aspect specified in urn with all the including properties and operations
         with the turtle files after merge them. an initialize a cached memory to store all
         instance to make querying them more efficient
@@ -68,13 +76,17 @@ class AspectLoader:
 
         if aspect_urn == "":
             samm = SAMM(meta_model_version)
-            aspect_urn = aspect_graph.value(predicate=rdflib.RDF.type, object=samm.get_urn(SAMM.aspect))
+            aspect_urn = aspect_graph.value(
+                predicate=rdflib.RDF.type, object=samm.get_urn(SAMM.aspect)
+            )
 
         if aspect_urn is not rdflib.URIRef:
             aspect_urn = rdflib.URIRef(aspect_urn)
 
         AspectMetaModelResolver.resolve_meta_model(aspect_graph, meta_model_version)
-        model_element_factory = ModelElementFactory(meta_model_version, aspect_graph, self._cache)
+        model_element_factory = ModelElementFactory(
+            meta_model_version, aspect_graph, self._cache
+        )
 
         return model_element_factory.create_element(aspect_urn)  # type: ignore
 
@@ -146,8 +158,14 @@ class AspectLoader:
 
         return self.__determine_access_path(base_element, path)
 
-    def __determine_access_path(self, base_element: Base, path: list[list[str]]) -> list[list[str]]:
-        if base_element is None or base_element.parent_elements is None or len(base_element.parent_elements) == 0:
+    def __determine_access_path(
+        self, base_element: Base, path: list[list[str]]
+    ) -> list[list[str]]:
+        if (
+            base_element is None
+            or base_element.parent_elements is None
+            or len(base_element.parent_elements) == 0
+        ):
             return path
 
         # in case of multiple parent get the number of additional parents and
@@ -162,7 +180,9 @@ class AspectLoader:
                 else:
                     path_segment = parent.name
 
-                if (len(path[index]) > 0 and path[index][0] != path_segment) or len(path[0]) == 0:
+                if (len(path[index]) > 0 and path[index][0] != path_segment) or len(
+                    path[0]
+                ) == 0:
                     path[index].insert(0, path_segment)
 
             self.__determine_access_path(parent, path)  # type: ignore
