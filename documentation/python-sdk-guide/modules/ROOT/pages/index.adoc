@@ -98,14 +98,14 @@ Import the Aspect Model loader in your Python module
 [source,python]
 
 ----
-from esmf-aspect-meta-model-python import AspectLoader
+from esmf_aspect_meta_model_python import AspectLoader
 ----
 
 Then create an instance of the AspectLoader and run the method `load_aspect_model()` from the `AspectLoader` with
 
 [source,python]
 ----
-from esmf-aspect-meta-model-python import AspectLoader
+from esmf_aspect_meta_model_python  import AspectLoader
 
 al = AspectLoader()
 aspect = al.load_aspect_model("path/to/turtle.ttl")
@@ -122,7 +122,7 @@ If the Aspect Model is seperated into multiple `.ttl` files you can load the Asp
 
 [source,python]
 ----
-from esmf-aspect-meta-model-python import AspectLoader
+from esmf_aspect_meta_model_python import AspectLoader
 
 al = AspectLoader()
 aspect = al.load_aspect_model_from_multiple_files(
