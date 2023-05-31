@@ -79,9 +79,9 @@ class PropertyInstantiator(InstantiatorBase[Property]):
 
         property_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property))
 
-        meta_model_base_attributes = self._get_base_attributes(property_node)
+        meta_model_base_attributes = self._get_base_attributes(property_node)  # type: ignore
 
-        characteristic: Characteristic = self._get_child(property_node, self._samm.get_urn(SAMM.characteristic), required=True)
+        characteristic: Characteristic = self._get_child(property_node, self._samm.get_urn(SAMM.characteristic), required=True)  # type: ignore
 
         example_value = self._aspect_graph.value(subject=property_node, predicate=self._samm.get_urn(SAMM.example_value))
 

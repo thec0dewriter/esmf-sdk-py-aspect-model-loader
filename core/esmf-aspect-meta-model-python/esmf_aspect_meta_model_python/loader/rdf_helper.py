@@ -15,13 +15,13 @@ from typing import List, Optional, Union
 
 import rdflib  # type: ignore
 
-from rdflib import BNode, Graph, term
+from rdflib import Graph, term
 from rdflib.term import Node
 
 
 class RdfHelper:
     @staticmethod
-    def get_rdf_list_values(rdf_list: Optional[BNode], aspect_graph: Graph) -> List[term.Identifier]:
+    def get_rdf_list_values(rdf_list: Optional[Node], aspect_graph: Graph) -> List[term.Node]:
         """A collection in rdf is a binary tree. The top of the tree is a blank node.
         One predicate of the node is connected to the first element of the collection.
         The other predicate is connected to a node with the rest of the binary tree.
@@ -34,13 +34,13 @@ class RdfHelper:
         Returns:
             a list of all Nodes representing the collection elements
         """
-        list_elements: List[term.Identifier] = []
+        list_elements: List[term.Node] = []
 
-        first_entry: Optional[term.Identifier] = aspect_graph.value(subject=rdf_list, predicate=rdflib.RDF.first)
+        first_entry: Optional[term.Node] = aspect_graph.value(subject=rdf_list, predicate=rdflib.RDF.first)
 
         if first_entry is not None:
             list_elements = [first_entry]
-            remaining_entries: Optional[term.BNode] = aspect_graph.value(subject=rdf_list, predicate=rdflib.RDF.rest)
+            remaining_entries: Optional[term.Node] = aspect_graph.value(subject=rdf_list, predicate=rdflib.RDF.rest)
             list_elements.extend(RdfHelper.get_rdf_list_values(remaining_entries, aspect_graph))
         return list_elements
 
@@ -75,7 +75,7 @@ class RdfHelper:
         return result
 
     @staticmethod
-    def to_python(to_be_python: Union[term.Identifier, Node]) -> str:
+    def to_python(to_be_python: Union[term.Identifier, Node, None]) -> str:
         """Converts an RDF node into a Python representation.
 
         Examples:

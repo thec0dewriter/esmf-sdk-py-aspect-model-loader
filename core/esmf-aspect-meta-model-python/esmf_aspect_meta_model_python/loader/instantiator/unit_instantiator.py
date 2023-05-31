@@ -19,6 +19,7 @@ from esmf_aspect_meta_model_python.base.unit import Unit
 from esmf_aspect_meta_model_python.impl.default_quantity_kind import DefaultQuantityKind
 from esmf_aspect_meta_model_python.impl.default_unit import DefaultUnit
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
+from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 
 
@@ -51,8 +52,11 @@ class UnitInstantiator(InstantiatorBase[Unit]):
         meta_model_base_attributes = self._get_base_attributes(quantity_kind_subject)
         return DefaultQuantityKind(meta_model_base_attributes)
 
-    def __get_unit_attribute_as_string(self, unit_subject: Node, attribute: URIRef) -> str:
+    def __get_unit_attribute_as_string(self, unit_subject: Node, attribute: URIRef) -> str | None:
         attribute_value = self._aspect_graph.value(unit_subject, predicate=attribute)
+        attribute_as_string = None
+
         if attribute_value is not None:
-            attribute_value = attribute_value.toPython()
-        return attribute_value
+            attribute_as_string = RdfHelper.to_python(attribute_value)
+
+        return attribute_as_string

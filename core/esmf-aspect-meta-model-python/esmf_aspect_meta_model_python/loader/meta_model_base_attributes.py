@@ -68,7 +68,7 @@ class MetaModelBaseAttributes:
         if meta_model_version == "1.0.0":
             name_result = aspect_graph.value(subject=meta_model_element, predicate=samm.get_urn(SAMM.name))
             if name_result is not None:
-                name = name_result.toPython()
+                name = RdfHelper.to_python(name_result)
 
         elif isinstance(meta_model_element, rdflib.BNode):
             name = MetaModelBaseAttributes.__create_default_name(meta_model_element, aspect_graph, samm)

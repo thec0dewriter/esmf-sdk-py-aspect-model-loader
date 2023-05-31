@@ -12,7 +12,7 @@
 import importlib
 import re
 
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
 
 import rdflib  # type: ignore
 
@@ -48,7 +48,7 @@ class ModelElementFactory:
 
         self._instantiators: Dict[str, InstantiatorBase] = {}
 
-    def create_element(self, element_node: Node) -> T:
+    def create_element(self, element_node: Node):
         """
         searches for the right instantiator to create a new instance or
          find an existing one.
@@ -73,7 +73,7 @@ class ModelElementFactory:
 
         return instance  # type: ignore
 
-    def _get_element_type(self, element_node: Node) -> str:
+    def _get_element_type(self, element_node: Optional[Node]) -> str:
         """Gets the element type of a node and returns it."""
         element_type_urn = self._aspect_graph.value(subject=element_node, predicate=rdflib.RDF.type)
         element_type = self._samm.get_name(element_type_urn)

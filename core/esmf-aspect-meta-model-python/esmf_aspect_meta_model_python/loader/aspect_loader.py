@@ -68,7 +68,7 @@ class AspectLoader:
 
         if aspect_urn == "":
             samm = SAMM(meta_model_version)
-            aspect_urn = aspect_graph.value(predicate=rdflib.RDF.type, object=samm.get_urn(SAMM.aspect))
+            aspect_urn = aspect_graph.value(predicate=rdflib.RDF.type, object=samm.get_urn(SAMM.aspect))  # type: ignore
 
         if aspect_urn is not rdflib.URIRef:
             aspect_urn = rdflib.URIRef(aspect_urn)
