@@ -109,9 +109,17 @@ order to e.g. build a package or run the tests for a package navigate to the pac
 
 `poetry build`
 
+*run all checks: tests and code style*
+
+`poetry run tox`
+
 *run tests*
 
-`poetry run pytest`
+`poetry run tox -e py310`
+
+*run code style*
+
+`poetry run tox -e pep8`
 
 ### Contributors
 
@@ -127,16 +135,21 @@ The following 3rd party libraries are used within the SDK. Further dependencies 
 necessary. Especially for consumer facing components dependencies should be kept at an absolute minimum to avoid
 introducing too many transitive dependencies downstream.
 
-| Name                                  | License                              | Type                   |
-|---------------------------------------|--------------------------------------|------------------------|
-| python-poetry/poetry                  | MIT License (MIT)                    | Dependency Management  |
-| zipfile37                             | Python Software Foundation License   | Dependency             |
-| rdflib                                | [LICENSE AGREEMENT FOR RDFLIB](https://github.com/RDFLib/rdflib/blob/master/LICENSE)     | Dependency             |
-| requests                              | Apache Software License (Apache 2.0) | Dependency             |
-| types-requests                        | Apache Software License (Apache 2.0) | Development dependency |
-| pytest-dev/pytest                     | MIT License (MIT)                    | Development dependency |
-| python/mypy                           | MIT License (MIT)                    | Development dependency |
-| psf/black                             | MIT License (MIT)                    | Development dependency |
+| Name                  | License                              | Type                   |
+|-----------------------|--------------------------------------|------------------------|
+| python-poetry/poetry  | MIT License (MIT)                    | Dependency Management  |
+| rdflib                | [LICENSE AGREEMENT FOR RDFLIB](https://github.com/RDFLib/rdflib/blob/master/LICENSE)     | Dependency             |
+| requests              | Apache Software License (Apache 2.0) | Dependency             |
+| tox                   | MIT License (MIT)                    | Dependency             |
+| zipfile37             | Python Software Foundation License   | Dependency             |
+| psf/black             | MIT License (MIT)                    | Development dependency |
+| nedbat/coverage       | Apache Software License (Apache 2.0) | Development dependency |
+| isort                 | MIT License (MIT)                    | Development dependency |
+| python/mypy           | MIT License (MIT)                    | Development dependency |
+| pytest                | MIT License (MIT)                    | Development dependency |
+| pytest-dev/pytest-cov | MIT License (MIT)                    | Development dependency |
+| pytest-sugar          | BSD License (BSD)                    | Development dependency |
+| types-requests        | Apache Software License (Apache 2.0) | Development dependency |
 
 ### Documentation
 
