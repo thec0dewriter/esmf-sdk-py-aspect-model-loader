@@ -12,6 +12,7 @@
 from typing import List
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.data_types.abstract_entity import AbstractEntity

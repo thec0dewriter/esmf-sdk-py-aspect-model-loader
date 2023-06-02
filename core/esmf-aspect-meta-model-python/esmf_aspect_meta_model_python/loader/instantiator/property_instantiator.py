@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
@@ -78,14 +79,19 @@ class PropertyInstantiator(InstantiatorBase[Property]):
 
         property_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property))
 
-        meta_model_base_attributes = self._get_base_attributes(property_node)
+        meta_model_base_attributes = self._get_base_attributes(property_node)  # type: ignore
 
-        characteristic: Characteristic = self._get_child(property_node, self._samm.get_urn(SAMM.characteristic), required=True)
+        characteristic: Characteristic = self._get_child(property_node, self._samm.get_urn(SAMM.characteristic), required=True)  # type: ignore
 
         example_value = self._aspect_graph.value(subject=property_node, predicate=self._samm.get_urn(SAMM.example_value))
 
         return DefaultProperty(
-            meta_model_base_attributes, characteristic, example_value, optional=optional, not_in_payload=not_in_payload, payload_name=payload_name
+            meta_model_base_attributes,
+            characteristic,
+            example_value,
+            optional=optional,
+            not_in_payload=not_in_payload,
+            payload_name=payload_name,
         )
 
     def _create_property_with_extends(self, element_node: rdflib.BNode) -> Property:
@@ -100,4 +106,10 @@ class PropertyInstantiator(InstantiatorBase[Property]):
 
         example_value = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.example_value))
 
-        return DefaultProperty(meta_model_base_attributes, characteristic, example_value, extends, payload_name=payload_name)
+        return DefaultProperty(
+            meta_model_base_attributes,
+            characteristic,
+            example_value,
+            extends,
+            payload_name=payload_name,
+        )

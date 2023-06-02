@@ -38,14 +38,9 @@ jobs:
       - name: run tests
         run: |
           cd core/esmf-aspect-meta-model-python
-          poetry run pytest
+          poetry run tox -e py310
 
-      - name: run MyPy
+      - name: run code style checks
         run: |
           cd core/esmf-aspect-meta-model-python
-          poetry run mypy .
-
-      - name: run black
-        uses: psf/black@stable
-        with:
-          options: "--check --line-length=160"
+          poetry run tox -e pep8

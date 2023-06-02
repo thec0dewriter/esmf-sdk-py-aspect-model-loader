@@ -13,8 +13,8 @@ from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
 from esmf_aspect_meta_model_python.impl.characteristics.collection.default_collection import DefaultCollection
-from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
+from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
 
 class CollectionInstantiator(InstantiatorBase[Collection]):

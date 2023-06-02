@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from typing import Optional
+
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.cache_strategy import CacheStrategy
 

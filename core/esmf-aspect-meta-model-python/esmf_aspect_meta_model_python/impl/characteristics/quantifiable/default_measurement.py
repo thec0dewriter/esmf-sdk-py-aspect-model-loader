@@ -9,8 +9,8 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_quantifiable import DefaultQuantifiable
 from esmf_aspect_meta_model_python.base.characteristics.quantifiable.measurement import Measurement
+from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_quantifiable import DefaultQuantifiable
 
 
 class DefaultMeasurement(DefaultQuantifiable, Measurement):

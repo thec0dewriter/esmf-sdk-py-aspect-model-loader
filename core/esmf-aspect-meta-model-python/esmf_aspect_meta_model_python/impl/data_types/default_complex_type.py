@@ -9,7 +9,7 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from typing import Optional, List, Dict
+from typing import Dict, List, Optional
 
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
 from esmf_aspect_meta_model_python.base.property import Property
@@ -23,7 +23,12 @@ class DefaultComplexType(BaseImpl, ComplexType):
     Complex Types (Entities)
     """
 
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, properties: List[Property], extends: Optional[str]):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        properties: List[Property],
+        extends: Optional[str],
+    ):
         super().__init__(meta_model_base_attributes)
         for pro in properties:
             pro.append_parent_element(self)

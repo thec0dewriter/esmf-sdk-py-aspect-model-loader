@@ -10,12 +10,14 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import Optional, List
+
+from typing import List, Optional
+
 import rdflib  # type: ignore
 
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase, T
-from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
+from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 
 
 class ComplexTypeInstantiator(InstantiatorBase[T], metaclass=abc.ABCMeta):
@@ -41,7 +43,7 @@ class ComplexTypeInstantiator(InstantiatorBase[T], metaclass=abc.ABCMeta):
             return None
         if extended_element_node not in self._instantiating_now:
             self._model_element_factory.create_element(extended_element_node)
-        return extended_element_node.toPython()
+        return RdfHelper.to_python(extended_element_node)
 
     def get_extending_elements(self, entity_subject: rdflib.URIRef) -> List[str]:
         """

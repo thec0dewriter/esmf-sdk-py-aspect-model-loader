@@ -11,9 +11,9 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.base.data_types.scalar import Scalar
 from esmf_aspect_meta_model_python.impl.data_types.default_scalar import DefaultScalar
+from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
 
 

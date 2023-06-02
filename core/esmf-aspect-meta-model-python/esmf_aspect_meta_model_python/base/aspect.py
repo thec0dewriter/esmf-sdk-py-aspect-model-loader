@@ -10,12 +10,13 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import List
 
 from esmf_aspect_meta_model_python.base.event import Event
 from esmf_aspect_meta_model_python.base.operation import Operation
-from esmf_aspect_meta_model_python.base.structure_element import StructureElement
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
+from esmf_aspect_meta_model_python.base.structure_element import StructureElement
 
 
 class Aspect(StructureElement, metaclass=abc.ABCMeta):

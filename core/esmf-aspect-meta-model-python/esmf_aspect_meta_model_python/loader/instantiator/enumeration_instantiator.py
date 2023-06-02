@@ -10,15 +10,17 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import typing
+
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.characteristics.enumeration import Enumeration
 from esmf_aspect_meta_model_python.impl.characteristics.default_enumeration import DefaultEnumeration
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
-from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
-from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
+from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
+from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
 
 class EnumerationInstantiator(InstantiatorBase[Enumeration]):
@@ -76,7 +78,7 @@ class EnumerationInstantiator(InstantiatorBase[Enumeration]):
             )
 
     def __is_collection_value(self, property_subject: str) -> bool:
-        characteristic = self._aspect_graph.value(subject=property_subject, predicate=self._samm.get_urn(SAMM.characteristic))
+        characteristic = self._aspect_graph.value(subject=property_subject, predicate=self._samm.get_urn(SAMM.characteristic))  # type: ignore
         characteristic_type = self._aspect_graph.value(subject=characteristic, predicate=rdflib.RDF.type)
         return characteristic_type in self._sammc.collections_urns()
 

@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import Optional
 
 from esmf_aspect_meta_model_python.base.is_described import IsDescribed

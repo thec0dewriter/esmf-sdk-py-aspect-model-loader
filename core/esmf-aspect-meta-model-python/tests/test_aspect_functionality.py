@@ -10,7 +10,8 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from pathlib import Path
-from esmf_aspect_meta_model_python import BaseImpl, AspectLoader
+
+from esmf_aspect_meta_model_python import AspectLoader, BaseImpl
 
 RESOURCE_PATH = Path("tests/resources/general")
 

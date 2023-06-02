@@ -17,8 +17,8 @@ import rdflib  # type: ignore
 from esmf_aspect_meta_model_python.base.aspect import Aspect
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.loader.model_element_factory import ModelElementFactory
 from esmf_aspect_meta_model_python.loader.default_element_cache import DefaultElementCache
+from esmf_aspect_meta_model_python.loader.model_element_factory import ModelElementFactory
 from esmf_aspect_meta_model_python.resolver.aspect_meta_model_resolver import AspectMetaModelResolver
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 
@@ -68,7 +68,7 @@ class AspectLoader:
 
         if aspect_urn == "":
             samm = SAMM(meta_model_version)
-            aspect_urn = aspect_graph.value(predicate=rdflib.RDF.type, object=samm.get_urn(SAMM.aspect))
+            aspect_urn = aspect_graph.value(predicate=rdflib.RDF.type, object=samm.get_urn(SAMM.aspect))  # type: ignore
 
         if aspect_urn is not rdflib.URIRef:
             aspect_urn = rdflib.URIRef(aspect_urn)

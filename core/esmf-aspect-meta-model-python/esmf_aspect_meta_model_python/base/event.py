@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import List
 
 from esmf_aspect_meta_model_python.base.base import Base
@@ -20,7 +21,8 @@ from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 class Event(Base, metaclass=abc.ABCMeta):
     """
     An Event is a model element that represents a single occurence where the timing is important.
-    Assets can for instance emit events to notify other assets in case of special occurences."""
+    Assets can for instance emit events to notify other assets in case of special occurences.
+    """
 
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:

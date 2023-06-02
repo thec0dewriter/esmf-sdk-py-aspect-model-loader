@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.property import Property
@@ -55,7 +56,12 @@ class AbstractPropertyInstantiator(InstantiatorBase[Property]):
 
         example_value = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.example_value))
 
-        return DefaultProperty(meta_model_base_attributes, characteristic=None, example_value=example_value, abstract=True)
+        return DefaultProperty(
+            meta_model_base_attributes,
+            characteristic=None,
+            example_value=example_value,
+            abstract=True,
+        )
 
     def _create_property_blank_node(self, element_node: rdflib.BNode) -> Property:
         """The given node is a blank node holding a reference to the property
@@ -66,7 +72,7 @@ class AbstractPropertyInstantiator(InstantiatorBase[Property]):
 
         property_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property))
 
-        meta_model_base_attributes = self._get_base_attributes(property_node)
+        meta_model_base_attributes = self._get_base_attributes(property_node)  # type: ignore
 
         example_value = self._aspect_graph.value(subject=property_node, predicate=self._samm.get_urn(SAMM.example_value))
 

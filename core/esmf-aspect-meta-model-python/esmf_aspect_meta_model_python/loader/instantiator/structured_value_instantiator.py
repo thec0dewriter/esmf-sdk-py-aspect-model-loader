@@ -10,6 +10,7 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from typing import Any
+
 from rdflib import Literal
 from rdflib.term import Node
 
@@ -25,7 +26,12 @@ class StructuredValueInstantiator(InstantiatorBase[StructuredValue]):
         meta_model_base_attributes = self._get_base_attributes(element_node)
         data_type = self._get_data_type(element_node)
 
-        deconstruction_rule = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.deconstruction_rule)).toPython()
+        deconstruction_rule = RdfHelper.to_python(
+            self._aspect_graph.value(
+                subject=element_node,
+                predicate=self._sammc.get_urn(SAMMC.deconstruction_rule),
+            )
+        )
 
         element_nodes = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.elements))
         element_node_list = RdfHelper.get_rdf_list_values(element_nodes, self._aspect_graph)

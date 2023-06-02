@@ -10,10 +10,10 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
-from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
+from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
+from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultCharacteristic(BaseImpl, Characteristic):

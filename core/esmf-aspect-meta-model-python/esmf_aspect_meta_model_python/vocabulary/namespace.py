@@ -10,8 +10,12 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
+
 from typing import Optional, Union
+
 import rdflib  # type: ignore
+
+from rdflib.term import Node
 
 
 class Namespace(metaclass=abc.ABCMeta):
@@ -20,7 +24,7 @@ class Namespace(metaclass=abc.ABCMeta):
         pass
 
     @staticmethod
-    def get_name(element_urn: Union[rdflib.URIRef, str, None]) -> Optional[str]:
+    def get_name(element_urn: Union[rdflib.URIRef, str, Node, None]) -> Optional[str]:
         """returns the name of a model element or meta model element represented by the given node.
         Example: get_name("urn:samm:org.eclipse.esmf.samm:test:1.0.0#TestAspect") -> "TestAspect"
         Example: get_name("urn:samm:org.eclipse.esmf.samm:meta-model:1.0.0#Characteristic") -> "Characteristic"

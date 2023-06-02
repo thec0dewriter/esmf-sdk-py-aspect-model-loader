@@ -10,7 +10,8 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import Optional, List, Dict
+
+from typing import Dict, List, Optional
 
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes

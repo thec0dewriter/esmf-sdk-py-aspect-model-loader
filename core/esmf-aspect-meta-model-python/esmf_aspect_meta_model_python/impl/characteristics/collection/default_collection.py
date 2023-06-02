@@ -14,12 +14,17 @@ from typing import Optional
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
 class DefaultCollection(DefaultCharacteristic, Collection):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, data_type: DataType, element_characteristic: Optional[Characteristic]):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        data_type: DataType,
+        element_characteristic: Optional[Characteristic],
+    ):
         super().__init__(meta_model_base_attributes, data_type)
         self._element_characteristic = element_characteristic
         self._set_parent_element_on_child_element()

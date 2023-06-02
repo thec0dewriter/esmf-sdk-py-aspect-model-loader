@@ -12,14 +12,15 @@
 from typing import List
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.aspect import Aspect
+from esmf_aspect_meta_model_python.base.event import Event
 from esmf_aspect_meta_model_python.base.operation import Operation
 from esmf_aspect_meta_model_python.base.property import Property
 from esmf_aspect_meta_model_python.impl.default_aspect import DefaultAspect
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
-from esmf_aspect_meta_model_python.base.event import Event
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 
 
@@ -36,4 +37,10 @@ class AspectInstantiator(InstantiatorBase[Aspect]):
         events: List[Event] = self._get_list_children(element_node, self._samm.get_urn(SAMM.events))
         is_collection_aspect = False
 
-        return DefaultAspect(meta_model_base_attributes, properties, operations, events, is_collection_aspect)
+        return DefaultAspect(
+            meta_model_base_attributes,
+            properties,
+            operations,
+            events,
+            is_collection_aspect,
+        )

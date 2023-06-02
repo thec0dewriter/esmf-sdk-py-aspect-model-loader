@@ -9,8 +9,10 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from typing import Optional
 import abc
+
+from typing import Optional
+
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 

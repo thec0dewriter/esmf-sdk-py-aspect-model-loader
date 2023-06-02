@@ -29,5 +29,6 @@ class SAMME(Namespace):
 
     def get_urn(self, element_type: str) -> rdflib.URIRef:
         """returns the URN string of the given element type.
-        Example: get_urn(SAMM.characteristic) -> "urn:samm:org.eclipse.esmf.samm:meta-model:1.0.0#characteristic" """
+        Example: get_urn(SAMM.characteristic) -> "urn:samm:org.eclipse.esmf.samm:meta-model:1.0.0#characteristic"
+        """
         return rdflib.URIRef(f"{self.__samme_prefix}{self.__meta_model_version}#{element_type}")

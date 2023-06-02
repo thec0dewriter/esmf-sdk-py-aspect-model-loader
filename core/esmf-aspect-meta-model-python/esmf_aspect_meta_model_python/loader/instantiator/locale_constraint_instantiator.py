@@ -12,13 +12,14 @@
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.contraints.locale_constraint import LocaleConstraint
-from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
-from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 from esmf_aspect_meta_model_python.impl.constraints.default_locale_constraint import DefaultLocaleConstraint
+from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
+from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
+from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
 
 class LocaleConstraintInstantiator(InstantiatorBase[LocaleConstraint]):
     def _create_instance(self, element_node: Node) -> LocaleConstraint:
         meta_model_base_attributes = self._get_base_attributes(element_node)
-        locale_code = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.locale_code)).toPython()
+        locale_code = RdfHelper.to_python(self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.locale_code)))
         return DefaultLocaleConstraint(meta_model_base_attributes, locale_code)

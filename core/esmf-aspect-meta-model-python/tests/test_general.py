@@ -356,7 +356,10 @@ def test_load_aspect_from_multiple_files() -> None:
     file_path1 = RESOURCE_PATH / "ProductTypes.ttl"
     file_path2 = RESOURCE_PATH / "ProductType_shared.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model_from_multiple_files([file_path1, file_path2], "urn:samm:org.eclipse.esmf.samm.file_path1:0.0.1#ProductTypes")
+    aspect = aspect_loader.load_aspect_model_from_multiple_files(
+        [file_path1, file_path2],
+        "urn:samm:org.eclipse.esmf.samm.file_path1:0.0.1#ProductTypes",
+    )
 
     assert aspect.meta_model_version == "2.0.0"
     assert aspect.name == "ProductTypes"

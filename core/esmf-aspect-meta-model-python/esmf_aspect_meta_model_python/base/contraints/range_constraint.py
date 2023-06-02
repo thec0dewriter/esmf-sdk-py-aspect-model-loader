@@ -10,7 +10,8 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import Optional, Any
+
+from typing import Any, Optional
 
 from esmf_aspect_meta_model_python.base.bound_definition import BoundDefinition
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
@@ -27,7 +28,11 @@ class RangeConstraint(Constraint, metaclass=abc.ABCMeta):
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
         return PropertyFunc.has_properties(
-            subclass, RangeConstraint.min_value, RangeConstraint.max_value, RangeConstraint.upper_bound_definition, RangeConstraint.lower_bound_definition
+            subclass,
+            RangeConstraint.min_value,
+            RangeConstraint.max_value,
+            RangeConstraint.upper_bound_definition,
+            RangeConstraint.lower_bound_definition,
         )
 
     @property

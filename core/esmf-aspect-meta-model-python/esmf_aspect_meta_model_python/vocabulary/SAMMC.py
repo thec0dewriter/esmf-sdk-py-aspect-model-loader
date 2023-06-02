@@ -9,9 +9,10 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
+from typing import List
+
 import rdflib  # type: ignore
 
-from typing import List
 from esmf_aspect_meta_model_python.vocabulary.namespace import Namespace
 
 

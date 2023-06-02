@@ -10,10 +10,10 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import os
-import zipfile
 import pathlib
-import requests
+import zipfile
 
+import requests
 
 SAMM_VERSION_TO_DOWNLOAD = "2.0.0"
 

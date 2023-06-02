@@ -10,15 +10,14 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import os
-from os import path, makedirs
 import pathlib
+
+from os import makedirs, path
 from typing import Optional
+
 import requests
 
-from esmf_aspect_meta_model_python.samm_aspect_meta_model.github_folder import (
-    GitFolder,
-    decoding_url_response,
-)
+from esmf_aspect_meta_model_python.samm_aspect_meta_model.github_folder import GitFolder, decoding_url_response
 
 
 def main():

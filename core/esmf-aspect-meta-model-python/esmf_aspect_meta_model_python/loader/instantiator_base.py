@@ -10,9 +10,11 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import TypeVar, Optional, TYPE_CHECKING, Generic, Dict, Any
+
+from typing import TYPE_CHECKING, Any, Dict, Generic, Optional, TypeVar
 
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
@@ -159,14 +161,20 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
         Returns:
             Data type object or none
         """
-        element_characteristic_node = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.element_characteristic))
+        element_characteristic_node = self._aspect_graph.value(
+            subject=element_node,
+            predicate=self._sammc.get_urn(SAMMC.element_characteristic),
+        )
         if element_characteristic_node is None:
             data_type_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.data_type))
         else:
             # some characteristics (Collection, List, TimeSeries, etc.) may have
             # an attribute "element_characteristic". If it is given, then take
             # the data type of the element_characteristic.
-            data_type_node = self._aspect_graph.value(subject=element_characteristic_node, predicate=self._samm.get_urn(SAMM.data_type))
+            data_type_node = self._aspect_graph.value(
+                subject=element_characteristic_node,
+                predicate=self._samm.get_urn(SAMM.data_type),
+            )
         if data_type_node is None:
             return None
         else:

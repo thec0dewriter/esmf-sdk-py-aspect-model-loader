@@ -11,15 +11,17 @@
 
 import importlib
 import re
-from typing import Dict, Tuple
+
+from typing import Dict, Optional, Tuple
 
 import rdflib  # type: ignore
-from rdflib.term import Node
-from esmf_aspect_meta_model_python.base.base import Base
 
+from rdflib.term import Node
+
+from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.loader import instantiator
-from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase, T
 from esmf_aspect_meta_model_python.loader.default_element_cache import DefaultElementCache
+from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase, T
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 from esmf_aspect_meta_model_python.vocabulary.UNIT import UNIT
@@ -31,7 +33,12 @@ class ModelElementFactory:
     is delegated to instantiator classes.
     """
 
-    def __init__(self, meta_model_version: str, aspect_graph: rdflib.Graph, cache: DefaultElementCache):
+    def __init__(
+        self,
+        meta_model_version: str,
+        aspect_graph: rdflib.Graph,
+        cache: DefaultElementCache,
+    ):
         self._samm = SAMM(meta_model_version)
         self._sammc = SAMMC(meta_model_version)
         self._unit = UNIT(meta_model_version)
@@ -41,7 +48,7 @@ class ModelElementFactory:
 
         self._instantiators: Dict[str, InstantiatorBase] = {}
 
-    def create_element(self, element_node: Node) -> T:
+    def create_element(self, element_node: Node):
         """
         searches for the right instantiator to create a new instance or
          find an existing one.
@@ -66,7 +73,7 @@ class ModelElementFactory:
 
         return instance  # type: ignore
 
-    def _get_element_type(self, element_node: Node) -> str:
+    def _get_element_type(self, element_node: Optional[Node]) -> str:
         """Gets the element type of a node and returns it."""
         element_type_urn = self._aspect_graph.value(subject=element_node, predicate=rdflib.RDF.type)
         element_type = self._samm.get_name(element_type_urn)

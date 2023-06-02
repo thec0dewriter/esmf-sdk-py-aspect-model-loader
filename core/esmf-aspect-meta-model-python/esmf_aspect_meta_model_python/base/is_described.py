@@ -10,7 +10,8 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import abc
-from typing import Optional, List, Dict
+
+from typing import Dict, List, Optional
 
 from esmf_aspect_meta_model_python.base.has_urn import HasUrn
 from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
@@ -25,7 +26,13 @@ class IsDescribed(HasUrn, metaclass=abc.ABCMeta):
     @classmethod
     def __subclasshook__(cls, subclass) -> bool:
         return (
-            PropertyFunc.has_properties(subclass, IsDescribed.name, IsDescribed.preferred_names, IsDescribed.descriptions, IsDescribed.see)
+            PropertyFunc.has_properties(
+                subclass,
+                IsDescribed.name,
+                IsDescribed.preferred_names,
+                IsDescribed.descriptions,
+                IsDescribed.see,
+            )
             and callable(subclass.get_preferred_name)
             and callable(subclass.get_description)
         )

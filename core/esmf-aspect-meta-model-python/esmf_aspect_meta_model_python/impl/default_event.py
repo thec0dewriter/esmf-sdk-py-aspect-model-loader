@@ -18,7 +18,11 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultEvent(BaseImpl, Event):
-    def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, parameters: List[Property]):
+    def __init__(
+        self,
+        meta_model_base_attributes: MetaModelBaseAttributes,
+        parameters: List[Property],
+    ):
         super().__init__(meta_model_base_attributes)
         self._parameters = parameters
 

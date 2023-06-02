@@ -9,14 +9,14 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from rdflib.term import Node
 from rdflib import URIRef
+from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.contraints.range_constraint import RangeConstraint
-from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.base.bound_definition import BoundDefinition
-from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
+from esmf_aspect_meta_model_python.base.contraints.range_constraint import RangeConstraint
 from esmf_aspect_meta_model_python.impl.constraints.default_range_constraint import DefaultRangeConstraint
+from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
+from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
 
 class RangeConstraintInstantiator(InstantiatorBase[RangeConstraint]):
@@ -31,17 +31,29 @@ class RangeConstraintInstantiator(InstantiatorBase[RangeConstraint]):
 
         upper_bound_definition = self.__get_upper_bound_definition(element_node, max_value)
 
-        return DefaultRangeConstraint(meta_model_base_attributes, min_value, max_value, lower_bound_definition, upper_bound_definition)
+        return DefaultRangeConstraint(
+            meta_model_base_attributes,
+            min_value,
+            max_value,
+            lower_bound_definition,
+            upper_bound_definition,
+        )
 
     def __get_upper_bound_definition(self, element_node, max_value):
-        upper_bound_definition_value = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.upper_bound_definition))
+        upper_bound_definition_value = self._aspect_graph.value(
+            subject=element_node,
+            predicate=self._sammc.get_urn(SAMMC.upper_bound_definition),
+        )
         if upper_bound_definition_value is not None:
             return RangeConstraintInstantiator.__get_bound_definition(upper_bound_definition_value)
 
         return BoundDefinition.OPEN if max_value is None else BoundDefinition.AT_MOST
 
     def __get_lower_bound_definition(self, element_node, min_value):
-        lower_bound_definition_value = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.lower_bound_definition))
+        lower_bound_definition_value = self._aspect_graph.value(
+            subject=element_node,
+            predicate=self._sammc.get_urn(SAMMC.lower_bound_definition),
+        )
         if lower_bound_definition_value is not None:
             return RangeConstraintInstantiator.__get_bound_definition(lower_bound_definition_value)
 

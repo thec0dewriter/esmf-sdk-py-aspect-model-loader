@@ -11,7 +11,7 @@
 
 from pathlib import Path
 
-from esmf_aspect_meta_model_python import AspectLoader, Enumeration, ComplexType, AbstractEntity, Quantifiable
+from esmf_aspect_meta_model_python import AbstractEntity, AspectLoader, ComplexType, Enumeration, Quantifiable
 
 RESOURCE_PATH = Path("tests/resources/entity")
 
@@ -72,7 +72,7 @@ def test_loading_aspect_with_entity():
 
     properties = entity.properties
     assert len(properties) == 1
-    entity_property = properties[0]
+    entity_property = properties[0]  # noqa: F841
 
 
 def test_aspect_with_abstract_entity():

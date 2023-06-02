@@ -9,20 +9,30 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from typing import Optional, List, Dict
 from collections.abc import Iterable
+from typing import Dict, List, Optional
+
 import rdflib  # type: ignore
+
 from rdflib.term import Node
 
-from .rdf_helper import RdfHelper
 from ..vocabulary.SAMM import SAMM
+from .rdf_helper import RdfHelper
 
 
 class MetaModelBaseAttributes:
     """A Wrapper object that holds all information of a Base object: samm_version, urn, name, preferred_names,
     descriptions, see"""
 
-    def __init__(self, meta_model_version: str, urn: Optional[str], name: str, preferred_names: Dict[str, str], descriptions: Dict[str, str], see: List[str]):
+    def __init__(
+        self,
+        meta_model_version: str,
+        urn: Optional[str],
+        name: str,
+        preferred_names: Dict[str, str],
+        descriptions: Dict[str, str],
+        see: List[str],
+    ):
         self.meta_model_version = meta_model_version
         self.urn = urn
         self.name = name
@@ -31,7 +41,12 @@ class MetaModelBaseAttributes:
         self.see = see
 
     @staticmethod
-    def from_meta_model_element(meta_model_element: Node, aspect_graph: rdflib.Graph, samm: SAMM, meta_model_version: str) -> "MetaModelBaseAttributes":
+    def from_meta_model_element(
+        meta_model_element: Node,
+        aspect_graph: rdflib.Graph,
+        samm: SAMM,
+        meta_model_version: str,
+    ) -> "MetaModelBaseAttributes":
         """
         Extracts all the given base information of an element (samm_version, urn, name,
          preferred_name, descriptions and see) and wraps it into a object of type BaseAttributes
@@ -53,7 +68,7 @@ class MetaModelBaseAttributes:
         if meta_model_version == "1.0.0":
             name_result = aspect_graph.value(subject=meta_model_element, predicate=samm.get_urn(SAMM.name))
             if name_result is not None:
-                name = name_result.toPython()
+                name = RdfHelper.to_python(name_result)
 
         elif isinstance(meta_model_element, rdflib.BNode):
             name = MetaModelBaseAttributes.__create_default_name(meta_model_element, aspect_graph, samm)
@@ -110,7 +125,11 @@ class MetaModelBaseAttributes:
         return split_urn[-2]
 
     @staticmethod
-    def __get_language_strings(meta_model_element: Node, aspect_graph: rdflib.Graph, samm_attribute: rdflib.URIRef) -> Dict[str, str]:
+    def __get_language_strings(
+        meta_model_element: Node,
+        aspect_graph: rdflib.Graph,
+        samm_attribute: rdflib.URIRef,
+    ) -> Dict[str, str]:
         """Generates a Mapping of language codes to strings.
         The strings represent e.g. descriptions or preferred names
 
@@ -128,7 +147,11 @@ class MetaModelBaseAttributes:
         return {language_string.language: language_string.value for language_string in language_string_generator}  # type: ignore
 
     @staticmethod
-    def __get_attribute_value_list(meta_model_element: Node, aspect_graph: rdflib.Graph, samm_attribute: rdflib.URIRef) -> List[str]:
+    def __get_attribute_value_list(
+        meta_model_element: Node,
+        aspect_graph: rdflib.Graph,
+        samm_attribute: rdflib.URIRef,
+    ) -> List[str]:
         """
         generates a List of strings from a attribute that can have multiple values e.g. the attribute see.
 

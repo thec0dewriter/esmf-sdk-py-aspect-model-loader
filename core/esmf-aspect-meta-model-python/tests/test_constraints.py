@@ -13,17 +13,17 @@ from pathlib import Path
 
 from esmf_aspect_meta_model_python import (
     AspectLoader,
-    Trait,
-    RangeConstraint,
     BoundDefinition,
-    Property,
-    Quantifiable,
-    LanguageConstraint,
-    LocaleConstraint,
     EncodingConstraint,
     FixedPointConstraint,
-    RegularExpressionConstraint,
+    LanguageConstraint,
     LengthConstraint,
+    LocaleConstraint,
+    Property,
+    Quantifiable,
+    RangeConstraint,
+    RegularExpressionConstraint,
+    Trait,
 )
 
 RESOURCE_PATH = Path("tests/resources/constraints")

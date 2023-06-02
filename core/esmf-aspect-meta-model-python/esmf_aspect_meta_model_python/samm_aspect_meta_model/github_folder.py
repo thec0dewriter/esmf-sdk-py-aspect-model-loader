@@ -10,9 +10,12 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 import json
-from typing import List, Optional
+
 from os import path
+from typing import List, Optional
+
 import requests
+
 from esmf_aspect_meta_model_python.samm_aspect_meta_model.github_file import GitFile
 
 

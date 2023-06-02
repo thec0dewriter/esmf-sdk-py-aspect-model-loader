@@ -9,9 +9,10 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from os.path import exists, join
-import typing
 import pathlib
+import typing
+
+from os.path import exists, join
 
 import rdflib  # type: ignore
 
