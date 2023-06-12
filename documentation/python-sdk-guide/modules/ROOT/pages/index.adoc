@@ -94,40 +94,51 @@ poetry update
 
 === Loading an Aspect Model
 
+*Note*: the examples below will be using a
+hthttps://github.com/eclipse-esmf/esmf-aspect-model-editor/blob/main/core/apps/ame/src/assets/aspect-models/org.eclipse.examples.movement/1.0.0/Movement.ttl
+[Movement.ttl] Aspect model.
+
+
+==== Loading an Aspect Model from one *.ttl file
+
 Import the Aspect Model loader in your Python module
 [source,python]
 
 ----
-from esmf_aspect_meta_model_python import AspectLoader
+from esmf_aspect_meta_model_python.loader.aspect_loader import AspectLoader
 ----
 
 Then create an instance of the AspectLoader and run the method `load_aspect_model()` from the `AspectLoader` with
 
 [source,python]
 ----
-from esmf_aspect_meta_model_python  import AspectLoader
+from esmf_aspect_meta_model_python.loader.aspect_loader import AspectLoader
 
-al = AspectLoader()
-aspect = al.load_aspect_model("path/to/turtle.ttl")
+loader = AspectLoader()
+aspect = loader.load_aspect_model(PATH_TO_TURTLE_FILE)
 ----
 
-where the input argument can either be a `Path` object or a string representing a path.
+where the input argument `PATH_TO_TURTLE_FILE` can either be a `Path` object or a string representing a path to the ttl file.
+
 Both, relative paths and absolute paths are allowed.
 
 The return value of `load_aspect_model()` is an instance of the class `DefaultAspect` which is declared in the project.
 
 ==== Loading an Aspect Model from multiple files
 
-If the Aspect Model is seperated into multiple `.ttl` files you can load the Aspect Model by calling the method `load_aspect_model_from_multiple_files` with a list of file paths.
+If the Aspect Model is separated into multiple `.ttl` files you can load the Aspect Model by calling the method `load_aspect_model_from_multiple_files`
+with a list of file paths.
 
 [source,python]
 ----
-from esmf_aspect_meta_model_python import AspectLoader
+from esmf_aspect_meta_model_python.loader.aspect_loader import AspectLoader
 
-al = AspectLoader()
-aspect = al.load_aspect_model_from_multiple_files(
-    ["file1.ttl", "file2.ttl", "file3.ttl"]
-)
+loader = AspectLoader()
+aspect = loader.load_aspect_model_from_multiple_files([
+    "file1.ttl",
+    "file2.ttl",
+    "file3.ttl",
+])
 ----
 
 It may happen that the multiple files contain multiple aspect definitions and not only one.
@@ -135,10 +146,13 @@ In this case it is possible to pass the URN of the Aspect as a hint, so the Load
 
 [source,python]
 ----
+from esmf_aspect_meta_model_python.loader.aspect_loader import AspectLoader
+
+loader = AspectLoader()
 aspect_urn = "urn:samm:org.eclipse.esmf.samm:test:1.0.0#myAspect"
-aspect = al.load_aspect_model_from_multiple_files(
+aspect = loader.load_aspect_model_from_multiple_files(
     ["file1.ttl", "file2.ttl", "file3.ttl"],
-    aspect_urn
+    aspect_urn,
 )
 ----
 
@@ -161,6 +175,164 @@ see = aspect.see
 properties = aspect.properties
 operations = aspect.operations
 events = aspect.events
+----
+
+=== Implementation of the OpenAPI specification
+
+The Aspect Models Editor provides easy ways to generate an example for an interface via Export JSON functions.
+Based on its structure, you can prepare either a server to send data, or a client to receive via the API.
+
+[source,json]
+----
+{
+  "isMoving": true,
+  "position": {
+    "altitude": 153,
+    "latitude": 9.1781,
+    "longitude": 48.80835
+  },
+  "speed": 0,
+  "speedLimitWarning": "green"
+}
+----
+
+==== A simple example of the server
+[source,python]
+----
+import random
+
+
+def generate_random_float():
+    """Generate a random float value."""
+    return round(random.random(), random.randint(0, 5))
+
+def send_movement_value():
+    """A simple snippet to generate Movement data."""
+    traffic_lights = ["green", "yellow", "red"]
+    movement = {
+        "isMoving": "true" if random.randint(0, 1) else "false",
+        "position": {
+            "altitude": generate_random_float(),
+            "latitude": generate_random_float(),
+            "longitude": generate_random_float()
+        },
+        "speed": generate_random_float(),
+        "speedLimitWarning": traffic_lights[random.randint(0, len(traffic_lights) - 1)]
+    }
+
+    return movement
+----
+
+==== Consumer Example
+[source,python]
+----
+import json
+import requests
+
+def get_movement(url, method="get"):
+    """Get a movement."""
+    response = requests.request(method, url)
+
+    if response.status_code != 200:
+        raise Exception(response.text)
+    else:
+        movement = json.loads(response.text)
+
+        return movement
+----
+
+==== Example of the class for Movement Aspect Model
+
+[source,python]
+----
+import json
+import requests
+
+from esmf_aspect_meta_model_python.loader.aspect_loader import AspectLoader
+
+loader = AspectLoader()
+
+class MovementAspect:
+    def __init__(self, path_to_turtle_file):
+        self._ttl_file_path = path_to_turtle_file
+        self._aspect = loader.load_aspect_model(self._ttl_file_path)
+        self._movement = None
+
+        self.name = None
+        self.urn = None
+        self.preferred_names = None
+        self.descriptions = None
+        self.meta_model_version = None
+        self.see = None
+        self.properties = None
+        self.operations = None
+        self.events = None
+
+
+        self._init_aspect()
+
+    def _init_aspect(self):
+        self.name = self._aspect.name
+        self.urn = self._aspect.urn
+        self.preferred_names = self._aspect.preferred_names
+        self.descriptions = self._aspect.descriptions
+        self.meta_model_version = self._aspect.meta_model_version
+        self.see = self._aspect.see
+
+        self.properties = self._aspect.properties
+        self.operations = self._aspect.operations
+        self.events = self._aspect.events
+
+        self._movement = self._get_current_value()
+
+    @staticmethod
+    def _get_current_value():
+        response = requests.request("get", "url_to_movement_API")
+
+        if response.status_code != 200:
+            raise Exception(response.text)
+        else:
+            movement = json.loads(response.text)
+
+            return movement
+
+    def refresh_data(self):
+        self._movement = self._get_current_value()
+
+    @property
+    def is_moving(self):
+        return self._movement["isMoving"]
+
+    @property
+    def position(self):
+        return self._movement["position"]
+
+    @property
+    def speed(self):
+        return self._movement["speed"]
+
+    @property
+    def speed_limit_warning(self):
+        return self._movement["speedLimitWarning"]
+
+
+# Class usage
+movement = MovementAspect("path_to_turtle_file")
+# Get a movement values
+print(movement.is_moving)
+print(movement.position)
+print(movement.speed)
+print(movement.speed_limit_warning)
+# Show static aspect data
+print(movement.name)
+print(movement.urn)
+print(movement.preferred_names)
+print(movement.descriptions)
+print(movement.meta_model_version)
+print(movement.see)
+print(movement.properties)
+print(movement.operations)
+print(movement.events)
 ----
 
 Note that the attributes on Aspect Model objects are read-only.
