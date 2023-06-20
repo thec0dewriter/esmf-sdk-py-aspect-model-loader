@@ -94,9 +94,9 @@ poetry update
 
 === Loading an Aspect Model
 
-*Note*: the examples below will be using a
-hthttps://github.com/eclipse-esmf/esmf-aspect-model-editor/blob/main/core/apps/ame/src/assets/aspect-models/org.eclipse.examples.movement/1.0.0/Movement.ttl
-[Movement.ttl] Aspect model.
+*Note*: The examples below will be using the
+https://github.com/eclipse-esmf/esmf-aspect-model-editor/blob/main/core/apps/ame/src/assets/aspect-models/org.eclipse.examples.movement/1.0.0/Movement.ttl[Movement.ttl]
+Aspect model.
 
 
 ==== Loading an Aspect Model from one *.ttl file
