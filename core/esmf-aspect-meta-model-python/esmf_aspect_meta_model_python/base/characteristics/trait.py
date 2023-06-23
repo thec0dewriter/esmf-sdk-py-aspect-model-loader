@@ -14,7 +14,6 @@ import abc
 from typing import List
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 from ..contraints import constraint
 
@@ -25,10 +24,6 @@ class Trait(Characteristic, metaclass=abc.ABCMeta):
     describes the actual value and a number of constraints which
     restrict this value.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, Trait.base_characteristic, Trait.constraints)
 
     @property
     def base_characteristic(self) -> Characteristic:

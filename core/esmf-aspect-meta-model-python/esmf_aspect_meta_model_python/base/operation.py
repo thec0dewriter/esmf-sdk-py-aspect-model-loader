@@ -15,7 +15,6 @@ from typing import List, Optional
 
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class Operation(Base, metaclass=abc.ABCMeta):
@@ -23,10 +22,6 @@ class Operation(Base, metaclass=abc.ABCMeta):
     An operation has a number of input properties and one optional output
     property.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, Operation.input_properties, Operation.output_property)
 
     @property
     def input_properties(self) -> List[Property]:

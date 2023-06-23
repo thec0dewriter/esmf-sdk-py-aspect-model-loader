@@ -12,16 +12,11 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class RegularExpressionConstraint(Constraint, metaclass=abc.ABCMeta):
     """Restricts a string value to a regular expression as defined by
     XQuery 1.0 and XPath 2.0 Functions and Operators [xpath-functions]."""
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.value))
 
     @property
     def value(self) -> str:

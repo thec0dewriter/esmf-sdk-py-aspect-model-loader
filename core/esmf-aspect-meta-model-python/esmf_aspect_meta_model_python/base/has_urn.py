@@ -13,17 +13,11 @@ import abc
 
 from typing import Optional
 
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
-
 
 class HasUrn(metaclass=abc.ABCMeta):
     """Base class from which all Meta Model Elements inherit.
     Class prescribes method to get the element urn and samm version.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, HasUrn.urn, HasUrn.meta_model_version)
 
     @property
     def urn(self) -> Optional[str]:

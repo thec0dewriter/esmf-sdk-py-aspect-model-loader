@@ -12,15 +12,10 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.characteristics.enumeration import Enumeration
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class State(Enumeration, metaclass=abc.ABCMeta):
     """Enumeration that has also a Default value"""
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.default_value))
 
     @property
     def default_value(self):

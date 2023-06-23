@@ -17,7 +17,6 @@ from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 from esmf_aspect_meta_model_python.base.characteristics.trait import Trait
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class Property(Base, metaclass=abc.ABCMeta):
@@ -29,20 +28,6 @@ class Property(Base, metaclass=abc.ABCMeta):
     An abstract property can only occur inside an abstract entity. It does
     not have a characteristic and can be extended by a property inside an entity.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(
-            subclass,
-            Property.characteristic,
-            Property.example_value,
-            Property.is_abstract,
-            Property.is_optional,
-            Property.is_not_in_payload,
-            Property.payload_name,
-            Property.data_type,
-            Property.effective_characteristic,
-        )
 
     @property
     def characteristic(self) -> Optional[Characteristic]:

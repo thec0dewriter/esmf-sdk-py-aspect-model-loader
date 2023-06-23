@@ -12,15 +12,10 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class EncodingConstraint(Constraint, metaclass=abc.ABCMeta):
     """Restricts the encoding of a Property. e.g. samm:UTF-8, samm:US:ASCII"""
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.value))
 
     @property
     def value(self) -> str:

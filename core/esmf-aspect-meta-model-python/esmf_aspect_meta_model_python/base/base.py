@@ -14,15 +14,10 @@ import abc
 from typing import Optional
 
 from esmf_aspect_meta_model_python.base.is_described import IsDescribed
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class Base(IsDescribed, metaclass=abc.ABCMeta):
     """Superclass from which all elements in the Meta Model inherit."""
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.parent_elements))
 
     @property
     def parent_elements(self) -> Optional[list["Base"]]:

@@ -12,7 +12,6 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class FixedPointConstraint(Constraint, metaclass=abc.ABCMeta):
@@ -21,10 +20,6 @@ class FixedPointConstraint(Constraint, metaclass=abc.ABCMeta):
     The constraint may only be used in conjunction with Characteristics
     which use the xsd:decimal data type.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, FixedPointConstraint.scale, FixedPointConstraint.integer)
 
     @property
     def scale(self) -> int:

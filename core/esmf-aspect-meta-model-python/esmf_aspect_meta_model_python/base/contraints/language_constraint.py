@@ -12,16 +12,11 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class LanguageConstraint(Constraint, metaclass=abc.ABCMeta):
     """Restricts a value to a specific language. The language is specified by
     a language code e.g. "de" """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.language_code))
 
     @property
     def language_code(self) -> str:

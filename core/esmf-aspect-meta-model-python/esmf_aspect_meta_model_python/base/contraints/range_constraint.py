@@ -15,7 +15,6 @@ from typing import Any, Optional
 
 from esmf_aspect_meta_model_python.base.bound_definition import BoundDefinition
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class RangeConstraint(Constraint, metaclass=abc.ABCMeta):
@@ -24,16 +23,6 @@ class RangeConstraint(Constraint, metaclass=abc.ABCMeta):
     Range Constraint. Additionally the BoundDefinition can specify whether
     the upper and lower value are included in the range.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(
-            subclass,
-            RangeConstraint.min_value,
-            RangeConstraint.max_value,
-            RangeConstraint.upper_bound_definition,
-            RangeConstraint.lower_bound_definition,
-        )
 
     @property
     def min_value(self) -> Optional[Any]:

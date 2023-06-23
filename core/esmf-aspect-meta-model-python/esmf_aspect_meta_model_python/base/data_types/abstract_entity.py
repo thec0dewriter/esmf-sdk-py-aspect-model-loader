@@ -14,18 +14,9 @@ import abc
 from typing import List
 
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class AbstractEntity(ComplexType, metaclass=abc.ABCMeta):
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(
-            subclass,
-            AbstractEntity.extending_elements,
-            AbstractEntity.is_abstract_entity,
-        )
-
     @property
     def extending_elements(self) -> List[ComplexType]:
         raise NotImplementedError
