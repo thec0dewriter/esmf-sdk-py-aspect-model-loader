@@ -12,7 +12,6 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.has_urn import HasUrn
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class DataType(HasUrn, metaclass=abc.ABCMeta):
@@ -20,10 +19,6 @@ class DataType(HasUrn, metaclass=abc.ABCMeta):
     have. Data types are classified in scalar (e.g. integer, string, etc.)
     and complex (Entity).
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, DataType.is_scalar, DataType.is_complex)
 
     @property
     def is_scalar(self) -> bool:

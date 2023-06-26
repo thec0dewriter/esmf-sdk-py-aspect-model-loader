@@ -20,13 +20,6 @@ class Quantifiable(Characteristic, metaclass=abc.ABCMeta):
     """Describes a property where the value represents a physical value.
     It can have an optional unit."""
 
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        try:
-            return isinstance(subclass.unit, property)
-        except AttributeError:
-            return False
-
     @property
     def unit(self) -> typing.Optional[Unit]:
         raise NotImplementedError

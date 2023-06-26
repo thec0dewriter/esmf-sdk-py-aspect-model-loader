@@ -12,15 +12,10 @@
 import abc
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class Either(Characteristic, metaclass=abc.ABCMeta):
     """Describes a property that has exactly one of two possible values."""
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, Either.left, Either.right)
 
     @property
     def left(self) -> Characteristic:

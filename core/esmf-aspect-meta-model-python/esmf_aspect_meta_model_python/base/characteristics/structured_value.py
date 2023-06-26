@@ -14,7 +14,6 @@ import abc
 from typing import List
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class StructuredValue(Characteristic, metaclass=abc.ABCMeta):
@@ -22,10 +21,6 @@ class StructuredValue(Characteristic, metaclass=abc.ABCMeta):
     where the string-value has a specific defined structure which
     can be deconstructed with a regular expression.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, StructuredValue.deconstruction_rule, StructuredValue.elements)
 
     @property
     def deconstruction_rule(self) -> str:

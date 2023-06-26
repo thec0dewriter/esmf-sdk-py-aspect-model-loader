@@ -14,7 +14,6 @@ import abc
 from typing import Optional
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class LengthConstraint(Constraint, metaclass=abc.ABCMeta):
@@ -23,10 +22,6 @@ class LengthConstraint(Constraint, metaclass=abc.ABCMeta):
     - It can restrict a string-like value in length of the value.
     - It can restrict a collection in the number of elements.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return PropertyFunc.has_properties(subclass, LengthConstraint.min_value, LengthConstraint.max_value)
 
     @property
     def min_value(self) -> Optional[int]:

@@ -23,13 +23,6 @@ class Collection(Characteristic, metaclass=abc.ABCMeta):
     The values are not ordered and may include duplicates.
     """
 
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        try:
-            return isinstance(subclass.element_characteristic, property)
-        except AttributeError:
-            return False
-
     @property
     def element_characteristic(self) -> Optional[Characteristic]:
         raise NotImplementedError

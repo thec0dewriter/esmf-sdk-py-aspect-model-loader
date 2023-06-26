@@ -14,17 +14,12 @@ import abc
 from typing import List
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class Enumeration(Characteristic, metaclass=abc.ABCMeta):
     """Describes a Property that has exactly one of
     multiple possible values.
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.values))
 
     @property
     def values(self) -> List:

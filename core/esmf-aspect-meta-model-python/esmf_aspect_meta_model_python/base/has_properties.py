@@ -14,17 +14,12 @@ import abc
 from typing import List
 
 from esmf_aspect_meta_model_python.base.property import Property
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class HasProperties(metaclass=abc.ABCMeta):
     """Base class for Meta Model Elements that have properties as children.
     E.g. Aspect and ComplexType
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(HasProperties.properties))
 
     @property
     def properties(self) -> List[Property]:

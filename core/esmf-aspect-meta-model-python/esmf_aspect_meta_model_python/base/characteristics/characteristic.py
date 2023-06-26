@@ -13,7 +13,6 @@ import abc
 
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.base.property_func import PropertyFunc
 
 
 class Characteristic(Base, metaclass=abc.ABCMeta):
@@ -21,10 +20,6 @@ class Characteristic(Base, metaclass=abc.ABCMeta):
     Multiple classes inherit from Characteristic which describe
     the property in a more specific way (e.g. Enumeration or Collection).
     """
-
-    @classmethod
-    def __subclasshook__(cls, subclass) -> bool:
-        return hasattr(subclass, PropertyFunc.fget_name(cls.data_type))
 
     @property
     def data_type(self) -> DataType:
