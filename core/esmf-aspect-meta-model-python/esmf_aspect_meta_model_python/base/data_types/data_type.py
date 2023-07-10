@@ -9,21 +9,24 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.has_urn import HasUrn
 
 
-class DataType(HasUrn, metaclass=abc.ABCMeta):
-    """A data type specifies the structure of the value a characteristic can
-    have. Data types are classified in scalar (e.g. integer, string, etc.)
-    and complex (Entity).
+class DataType(HasUrn, ABC):
+    """Data Type interface class.
+
+    A data type specifies the structure of the value a characteristic can have.
+    Data types are classified in scalar (e.g. integer, string, etc.) and complex (Entity).
     """
 
     @property
     def is_scalar(self) -> bool:
+        """Is scalar flag."""
         return False
 
     @property
     def is_complex(self) -> bool:
+        """Is complex flag."""
         return not self.is_scalar

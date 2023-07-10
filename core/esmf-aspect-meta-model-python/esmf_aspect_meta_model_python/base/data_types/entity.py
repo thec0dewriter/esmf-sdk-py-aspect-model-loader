@@ -9,14 +9,14 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
 
 
-class Entity(ComplexType, metaclass=abc.ABCMeta):
-    """Complex Data Type that includes a number of properties. An Entity
-    specifies a value that can't be expressed by a scalar e.g. a vector.
-    """
+class Entity(ComplexType, ABC):
+    """Entity interface class.
 
-    pass
+    Complex Data Type that includes a number of properties.
+    An Entity specifies a value that can't be expressed by a scalar e.g. a vector.
+    """

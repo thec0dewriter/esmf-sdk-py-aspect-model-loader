@@ -9,12 +9,13 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
 
 
-class List(Collection, metaclass=abc.ABCMeta):
-    """Collection with ordered elements and allowed duplicates"""
+class List(Collection, ABC):
+    """List interface class.
 
-    pass
+    Collection with ordered elements and allowed duplicates.
+    """

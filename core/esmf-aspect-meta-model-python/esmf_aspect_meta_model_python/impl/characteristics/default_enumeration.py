@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultEnumeration(DefaultCharacteristic, Enumeration):
+    """Default Enumeration class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -29,4 +31,5 @@ class DefaultEnumeration(DefaultCharacteristic, Enumeration):
 
     @property
     def values(self) -> List:
+        """Values."""
         return self._values

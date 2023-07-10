@@ -9,15 +9,17 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
 
 
-class RegularExpressionConstraint(Constraint, metaclass=abc.ABCMeta):
-    """Restricts a string value to a regular expression as defined by
-    XQuery 1.0 and XPath 2.0 Functions and Operators [xpath-functions]."""
+class RegularExpressionConstraint(Constraint, ABC):
+    """Regular Expression Constraint interface class.
+
+    Restricts a string value to a regular expression as defined by XQuery 1.0 and XPath 2.0 Functions and Operators."""
 
     @property
+    @abstractmethod
     def value(self) -> str:
-        raise NotImplementedError
+        """Value."""

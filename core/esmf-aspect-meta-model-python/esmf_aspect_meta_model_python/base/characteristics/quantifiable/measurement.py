@@ -9,12 +9,13 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.characteristics.quantifiable.quantifiable import Quantifiable
 
 
-class Measurement(Quantifiable, metaclass=abc.ABCMeta):
-    """Quantifiable where the unit is required."""
+class Measurement(Quantifiable, ABC):
+    """Measurement interface class.
 
-    pass
+    Quantifiable where the unit is required.
+    """

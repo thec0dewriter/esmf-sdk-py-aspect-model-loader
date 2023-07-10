@@ -9,15 +9,14 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.base import Base
 
 
-class Constraint(Base, metaclass=abc.ABCMeta):
-    """A constraint restricts a characteristic in a certain way.
-    Constraints are wrapped in a Trait which holds a reference
-    to the actual characteristic.
-    """
+class Constraint(Base, ABC):
+    """Constraint interface class.
 
-    pass
+    A constraint restricts a characteristic in a certain way.
+    Constraints are wrapped in a Trait which holds a reference to the actual characteristic.
+    """

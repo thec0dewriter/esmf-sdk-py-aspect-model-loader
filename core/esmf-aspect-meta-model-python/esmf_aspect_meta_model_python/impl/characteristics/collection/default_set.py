@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.characteristics.collection.default_colle
 
 
 class DefaultSet(DefaultCollection, Set):
-    pass
+    """Default Set class."""

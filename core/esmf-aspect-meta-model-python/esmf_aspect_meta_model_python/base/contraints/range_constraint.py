@@ -9,33 +9,37 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Any, Optional
 
 from esmf_aspect_meta_model_python.base.bound_definition import BoundDefinition
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
 
 
-class RangeConstraint(Constraint, metaclass=abc.ABCMeta):
-    """Restricts the value range of a Property.
-    At least one of samm-c:maxValue or samm-c:minValue must be present in a
-    Range Constraint. Additionally the BoundDefinition can specify whether
-    the upper and lower value are included in the range.
+class RangeConstraint(Constraint, ABC):
+    """Range Constraint interface class.
+
+    Restricts the value range of a Property.
+    At least one of samm-c:maxValue or samm-c:minValue must be present in a Range Constraint.
+    Additionally, the Bound Definition can specify whether the upper and lower value are included in the range.
     """
 
     @property
+    @abstractmethod
     def min_value(self) -> Optional[Any]:
-        raise NotImplementedError
+        """Min value."""
 
     @property
+    @abstractmethod
     def max_value(self) -> Optional[Any]:
-        raise NotImplementedError
+        """Max value."""
 
     @property
+    @abstractmethod
     def lower_bound_definition(self) -> Optional[BoundDefinition]:
-        raise NotImplementedError
+        """Lower bound definition."""
 
     @property
+    @abstractmethod
     def upper_bound_definition(self) -> Optional[BoundDefinition]:
-        raise NotImplementedError
+        """Upper bound definition."""

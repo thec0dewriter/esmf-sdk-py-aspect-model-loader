@@ -9,23 +9,25 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import List
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class StructuredValue(Characteristic, metaclass=abc.ABCMeta):
-    """Descries a property with a string-like data type
-    where the string-value has a specific defined structure which
+class StructuredValue(Characteristic, ABC):
+    """Structured Value interface class.
+
+    Descries a property with a string-like data type where the string-value has a specific defined structure which
     can be deconstructed with a regular expression.
     """
 
     @property
+    @abstractmethod
     def deconstruction_rule(self) -> str:
-        raise NotImplementedError
+        """Deconstruction rule."""
 
     @property
+    @abstractmethod
     def elements(self) -> List:
-        raise NotImplementedError
+        """Elements."""

@@ -9,16 +9,19 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
 
 
-class Scalar(DataType, metaclass=abc.ABCMeta):
-    """Simple data type that specifies a value. The type of the
-    scalar is determined by the URN e.g.
-    http://www.w3.org/2001/XMLSchema#integer for an integer value ."""
+class Scalar(DataType, ABC):
+    """Scalar interface class.
+
+    Simple data type that specifies a value. The type of the scalar is determined by the URN e.g.
+    http://www.w3.org/2001/XMLSchema#integer for an integer value.
+    """
 
     @property
     def is_scalar(self) -> bool:
+        """Is scalar flag."""
         return True

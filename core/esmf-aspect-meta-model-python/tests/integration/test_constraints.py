@@ -26,7 +26,7 @@ from esmf_aspect_meta_model_python import (
     Trait,
 )
 
-RESOURCE_PATH = Path("tests/resources/constraints")
+RESOURCE_PATH = Path("tests/integration/resources/constraints")
 
 
 def test_loading_aspect_with_constrained_collection():

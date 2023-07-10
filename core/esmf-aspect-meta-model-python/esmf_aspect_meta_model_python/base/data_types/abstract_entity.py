@@ -9,18 +9,21 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import List
 
 from esmf_aspect_meta_model_python.base.data_types.complex_type import ComplexType
 
 
-class AbstractEntity(ComplexType, metaclass=abc.ABCMeta):
+class AbstractEntity(ComplexType, ABC):
+    """Abstract Entity interface class."""
+
     @property
+    @abstractmethod
     def extending_elements(self) -> List[ComplexType]:
-        raise NotImplementedError
+        """Extending elements."""
 
     @property
     def is_abstract_entity(self) -> bool:
+        """Is abstract entity flag."""
         return True

@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.characteristics.quantifiable.default_qua
 
 
 class DefaultMeasurement(DefaultQuantifiable, Measurement):
-    pass
+    """Default Measurement class."""

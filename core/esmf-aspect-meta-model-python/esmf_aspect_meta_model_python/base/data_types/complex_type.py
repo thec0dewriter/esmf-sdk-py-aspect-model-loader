@@ -9,8 +9,7 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import List, Optional
 
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
@@ -18,19 +17,25 @@ from esmf_aspect_meta_model_python.base.property import Property
 from esmf_aspect_meta_model_python.base.structure_element import StructureElement
 
 
-class ComplexType(DataType, StructureElement, metaclass=abc.ABCMeta):
+class ComplexType(DataType, StructureElement, ABC):
+    """Complex Type interface class."""
+
     @property
+    @abstractmethod
     def all_properties(self) -> List[Property]:
-        raise NotImplementedError
+        """All properties."""
 
     @property
     def is_abstract_entity(self) -> bool:
+        """Is abstract entity flag."""
         return False
 
     @property
+    @abstractmethod
     def extends(self) -> Optional["ComplexType"]:
-        raise NotImplementedError
+        """Extends."""
 
     @property
     def is_scalar(self) -> bool:
+        """Is scalar flag."""
         return False

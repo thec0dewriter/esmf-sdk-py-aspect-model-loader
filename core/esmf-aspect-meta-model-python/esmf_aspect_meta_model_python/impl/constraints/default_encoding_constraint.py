@@ -15,10 +15,13 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultEncodingConstraint(DefaultConstraint, EncodingConstraint):
+    """Default Encoding Constraint class."""
+
     def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, value: str):
         super().__init__(meta_model_base_attributes)
         self._value = value
 
     @property
     def value(self) -> str:
+        """Value."""
         return self._value

@@ -22,7 +22,7 @@ from esmf_aspect_meta_model_python import (
     StructuredValue,
 )
 
-RESOURCE_PATH = Path("tests/resources/characteristics")
+RESOURCE_PATH = Path("tests/integration/resources/characteristics")
 
 
 def test_loading_aspect_with_collection():

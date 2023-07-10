@@ -20,6 +20,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultAspect(Aspect, BaseImpl):
+    """Default Aspect class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -36,6 +38,7 @@ class DefaultAspect(Aspect, BaseImpl):
         self._set_parent_element_on_child_elements()
 
     def _set_parent_element_on_child_elements(self) -> None:
+        """Set a parent element on child elements."""
         for aspect_property in self._properties:
             aspect_property.append_parent_element(self)
 
@@ -47,16 +50,20 @@ class DefaultAspect(Aspect, BaseImpl):
 
     @property
     def operations(self) -> List[Operation]:
+        """Operations."""
         return self._operations
 
     @property
     def properties(self) -> List[Property]:
+        """Properties."""
         return self._properties
 
     @property
     def events(self) -> List[Event]:
+        """Events."""
         return self._events
 
     @property
     def is_collection_aspect(self) -> bool:
+        """Is a collection aspect flag."""
         return self._is_collection_aspect

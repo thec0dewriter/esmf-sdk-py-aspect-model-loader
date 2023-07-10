@@ -15,10 +15,13 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultLanguageConstraint(DefaultConstraint, LanguageConstraint):
+    """Default Language Constraint class."""
+
     def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, language_code: str):
         super().__init__(meta_model_base_attributes)
         self._language_code = language_code
 
     @property
     def language_code(self) -> str:
+        """Language code."""
         return self._language_code

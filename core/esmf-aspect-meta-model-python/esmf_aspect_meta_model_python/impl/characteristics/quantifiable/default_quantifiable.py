@@ -19,6 +19,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultQuantifiable(DefaultCharacteristic, Quantifiable):
+    """Default Quantifiable class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -32,4 +34,5 @@ class DefaultQuantifiable(DefaultCharacteristic, Quantifiable):
 
     @property
     def unit(self) -> Optional[Unit]:
+        """Unit."""
         return self._unit

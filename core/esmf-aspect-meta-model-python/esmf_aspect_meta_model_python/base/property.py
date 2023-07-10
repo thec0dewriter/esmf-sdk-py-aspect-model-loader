@@ -9,8 +9,7 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Any, Optional
 
 from esmf_aspect_meta_model_python.base.base import Base
@@ -19,57 +18,65 @@ from esmf_aspect_meta_model_python.base.characteristics.trait import Trait
 from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
 
 
-class Property(Base, metaclass=abc.ABCMeta):
-    """Instances of this class represent either a property or an abstract
-    property.
+class Property(Base, ABC):
+    """Property interface class.
+
+    Instances of this class represent either a property or an abstract property.
     A property describes a model element, e.g. an Aspect or an Entity.
     It has exactly one characteristic and may have an example value.
 
-    An abstract property can only occur inside an abstract entity. It does
-    not have a characteristic and can be extended by a property inside an entity.
+    An abstract property can only occur inside an abstract entity.
+    It does not have a characteristic and can be extended by a property inside an entity.
     """
 
     @property
+    @abstractmethod
     def characteristic(self) -> Optional[Characteristic]:
-        raise NotImplementedError
+        """Characteristic."""
 
     @property
+    @abstractmethod
     def example_value(self) -> Optional[Any]:
-        raise NotImplementedError
+        """Example value."""
 
     @property
+    @abstractmethod
     def is_abstract(self) -> bool:
-        raise NotImplementedError
+        """Is abstract flag."""
 
     @property
+    @abstractmethod
     def extends(self) -> Optional["Property"]:
-        raise NotImplementedError
+        """Extends."""
 
     @property
+    @abstractmethod
     def is_optional(self) -> bool:
-        raise NotImplementedError
+        """Is optional flag."""
 
     @property
+    @abstractmethod
     def is_not_in_payload(self) -> bool:
-        raise NotImplementedError
+        """Is not in payload class."""
 
     @property
+    @abstractmethod
     def payload_name(self) -> str:
-        raise NotImplementedError
+        """Payload name."""
 
     @property
     def data_type(self) -> Optional[DataType]:
-        effective_characteristic = self.effective_characteristic
-        if effective_characteristic is None:
-            return None
-        else:
-            return effective_characteristic.data_type
+        """Data type."""
+        return self.effective_characteristic.data_type if self.effective_characteristic else None
 
     @property
     def effective_characteristic(self) -> Optional[Characteristic]:
-        characteristic = self.characteristic
-        if characteristic is None:
-            return None
-        while isinstance(characteristic, Trait):
-            characteristic = characteristic.base_characteristic
+        """Effective characteristic."""
+        characteristic = None
+
+        if self.characteristic:
+            characteristic = self.characteristic
+            while isinstance(characteristic, Trait):
+                characteristic = characteristic.base_characteristic
+
         return characteristic

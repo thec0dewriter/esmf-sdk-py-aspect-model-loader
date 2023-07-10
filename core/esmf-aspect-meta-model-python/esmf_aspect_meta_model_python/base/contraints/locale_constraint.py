@@ -9,16 +9,18 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
 
 
-class LocaleConstraint(Constraint, metaclass=abc.ABCMeta):
-    """Restricts a value to a specific locale, i.e.,
-    a language with additional region information, e.g. "de-DE"
+class LocaleConstraint(Constraint, ABC):
+    """Locale Constraint interface class.
+
+    Restricts a value to a specific locale, i.e., a language with additional region information, e.g. "de-DE".
     """
 
     @property
+    @abstractmethod
     def locale_code(self) -> str:
-        raise NotImplementedError
+        """Locale code."""

@@ -9,20 +9,21 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Optional
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class Collection(Characteristic, metaclass=abc.ABCMeta):
-    """Describes a property that has a group of values of the same type.
-    It can have a reference to another characteristic which describes
-    an actual value of the collection.
+class Collection(Characteristic, ABC):
+    """Collection interface class.
+
+    Describes a property that has a group of values of the same type.
+    It can have a reference to another characteristic which describes an actual value of the collection.
     The values are not ordered and may include duplicates.
     """
 
     @property
+    @abstractmethod
     def element_characteristic(self) -> Optional[Characteristic]:
-        raise NotImplementedError
+        """Element characteristic."""

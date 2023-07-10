@@ -9,15 +9,18 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
 
 
-class LanguageConstraint(Constraint, metaclass=abc.ABCMeta):
-    """Restricts a value to a specific language. The language is specified by
-    a language code e.g. "de" """
+class LanguageConstraint(Constraint, ABC):
+    """LanguageConstraint interface class.
+
+    Restricts a value to a specific language. The language is specified by a language code e.g. "de".
+    """
 
     @property
+    @abstractmethod
     def language_code(self) -> str:
-        raise NotImplementedError
+        """Language code."""

@@ -9,23 +9,28 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Optional
 
 from esmf_aspect_meta_model_python.base.is_described import IsDescribed
 
 
-class Base(IsDescribed, metaclass=abc.ABCMeta):
-    """Superclass from which all elements in the Meta Model inherit."""
+class Base(IsDescribed, ABC):
+    """Base interface class.
+
+    Superclass from which all elements in the Meta Model inherit.
+    """
 
     @property
+    @abstractmethod
     def parent_elements(self) -> Optional[list["Base"]]:
-        raise NotImplementedError
+        """Parent elements."""
 
     @parent_elements.setter
+    @abstractmethod
     def parent_elements(self, elements: list["Base"]) -> None:
-        raise NotImplementedError
+        """Parent elements setter."""
 
+    @abstractmethod
     def append_parent_element(self, element: "Base") -> None:
-        raise NotImplementedError
+        """Add parent element."""
