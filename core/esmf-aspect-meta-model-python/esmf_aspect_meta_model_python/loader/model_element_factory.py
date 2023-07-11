@@ -88,7 +88,10 @@ class ModelElementFactory:
             elif self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property)):
                 # property is a blank node and can either be a property or
                 # an abstract property. Therefore, get the type of the subnode.
-                property_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.property))
+                property_node = self._aspect_graph.value(
+                    subject=element_node,
+                    predicate=self._samm.get_urn(SAMM.property),
+                )
                 element_type = self._get_element_type(property_node)
             else:
                 element_type = "Scalar"

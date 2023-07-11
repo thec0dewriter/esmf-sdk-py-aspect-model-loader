@@ -29,7 +29,10 @@ class EnumerationInstantiator(InstantiatorBase[Enumeration]):
 
         data_type = self._get_data_type(element_node)
 
-        value_collection_node = self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.values))
+        value_collection_node = self._aspect_graph.value(
+            subject=element_node,
+            predicate=self._sammc.get_urn(SAMMC.values),
+        )
         value_nodes = RdfHelper.get_rdf_list_values(value_collection_node, self._aspect_graph)
         values = [self.__to_enum_node_value(value_node) for value_node in value_nodes]
 
@@ -78,7 +81,10 @@ class EnumerationInstantiator(InstantiatorBase[Enumeration]):
             )
 
     def __is_collection_value(self, property_subject: str) -> bool:
-        characteristic = self._aspect_graph.value(subject=property_subject, predicate=self._samm.get_urn(SAMM.characteristic))  # type: ignore
+        characteristic = self._aspect_graph.value(  # type: ignore
+            subject=property_subject,
+            predicate=self._samm.get_urn(SAMM.characteristic),
+        )
         characteristic_type = self._aspect_graph.value(subject=characteristic, predicate=rdflib.RDF.type)
         return characteristic_type in self._sammc.collections_urns()
 

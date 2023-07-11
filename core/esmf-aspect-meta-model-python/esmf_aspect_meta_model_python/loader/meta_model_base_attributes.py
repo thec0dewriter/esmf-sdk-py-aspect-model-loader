@@ -59,9 +59,21 @@ class MetaModelBaseAttributes:
         Returns:
             A wrapper object with all the element attributes included
         """
-        preferred_names = MetaModelBaseAttributes.__get_language_strings(meta_model_element, aspect_graph, samm.get_urn(SAMM.preferred_name))
-        descriptions = MetaModelBaseAttributes.__get_language_strings(meta_model_element, aspect_graph, samm.get_urn(SAMM.description))
-        see = MetaModelBaseAttributes.__get_attribute_value_list(meta_model_element, aspect_graph, samm.get_urn(SAMM.see))
+        preferred_names = MetaModelBaseAttributes.__get_language_strings(
+            meta_model_element,
+            aspect_graph,
+            samm.get_urn(SAMM.preferred_name),
+        )
+        descriptions = MetaModelBaseAttributes.__get_language_strings(
+            meta_model_element,
+            aspect_graph,
+            samm.get_urn(SAMM.description),
+        )
+        see = MetaModelBaseAttributes.__get_attribute_value_list(
+            meta_model_element,
+            aspect_graph,
+            samm.get_urn(SAMM.see),
+        )
         urn: Optional[str] = None
         name: str = ""
 
@@ -142,9 +154,15 @@ class MetaModelBaseAttributes:
             a dictionary mapping language strings on the values
         """
 
-        language_string_generator: Iterable[Node] = aspect_graph.objects(subject=meta_model_element, predicate=samm_attribute)
+        language_string_generator: Iterable[Node] = aspect_graph.objects(
+            subject=meta_model_element,
+            predicate=samm_attribute,
+        )
 
-        return {language_string.language: language_string.value for language_string in language_string_generator}  # type: ignore
+        return {
+            language_string.language: language_string.value  # type: ignore
+            for language_string in language_string_generator
+        }
 
     @staticmethod
     def __get_attribute_value_list(

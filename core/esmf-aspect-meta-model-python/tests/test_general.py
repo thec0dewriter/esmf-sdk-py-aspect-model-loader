@@ -55,8 +55,8 @@ def test_aspect():
     characteristic = test_property.characteristic
     assert characteristic.name == "Text"
     assert characteristic.get_preferred_name("en") == "Text"
-    assert (
-        characteristic.get_description("en") == "Describes a Property which contains plain text. This is intended exclusively for human readable strings, "
+    assert characteristic.get_description("en") == (
+        "Describes a Property which contains plain text. This is intended exclusively for human readable strings, "
         "not for identifiers, measurement values, etc."
     )
     assert characteristic.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.examples:1.0.0#testPropertyOne"

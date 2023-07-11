@@ -29,7 +29,9 @@ SAMM_URN = f"urn:samm:org.eclipse.esmf.samm:meta-model:{SAMM_VERSION}#Aspect"
 # helper method
 def assert_object_fields_value(unit, unit_fields_set: Set[Optional[str]]):
     fields_list = [
-        unit.__getattribute__(field) for field in dir(unit) if not field.startswith("__") and not field.startswith("_") and not callable(getattr(unit, field))
+        unit.__getattribute__(field)
+        for field in dir(unit)
+        if not field.startswith("__") and not field.startswith("_") and not callable(getattr(unit, field))
     ]
     for field in unit_fields_set:
         assert field in fields_list

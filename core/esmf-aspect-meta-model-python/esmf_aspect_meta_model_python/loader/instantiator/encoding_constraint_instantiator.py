@@ -21,6 +21,8 @@ from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 class EncodingConstraintInstantiator(InstantiatorBase[EncodingConstraint]):
     def _create_instance(self, element_node: Node) -> EncodingConstraint:
         meta_model_base_attributes = self._get_base_attributes(element_node)
-        value = RdfHelper.to_python(self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.value)))
+        value = RdfHelper.to_python(
+            self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.value)),
+        )
         value = value.split("#")[1]
         return DefaultEncodingConstraint(meta_model_base_attributes, value)

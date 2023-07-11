@@ -32,12 +32,20 @@ class UnitInstantiator(InstantiatorBase[Unit]):
 
         reference_unit = self.__get_unit_attribute_as_string(element_node, self._samm.get_urn(SAMM.reference_unit))
 
-        conversion_factor = self.__get_unit_attribute_as_string(element_node, self._samm.get_urn(SAMM.numeric_conversion_factor))
+        conversion_factor = self.__get_unit_attribute_as_string(
+            element_node,
+            self._samm.get_urn(SAMM.numeric_conversion_factor),
+        )
 
         quantity_kinds: List[QuantityKind] = []
-        quantity_kind_nodes = self._aspect_graph.objects(subject=element_node, predicate=self._samm.get_urn(SAMM.quantity_kind))
+        quantity_kind_nodes = self._aspect_graph.objects(
+            subject=element_node,
+            predicate=self._samm.get_urn(SAMM.quantity_kind),
+        )
 
-        quantity_kinds.extend(self.instantiate_quantity_kind(quantity_kind_node) for quantity_kind_node in quantity_kind_nodes)
+        quantity_kinds.extend(
+            self.instantiate_quantity_kind(quantity_kind_node) for quantity_kind_node in quantity_kind_nodes
+        )
 
         return DefaultUnit(
             meta_model_base_attributes,

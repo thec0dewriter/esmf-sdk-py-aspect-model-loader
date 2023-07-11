@@ -98,7 +98,12 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
         Returns:
             object that wraps all the information (samm_version, urn, name, preferred_names, descriptions, see)
         """
-        return MetaModelBaseAttributes.from_meta_model_element(element_subject, self._aspect_graph, self._samm, self._meta_model_version)
+        return MetaModelBaseAttributes.from_meta_model_element(
+            element_subject,
+            self._aspect_graph,
+            self._samm,
+            self._meta_model_version,
+        )
 
     def _get_child(self, parent_subject: Node, child_predicate, required=False):
         """
@@ -166,7 +171,10 @@ class InstantiatorBase(Generic[T], metaclass=abc.ABCMeta):
             predicate=self._sammc.get_urn(SAMMC.element_characteristic),
         )
         if element_characteristic_node is None:
-            data_type_node = self._aspect_graph.value(subject=element_node, predicate=self._samm.get_urn(SAMM.data_type))
+            data_type_node = self._aspect_graph.value(
+                subject=element_node,
+                predicate=self._samm.get_urn(SAMM.data_type),
+            )
         else:
             # some characteristics (Collection, List, TimeSeries, etc.) may have
             # an attribute "element_characteristic". If it is given, then take
