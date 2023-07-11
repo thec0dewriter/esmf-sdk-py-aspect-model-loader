@@ -21,6 +21,10 @@ from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 class FixedPointConstraintInstantiator(InstantiatorBase[FixedPointConstraint]):
     def _create_instance(self, element_node: Node) -> FixedPointConstraint:
         meta_model_base_attributes = self._get_base_attributes(element_node)
-        scale = RdfHelper.to_python(self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.scale)))
-        integer = RdfHelper.to_python(self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.integer)))
+        scale = RdfHelper.to_python(
+            self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.scale)),
+        )
+        integer = RdfHelper.to_python(
+            self._aspect_graph.value(subject=element_node, predicate=self._sammc.get_urn(SAMMC.integer)),
+        )
         return DefaultFixedPointConstraint(meta_model_base_attributes, int(scale), int(integer))

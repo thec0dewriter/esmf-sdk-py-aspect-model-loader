@@ -1,5 +1,6 @@
 """ In compiled programming languages like Java or C++ the inheritances of classes are determined during
-compile time. If one wants to check whether a given instance is of a certain type, the visitor pattern is often the right choice.
+compile time. If one wants to check whether a given instance is of a certain type,
+the visitor pattern is often the right choice.
 
 In Python, instead of a visitor, it is common practice to use the builtin-functions isinstance(instance, cls)
 or issubclass(cls1, cls2). Class definitions and inheritance can change during runtime,

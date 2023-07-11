@@ -29,7 +29,10 @@ def download_jar(version):
     """Downloads the release .JAR of the samm for the selected version"""
 
     print(f"Start downloading SAMM Version {version}")
-    url = f"https://repo1.maven.org/maven2/org/eclipse/esmf/esmf-semantic-aspect-meta-model/{version}/esmf-semantic-aspect-meta-model-{version}.jar"
+    url = (
+        f"https://repo1.maven.org/maven2/org/eclipse/esmf/esmf-semantic-aspect-meta-model/{version}/"
+        f"esmf-semantic-aspect-meta-model-{version}.jar"
+    )
 
     request = requests.get(url, allow_redirects=True)
 

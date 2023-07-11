@@ -21,10 +21,13 @@ from esmf_aspect_meta_model_python.samm_aspect_meta_model.github_folder import G
 
 
 def main():
-    url = "https://api.github.com/repos/eclipse-esmf/esmf-semantic-aspect-meta-model/contents/esmf-semantic-aspect-meta-model/src/main/resources/samm"
+    url = (
+        "https://api.github.com/repos/eclipse-esmf/esmf-semantic-aspect-meta-model/contents/"
+        "esmf-semantic-aspect-meta-model/src/main/resources/samm"
+    )
 
     # in the pipeline machine an environment variable is set for the Github Token.
-    # If the variable does not exists don't use authorization.
+    # If the variable does not exist don't use authorization.
     github_token = os.getenv("GithubSdsBotToken")
     if github_token is None:
         headers = None

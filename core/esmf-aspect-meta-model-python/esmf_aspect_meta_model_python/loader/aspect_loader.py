@@ -44,7 +44,11 @@ class AspectLoader:
         """
         return self.load_aspect_model_from_multiple_files([file_path])
 
-    def load_aspect_model_from_multiple_files(self, file_paths: list[Union[str, Path]], aspect_urn: rdflib.URIRef | str = "") -> Aspect:
+    def load_aspect_model_from_multiple_files(
+        self,
+        file_paths: list[Union[str, Path]],
+        aspect_urn: rdflib.URIRef | str = "",
+    ) -> Aspect:
         """creates the aspect specified in urn with all the including properties and operations
         with the turtle files after merge them. an initialize a cached memory to store all
         instance to make querying them more efficient
