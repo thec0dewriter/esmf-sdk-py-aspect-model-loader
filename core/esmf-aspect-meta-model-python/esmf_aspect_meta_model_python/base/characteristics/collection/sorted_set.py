@@ -9,12 +9,13 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
 
 
-class SortedSet(Collection, metaclass=abc.ABCMeta):
-    """Collection with ordered elements and without duplicates."""
+class SortedSet(Collection, ABC):
+    """Sorted Set interface class.
 
-    pass
+    Collection with ordered elements and without duplicates.
+    """

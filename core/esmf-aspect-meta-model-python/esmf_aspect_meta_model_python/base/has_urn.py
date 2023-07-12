@@ -9,20 +9,23 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Optional
 
 
-class HasUrn(metaclass=abc.ABCMeta):
-    """Base class from which all Meta Model Elements inherit.
+class HasUrn(ABC):
+    """Has Urn interface class.
+
+    Base class from which all Meta Model Elements inherit.
     Class prescribes method to get the element urn and samm version.
     """
 
     @property
+    @abstractmethod
     def urn(self) -> Optional[str]:
-        raise NotImplementedError
+        """URN."""
 
     @property
+    @abstractmethod
     def meta_model_version(self) -> str:
-        raise NotImplementedError
+        """Meta model version."""

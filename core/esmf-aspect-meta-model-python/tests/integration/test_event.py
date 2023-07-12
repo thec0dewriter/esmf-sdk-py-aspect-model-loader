@@ -13,7 +13,7 @@ from pathlib import Path
 
 from esmf_aspect_meta_model_python import AspectLoader, Event
 
-RESOURCE_PATH = Path("tests/resources/event")
+RESOURCE_PATH = Path("tests/integration/resources/event")
 
 
 def test_loading_aspect_with_event() -> None:

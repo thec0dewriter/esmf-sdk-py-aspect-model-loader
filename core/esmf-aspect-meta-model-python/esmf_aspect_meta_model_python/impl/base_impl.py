@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class BaseImpl(Base, metaclass=abc.ABCMeta):
+    """Base Implemented class."""
+
     def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes):
         self._meta_model_version = meta_model_base_attributes.meta_model_version
         self._urn = meta_model_base_attributes.urn
@@ -29,6 +31,7 @@ class BaseImpl(Base, metaclass=abc.ABCMeta):
 
     @property
     def parent_elements(self) -> Optional[list[Base]]:
+        """Parent elements."""
         return self._parent_elements
 
     @parent_elements.setter
@@ -37,6 +40,7 @@ class BaseImpl(Base, metaclass=abc.ABCMeta):
             self._parent_elements = elements
 
     def append_parent_element(self, element: Base) -> None:
+        """Extend parent_elements list."""
         if self._parent_elements:
             self._parent_elements.append(element)
             return
@@ -44,24 +48,30 @@ class BaseImpl(Base, metaclass=abc.ABCMeta):
 
     @property
     def meta_model_version(self) -> str:
+        """Meta model version."""
         return self._meta_model_version
 
     @property
     def preferred_names(self) -> Dict[str, str]:
+        """Preferred names."""
         return self._preferred_names
 
     @property
     def descriptions(self) -> Dict[str, str]:
+        """Descriptions."""
         return self._descriptions
 
     @property
     def see(self) -> List[str]:
+        """See."""
         return self._see
 
     @property
     def urn(self) -> Optional[str]:
+        """URN."""
         return self._urn
 
     @property
     def name(self) -> str:
+        """Name."""
         return self._name

@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic i
 
 
 class DefaultCode(DefaultCharacteristic, Code):
-    pass
+    """Default Code class."""

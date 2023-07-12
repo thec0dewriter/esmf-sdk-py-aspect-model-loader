@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.data_types.default_complex_type import D
 
 
 class DefaultEntity(DefaultComplexType, Entity):
-    pass
+    """Default Entity class."""

@@ -9,12 +9,13 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class SingleEntity(Characteristic, metaclass=abc.ABCMeta):
-    """Describes a Property whose data type is an Entity."""
+class SingleEntity(Characteristic, ABC):
+    """Single Entity interface class.
 
-    pass
+    Describes a Property whose data type is an Entity.
+    """

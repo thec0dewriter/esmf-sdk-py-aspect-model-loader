@@ -9,18 +9,20 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import List
 
 from esmf_aspect_meta_model_python.base.property import Property
 
 
-class HasProperties(metaclass=abc.ABCMeta):
-    """Base class for Meta Model Elements that have properties as children.
-    E.g. Aspect and ComplexType
+class HasProperties(ABC):
+    """Has Properties interface class.
+
+    Base class for Meta Model Elements that have properties as children.
+    E.g. Aspect and ComplexType.
     """
 
     @property
+    @abstractmethod
     def properties(self) -> List[Property]:
-        raise NotImplementedError
+        """Properties."""

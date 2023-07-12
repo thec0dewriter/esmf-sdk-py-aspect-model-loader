@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.characteristics.collection.default_sorte
 
 
 class DefaultTimeSeries(DefaultSortedSet, TimeSeries):
-    pass
+    """Default Time Series class."""

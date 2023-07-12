@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.characteristics.collection.default_colle
 
 
 class DefaultSortedSet(DefaultCollection, SortedSet):
-    pass
+    """Default Sorted Set class."""

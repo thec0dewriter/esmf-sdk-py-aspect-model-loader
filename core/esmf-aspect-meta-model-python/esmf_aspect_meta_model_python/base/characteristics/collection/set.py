@@ -9,12 +9,13 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.characteristics.collection.collection import Collection
 
 
-class Set(Collection, metaclass=abc.ABCMeta):
-    """Collection with unordered elements and without duplicates"""
+class Set(Collection, ABC):
+    """Set interface class.
 
-    pass
+    Collection with unordered elements and without duplicates.
+    """

@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultState(DefaultEnumeration, State):
+    """Default State class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -30,4 +32,5 @@ class DefaultState(DefaultEnumeration, State):
 
     @property
     def default_value(self):
+        """Default value."""
         return self._default_value

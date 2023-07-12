@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultOperation(BaseImpl, Operation):
+    """Default Operation class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -30,6 +32,7 @@ class DefaultOperation(BaseImpl, Operation):
         self._set_parent_element_on_child_elements()
 
     def _set_parent_element_on_child_elements(self) -> None:
+        """Set a parent element on child elements."""
         for input_property in self.input_properties:
             input_property.append_parent_element(self)
 
@@ -38,8 +41,10 @@ class DefaultOperation(BaseImpl, Operation):
 
     @property
     def input_properties(self) -> List[Property]:
+        """Input properties."""
         return self._input_properties
 
     @property
     def output_property(self) -> Optional[Property]:
+        """Output property."""
         return self._output_property

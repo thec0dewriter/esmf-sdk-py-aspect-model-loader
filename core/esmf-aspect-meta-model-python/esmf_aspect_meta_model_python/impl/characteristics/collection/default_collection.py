@@ -19,6 +19,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultCollection(DefaultCharacteristic, Collection):
+    """Default Collection class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -30,9 +32,11 @@ class DefaultCollection(DefaultCharacteristic, Collection):
         self._set_parent_element_on_child_element()
 
     def _set_parent_element_on_child_element(self) -> None:
+        """Set a parent element on child elements."""
         if self._element_characteristic is not None:
             self._element_characteristic.append_parent_element(self)
 
     @property
     def element_characteristic(self) -> Optional[Characteristic]:
+        """Element characteristic."""
         return self._element_characteristic

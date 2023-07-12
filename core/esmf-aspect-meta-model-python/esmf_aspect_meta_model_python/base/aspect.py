@@ -9,8 +9,7 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import List
 
 from esmf_aspect_meta_model_python.base.event import Event
@@ -18,20 +17,25 @@ from esmf_aspect_meta_model_python.base.operation import Operation
 from esmf_aspect_meta_model_python.base.structure_element import StructureElement
 
 
-class Aspect(StructureElement, metaclass=abc.ABCMeta):
-    """
-    An aspect is the root class for a digital twin. It has a number of
-    properties and operations. An Aspect Model is described in a RDF Turtle.
+class Aspect(StructureElement, ABC):
+    """Aspect interface class.
+
+    An aspect is the root class for a digital twin.
+    It has a number of properties and operations.
+    An Aspect Model is described in RDF Turtle.
     """
 
     @property
+    @abstractmethod
     def operations(self) -> List[Operation]:
-        raise NotImplementedError
+        """Operations."""
 
     @property
+    @abstractmethod
     def events(self) -> List[Event]:
-        raise NotImplementedError
+        """Events."""
 
     @property
     def is_collection_aspect(self) -> bool:
+        """Is collection aspect flag."""
         return False

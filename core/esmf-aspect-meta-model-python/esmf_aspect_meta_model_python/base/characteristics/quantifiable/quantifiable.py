@@ -9,17 +9,22 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
 import typing
+
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 from esmf_aspect_meta_model_python.base.unit import Unit
 
 
-class Quantifiable(Characteristic, metaclass=abc.ABCMeta):
-    """Describes a property where the value represents a physical value.
-    It can have an optional unit."""
+class Quantifiable(Characteristic, ABC):
+    """Quantifiable interface class.
+
+    Describes a property where the value represents a physical value.\
+    It can have an optional unit.
+    """
 
     @property
+    @abstractmethod
     def unit(self) -> typing.Optional[Unit]:
-        raise NotImplementedError
+        """Unit."""

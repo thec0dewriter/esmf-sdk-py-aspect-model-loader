@@ -9,13 +9,12 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.base import Base
 
 
-class QuantityKind(Base, metaclass=abc.ABCMeta):
-    """A quantity kind is a physical property of an object or a system,
-    e.g. length, diameter, volume or voltage."""
+class QuantityKind(Base, ABC):
+    """QuantityKind interface class.
 
-    pass
+    A quantity kind is a physical property of an object or a system, e.g. length, diameter, volume or voltage."""

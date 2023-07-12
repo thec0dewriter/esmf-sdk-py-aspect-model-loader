@@ -17,6 +17,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultLengthConstraint(DefaultConstraint, LengthConstraint):
+    """Default Length Constraint class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -29,8 +31,10 @@ class DefaultLengthConstraint(DefaultConstraint, LengthConstraint):
 
     @property
     def min_value(self) -> Optional[int]:
+        """Min value."""
         return self._min_value
 
     @property
     def max_value(self) -> Optional[int]:
+        """Max value."""
         return self._max_value

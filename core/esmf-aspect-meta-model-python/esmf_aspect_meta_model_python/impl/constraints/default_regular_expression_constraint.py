@@ -15,10 +15,13 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultRegularExpressionConstraint(DefaultConstraint, RegularExpressionConstraint):
+    """Default Regular Expression Constraint."""
+
     def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, value: str):
         super().__init__(meta_model_base_attributes)
         self._value = value
 
     @property
     def value(self) -> str:
+        """Value."""
         return self._value

@@ -17,6 +17,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultEither(DefaultCharacteristic, Either):
+    """Default Either class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -34,8 +36,10 @@ class DefaultEither(DefaultCharacteristic, Either):
 
     @property
     def left(self) -> Characteristic:
+        """Left."""
         return self._left
 
     @property
     def right(self) -> Characteristic:
+        """Right."""
         return self._right

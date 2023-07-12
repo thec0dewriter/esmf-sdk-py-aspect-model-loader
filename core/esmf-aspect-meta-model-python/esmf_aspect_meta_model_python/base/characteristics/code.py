@@ -9,12 +9,13 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class Code(Characteristic, metaclass=abc.ABCMeta):
-    """Describes a Property which contains any kind of code."""
+class Code(Characteristic, ABC):
+    """Code interface class.
 
-    pass
+    Describes a Property which contains any kind of code.
+    """

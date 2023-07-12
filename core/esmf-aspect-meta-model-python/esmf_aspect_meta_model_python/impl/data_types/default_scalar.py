@@ -13,14 +13,18 @@ from esmf_aspect_meta_model_python.base.data_types.scalar import Scalar
 
 
 class DefaultScalar(Scalar):
+    """Default Scalar class."""
+
     def __init__(self, urn: str, meta_model_version: str):
         self._urn = urn
         self._meta_model_version = meta_model_version
 
     @property
     def urn(self) -> str:
+        """URN."""
         return self._urn
 
     @property
     def meta_model_version(self) -> str:
+        """Meta model version."""
         return self._meta_model_version

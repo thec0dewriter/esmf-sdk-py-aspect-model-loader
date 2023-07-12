@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultProperty(BaseImpl, Property):
+    """Default Property class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -43,40 +45,46 @@ class DefaultProperty(BaseImpl, Property):
 
     @property
     def characteristic(self) -> Optional[Characteristic]:
+        """Characteristic."""
         return self._characteristic
 
     @property
     def example_value(self) -> Optional[Any]:
+        """Example of value."""
         return self._example_value
 
     @property
     def is_abstract(self) -> bool:
+        """Is abstract flag."""
         return self._is_abstract
 
     @property
     def extends(self) -> Optional[Property]:
+        """Extends."""
         return self._extends
 
     @property
     def is_optional(self) -> bool:
+        """Is optional flag."""
         return self._optional
 
     @property
     def is_not_in_payload(self) -> bool:
+        """Is not in payload flag."""
         return self._not_in_payload
 
     @property
     def payload_name(self) -> str:
+        """Payload name."""
         return self.name if self._payload_name is None else self._payload_name
 
     @property
     def preferred_names(self) -> Dict[str, str]:
-        """returns a merged dictionary of preferred names of self and
-        the extended abstract property if it exists. If both, the property
-        and the abstract property have a preferred name for the same language,
-        then the preferred name of the concrete property is used.
+        """Preferred names.
 
-        This method overrides the implementation in BaseImpl.
+        Returns a merged dictionary of preferred names of self and the extended abstract property if it exists.
+        If both, the property and the abstract property have a preferred name for the same language,
+        then the preferred name of the concrete property is used.
         """
         if self.extends is None:
             return self._preferred_names
@@ -84,12 +92,11 @@ class DefaultProperty(BaseImpl, Property):
 
     @property
     def descriptions(self) -> Dict[str, str]:
-        """returns a merged dictionary of descriptions of self and
-        the extended abstract property if it exists. If both, the property
-        and the abstract property have a description for the same language,
-        then the description of the concrete property is used.
+        """Descriptions.
 
-        This method overrides the implementation in BaseImpl.
+        Returns a merged dictionary of descriptions of self and the extended abstract property if it exists.
+        If both, the property and the abstract property have a description for the same language,
+        then the description of the concrete property is used.
         """
         if self.extends is None:
             return self._descriptions
@@ -97,7 +104,8 @@ class DefaultProperty(BaseImpl, Property):
 
     @property
     def see(self) -> List[str]:
-        """returns a combined list of all see elements of self and the
-        extended abstract property.
+        """See.
+
+        Returns a combined list of all see elements of self and the extended abstract property.
         """
         return self._see if self.extends is None else self._see + self.extends.see

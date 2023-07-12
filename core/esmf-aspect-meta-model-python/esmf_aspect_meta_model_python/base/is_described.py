@@ -9,37 +9,43 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Dict, List, Optional
 
 from esmf_aspect_meta_model_python.base.has_urn import HasUrn
 
 
-class IsDescribed(HasUrn, metaclass=abc.ABCMeta):
-    """Base class from which all Meta Model elements with descriptions inherit.
-    Class prescribes methods to get preferred names, descriptions and
-    see elements.
+class IsDescribed(HasUrn, ABC):
+    """Is Described interface class.
+
+    Base class from which all Meta Model elements with descriptions inherit.
+    Class prescribes methods to get preferred names, descriptions and see elements.
     """
 
     @property
+    @abstractmethod
     def name(self) -> str:
-        raise NotImplementedError
+        """Name."""
 
     @property
+    @abstractmethod
     def preferred_names(self) -> Dict[str, str]:
-        raise NotImplementedError
+        """Preferred names."""
 
     @property
+    @abstractmethod
     def descriptions(self) -> Dict[str, str]:
-        raise NotImplementedError
+        """Descriptions."""
 
     @property
+    @abstractmethod
     def see(self) -> List[str]:
-        raise NotImplementedError
+        """See."""
 
     def get_preferred_name(self, locale: str) -> Optional[str]:
+        """Gets preferred name."""
         return self.preferred_names.get(locale)
 
     def get_description(self, locale: str) -> Optional[str]:
+        """Gets description in specified language."""
         return self.descriptions.get(locale)

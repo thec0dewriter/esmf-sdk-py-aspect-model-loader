@@ -13,18 +13,20 @@ from typing import Any, Callable
 
 
 class PropertyFunc:
+    """Property Func class."""
+
     @staticmethod
     def fget_name(callable_property: Any) -> str:
-        """give back the name of the specified property
+        """Gets name of the specified property.
 
         Args:
             callable_property (Any): the property we want to get its name. It should have the decorator '@property'.
 
         Raises:
-            AttributeError: if the property dosen't have the decorator '@property'. it will raise an exception.
+            AttributeError: if the property does not have the decorator '@property'. it will raise an exception.
 
         Returns:
-            str: name of the property
+            str: name of the property.
         """
         try:
             return callable_property.fget.__name__  # ignore: type
@@ -33,14 +35,16 @@ class PropertyFunc:
 
     @staticmethod
     def has_properties(obj: Any, *properties: Callable) -> bool:
-        """check if object has the given properties (the callable property and not an instance should be given).
+        """Has properties flag.
+
+        Check if object has the given properties (the callable property and not an instance should be given).
 
         Args:
-            obj (Any): the object we want to check
+            obj (Any): the object we want to check.
 
-            *properties (Callable): the properties we want to check. It should have the decorater '@property'
+            *properties (Callable): the properties we want to check. It should have the decorator '@property'.
 
         Returns:
-            bool: return true if the object has all properties
+            bool: return true if the object has all properties.
         """
         return all(hasattr(obj, PropertyFunc.fget_name(f_property)) for f_property in properties)

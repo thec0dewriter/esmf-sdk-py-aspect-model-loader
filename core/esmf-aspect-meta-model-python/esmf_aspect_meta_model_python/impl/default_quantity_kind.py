@@ -14,4 +14,4 @@ from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
 
 
 class DefaultQuantityKind(BaseImpl, QuantityKind):
-    pass
+    """Default Quantity Kind class."""

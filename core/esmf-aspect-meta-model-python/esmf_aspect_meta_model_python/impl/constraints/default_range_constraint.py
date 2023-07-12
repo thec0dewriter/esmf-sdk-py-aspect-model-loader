@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultRangeConstraint(DefaultConstraint, RangeConstraint):
+    """Default Range Constraint class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -34,16 +36,20 @@ class DefaultRangeConstraint(DefaultConstraint, RangeConstraint):
 
     @property
     def min_value(self) -> Optional[Any]:
+        """Min value."""
         return self._min_value
 
     @property
     def max_value(self) -> Optional[Any]:
+        """Max value."""
         return self._max_value
 
     @property
     def lower_bound_definition(self) -> Optional[BoundDefinition]:
+        """Lower bound definition."""
         return self._lower_bound_definition
 
     @property
     def upper_bound_definition(self) -> Optional[BoundDefinition]:
+        """Upper bound definition."""
         return self._upper_bound_definition

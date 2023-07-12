@@ -19,6 +19,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultTrait(DefaultCharacteristic, Trait):
+    """Default Trait class."""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -26,10 +28,10 @@ class DefaultTrait(DefaultCharacteristic, Trait):
         constraints: List[Constraint],
     ):
         if base_characteristic is None:
-            raise AttributeError(f"No base characteristic given for the trait {self.urn}")
+            raise AttributeError(f"No base characteristic given for the trait {meta_model_base_attributes.urn}")
 
         if not constraints:
-            raise AttributeError(f"No constraints given for the trait {self.urn}")
+            raise AttributeError(f"No constraints given for the trait {meta_model_base_attributes.urn}")
 
         super().__init__(meta_model_base_attributes, base_characteristic.data_type)
 
@@ -38,8 +40,10 @@ class DefaultTrait(DefaultCharacteristic, Trait):
 
     @property
     def base_characteristic(self) -> Characteristic:
+        """Base characteristic."""
         return self._base_characteristic
 
     @property
     def constraints(self) -> List[Constraint]:
+        """Constraints."""
         return self._constraints

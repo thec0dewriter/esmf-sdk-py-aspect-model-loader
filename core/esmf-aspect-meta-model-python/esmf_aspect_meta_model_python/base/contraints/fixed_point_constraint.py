@@ -9,22 +9,24 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.contraints.constraint import Constraint
 
 
-class FixedPointConstraint(Constraint, metaclass=abc.ABCMeta):
-    """Defines the scaling factor as well as the amount of
-    integral numbers for a fixed point number.
-    The constraint may only be used in conjunction with Characteristics
-    which use the xsd:decimal data type.
+class FixedPointConstraint(Constraint, ABC):
+    """Fixed Point Constraint interface class.
+
+    Defines the scaling factor as well as the amount of integral numbers for a fixed point number.
+    The constraint may only be used in conjunction with Characteristics which use the xsd:decimal data type.
     """
 
     @property
+    @abstractmethod
     def scale(self) -> int:
-        raise NotImplementedError
+        """Scale."""
 
     @property
+    @abstractmethod
     def integer(self) -> int:
-        raise NotImplementedError
+        """Integer."""

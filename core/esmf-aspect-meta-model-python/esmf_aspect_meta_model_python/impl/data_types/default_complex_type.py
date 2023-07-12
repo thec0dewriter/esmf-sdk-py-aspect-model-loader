@@ -18,10 +18,13 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultComplexType(BaseImpl, ComplexType):
-    _instances: Dict[str, ComplexType] = {}
-    """ static field that hold all currently instantiated
-    Complex Types (Entities)
+    """Default Complex Type class.
+
+    Args:
+        _instances: static field that hold all currently instantiated Complex Types (Entities)
     """
+
+    _instances: Dict[str, ComplexType] = {}
 
     def __init__(
         self,
@@ -42,12 +45,11 @@ class DefaultComplexType(BaseImpl, ComplexType):
 
     @property
     def preferred_names(self) -> Dict[str, str]:
-        """returns a merged dictionary of preferred names of self and
-        all extended entities. If multiple preferred names for the same
-        language are given, the preferred name of the most concrete entity is
-        used.
+        """Preferred names.
 
-        This method overrides the implementation in BaseImpl.
+        Returns a merged dictionary of preferred names of self and all extended entities.
+        If multiple preferred names for the same language are given,
+        the preferred name of the most concrete entity is used.
         """
         if self.extends is None:
             return self._preferred_names
@@ -55,11 +57,10 @@ class DefaultComplexType(BaseImpl, ComplexType):
 
     @property
     def descriptions(self) -> Dict[str, str]:
-        """returns a merged dictionary of all descriptions of self all extended
-        entities. If multiple descriptions for the same language are given,
-        the description of the most concrete entity is used.
+        """Descriptions.
 
-        This method overrides the implementation in BaseImpl.
+        Returns a merged dictionary of all descriptions of self all extended entities.
+        If multiple descriptions for the same language are given, the description of the most concrete entity is used.
         """
         if self.extends is None:
             return self._descriptions
@@ -67,13 +68,15 @@ class DefaultComplexType(BaseImpl, ComplexType):
 
     @property
     def see(self) -> List[str]:
-        """returns a combined list of all see elements of self and all
-        extended entities.
+        """See.
+
+        Returns a combined list of all see elements of self and all extended entities.
         """
         return self._see if self.extends is None else self._see + self.extends.see
 
     @property
     def all_properties(self) -> List[Property]:
+        """All properties."""
         if self.__extends_urn is None:
             return self.__properties
         properties: List[Property] = []
@@ -84,6 +87,7 @@ class DefaultComplexType(BaseImpl, ComplexType):
 
     @property
     def extends(self) -> Optional[ComplexType]:
+        """Extends."""
         try:
             if self.__extends_urn is None:
                 return None
@@ -93,4 +97,5 @@ class DefaultComplexType(BaseImpl, ComplexType):
 
     @property
     def properties(self) -> List[Property]:
+        """Properties."""
         return self.__properties

@@ -9,14 +9,18 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.characteristics.enumeration import Enumeration
 
 
-class State(Enumeration, metaclass=abc.ABCMeta):
-    """Enumeration that has also a Default value"""
+class State(Enumeration, ABC):
+    """State interface class.
+
+    Enumeration that has also a Default value.
+    """
 
     @property
+    @abstractmethod
     def default_value(self):
-        raise NotImplementedError
+        """Default value."""

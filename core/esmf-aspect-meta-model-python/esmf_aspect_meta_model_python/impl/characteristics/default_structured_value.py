@@ -18,6 +18,8 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultStructuredValue(DefaultCharacteristic, StructuredValue):
+    """Default Structured Value class"""
+
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
@@ -31,8 +33,10 @@ class DefaultStructuredValue(DefaultCharacteristic, StructuredValue):
 
     @property
     def deconstruction_rule(self) -> str:
+        """Deconstruction rule."""
         return self._deconstruction_rule
 
     @property
     def elements(self) -> List:
+        """Elements."""
         return self._elements

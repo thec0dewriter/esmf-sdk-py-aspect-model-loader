@@ -9,36 +9,41 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import Optional, Set
 
 from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.quantity_kind import QuantityKind
 
 
-class Unit(Base, metaclass=abc.ABCMeta):
-    """A unit is used to specify the magnitude of a physical quantity.
-    Examples for units are meter, millimeter, inch, or volts.
-    A Unit in the SAMM
+class Unit(Base, ABC):
+    """Unit interface class.
+
+    A unit is used to specify the magnitude of a physical quantity.
+    Examples for units are meter, millimeter, inch, or volts. A Unit in the SAMM.
     """
 
     @property
+    @abstractmethod
     def symbol(self) -> Optional[str]:
-        raise NotImplementedError
+        """Symbol."""
 
     @property
+    @abstractmethod
     def code(self) -> Optional[str]:
-        raise NotImplementedError
+        """Code."""
 
     @property
+    @abstractmethod
     def reference_unit(self) -> Optional[str]:
-        raise NotImplementedError
+        """Reference unit."""
 
     @property
+    @abstractmethod
     def conversion_factor(self) -> Optional[str]:
-        raise NotImplementedError
+        """Conversion factor."""
 
     @property
+    @abstractmethod
     def quantity_kinds(self) -> Set[QuantityKind]:
-        raise NotImplementedError
+        """Quantity kinds."""

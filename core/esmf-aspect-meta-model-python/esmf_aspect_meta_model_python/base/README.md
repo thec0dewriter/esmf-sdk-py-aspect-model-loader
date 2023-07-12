@@ -26,7 +26,10 @@ HasUrn
         │   │   └── State
         │   ├── SingleEntity
         │   ├── StructuredValue
-        │   └── Trait
+        │   ├── Quantifiable
+		│   │   ├── Duration
+		│   │   └── Measurement
+		│   └── Trait
         ├── Constraint
         │   ├── EncodingConstraint
         │   ├── FixedPointConstraint
@@ -35,10 +38,11 @@ HasUrn
         │   ├── LocaleConstraint
         │   ├── RangeConstraint
         │   └── RegularExpressionConstraint
+		├── Event
         ├── Operation
         ├── Property
         ├── QuantityKind           
-        └── Unit   
+        └── Unit
 
 BoundDefiniton
 ```

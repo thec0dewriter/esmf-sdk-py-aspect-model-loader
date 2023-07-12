@@ -9,18 +9,23 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class Either(Characteristic, metaclass=abc.ABCMeta):
-    """Describes a property that has exactly one of two possible values."""
+class Either(Characteristic, ABC):
+    """Either interface class.
+
+    Describes a property that has exactly one of two possible values.
+    """
 
     @property
+    @abstractmethod
     def left(self) -> Characteristic:
-        raise NotImplementedError
+        """Left."""
 
     @property
+    @abstractmethod
     def right(self) -> Characteristic:
-        raise NotImplementedError
+        """Right."""

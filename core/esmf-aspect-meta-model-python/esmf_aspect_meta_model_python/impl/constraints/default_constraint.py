@@ -16,4 +16,4 @@ from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
 
 
 class DefaultConstraint(BaseImpl, Constraint, metaclass=abc.ABCMeta):
-    pass
+    """Default Constraint class."""

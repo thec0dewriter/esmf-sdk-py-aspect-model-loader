@@ -15,10 +15,13 @@ from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import Meta
 
 
 class DefaultLocaleConstraint(DefaultConstraint, LocaleConstraint):
+    """Default Locale Constraint class."""
+
     def __init__(self, meta_model_base_attributes: MetaModelBaseAttributes, locale_code: str):
         super().__init__(meta_model_base_attributes)
         self._locale_code = locale_code
 
     @property
     def locale_code(self) -> str:
+        """locale code."""
         return self._locale_code

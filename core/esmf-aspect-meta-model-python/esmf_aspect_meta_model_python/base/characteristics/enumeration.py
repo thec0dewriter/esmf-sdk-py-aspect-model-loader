@@ -9,18 +9,19 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
-
+from abc import ABC, abstractmethod
 from typing import List
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class Enumeration(Characteristic, metaclass=abc.ABCMeta):
-    """Describes a Property that has exactly one of
-    multiple possible values.
+class Enumeration(Characteristic, ABC):
+    """Enumeration interface class.
+
+    Describes a Property that has exactly one of multiple possible values.
     """
 
     @property
+    @abstractmethod
     def values(self) -> List:
-        raise NotImplementedError
+        """Values."""

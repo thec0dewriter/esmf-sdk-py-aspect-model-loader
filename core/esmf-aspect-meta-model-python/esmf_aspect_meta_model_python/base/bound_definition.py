@@ -14,9 +14,10 @@ import enum
 
 @enum.unique
 class BoundDefinition(enum.Enum):
-    """Enumeration that holds the specifies the upper or lower boundary rule
-    for a range constraint. Possible values are:
-    OPEN, AT_LEAST, GREATER_THAN, LESS_THAN, AT_MOST
+    """Bound Definition class.
+
+    Enumeration that holds the specifies the upper or lower boundary rule for a range constraint.
+    Possible values are: OPEN, AT_LEAST, GREATER_THAN, LESS_THAN, AT_MOST
     """
 
     OPEN = "OPEN"

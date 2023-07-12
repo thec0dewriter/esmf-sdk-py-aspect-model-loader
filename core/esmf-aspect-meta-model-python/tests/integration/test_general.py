@@ -13,7 +13,7 @@ from pathlib import Path
 
 from esmf_aspect_meta_model_python import AspectLoader, BaseImpl, ComplexType
 
-RESOURCE_PATH = Path("tests/resources/general")
+RESOURCE_PATH = Path("tests/integration/resources/general")
 
 
 def test_aspect_with_multiple_attributes():

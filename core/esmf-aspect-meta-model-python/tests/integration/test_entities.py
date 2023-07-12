@@ -13,7 +13,7 @@ from pathlib import Path
 
 from esmf_aspect_meta_model_python import AbstractEntity, AspectLoader, ComplexType, Enumeration, Quantifiable
 
-RESOURCE_PATH = Path("tests/resources/entity")
+RESOURCE_PATH = Path("tests/integration/resources/entity")
 
 
 def test_loading_aspect_with_entity_enum():

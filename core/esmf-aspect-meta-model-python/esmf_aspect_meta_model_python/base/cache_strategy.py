@@ -9,51 +9,54 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import abc
+from abc import ABC, abstractmethod
 
 from esmf_aspect_meta_model_python.base.base import Base
 
 
-class CacheStrategy(metaclass=abc.ABCMeta):
+class CacheStrategy(ABC):
+    """Cache Strategy interface class."""
+
+    @abstractmethod
     def reset(self) -> None:
         """Reset all cached elements."""
-        pass
 
+    @abstractmethod
     def get(self, key: str) -> Base | None:
         """Gets a Base, and returns the element or undefined.
 
         Args:
-            key (str): key key of the element
+            key (str): key key of the element.
 
         Returns:
-            Base | None: Element or undefined if it does not exists
+            Base | None: Element or undefined if it does not exist.
         """
-        raise NotImplementedError
 
+    @abstractmethod
     def get_by_name(self, name: str) -> list[Base]:
-        """get element by name
+        """Get element by name.
 
         Args:
-            name (str): name of the element
+            name (str): name of the element.
 
         Returns:
-            list[Base]: the found elements or an empty list
+            list[Base]: the found elements or an empty list.
         """
-        raise NotImplementedError
 
+    @abstractmethod
     def resolve_instance(self, model_element: Base) -> Base:
-        """Resolve cached element instance or add the given element to the cache
+        """Resolve cached element instance or add the given element to the cache.
 
         Args:
             model_element (Base): modelElement element instance to resolve
 
         Returns:
-            Base: cached element instance
+            Base: cached element instance.
         """
-        raise NotImplementedError
 
+    @abstractmethod
     def add_element(self, name: str, model_element: Base, overwrite: bool = False) -> None:
-        """Add element explicitly to the cache
+        """Add element explicitly to the cache.
 
         Args:
             name (str): name of the element
@@ -61,4 +64,3 @@ class CacheStrategy(metaclass=abc.ABCMeta):
             overwrite (_type_, optional): force to overwrite it if an element with the
                 name already exists. Defaults to False:bool.
         """
-        raise NotImplementedError
