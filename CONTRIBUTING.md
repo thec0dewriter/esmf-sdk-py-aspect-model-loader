@@ -22,7 +22,12 @@ The ESMF SDK PY Aspect Model loader is based on the Semantic Aspect Meta Model a
 this project.
 * Opening `Issues` and `PRs` in GitHub is the preferred way to interact with the community around the ESMF SDK PY Aspect Model loader.
 
+## Architecture Decision Records
+
+Decisions on code and architecture are documented using [Markdown Any Decision
+Records](https://adr.github.io/madr/) in [documentation/decisions/](https://github.com/eclipse-esmf/esmf-sdk-py-aspect-model-loader/tree/main/documentation/decisions).
 ## Branching
+
 We follow the [Git branching guidance](https://docs.microsoft.com/en-us/azure/devops/repos/git/git-branching-guidance?view=azure-devops).
 
 More specifically the repository has the following branches:
