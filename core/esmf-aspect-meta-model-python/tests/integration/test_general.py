@@ -11,7 +11,7 @@
 
 from pathlib import Path
 
-from esmf_aspect_meta_model_python import AspectLoader, BaseImpl, ComplexType
+from esmf_aspect_meta_model_python import AspectLoader, BaseImpl, ComplexType, Either
 
 RESOURCE_PATH = Path("tests/integration/resources/general")
 
@@ -72,9 +72,9 @@ def test_aspect_with_operation():
     file_path = RESOURCE_PATH / "AspectWithOperation.ttl"
     aspect_loader = AspectLoader()
     aspect = aspect_loader.load_aspect_model(file_path)
-    assert aspect.meta_model_version == "2.0.0"
+    assert aspect.meta_model_version == "2.1.0"
     assert aspect.name == "AspectWithOperation"
-    assert aspect.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#AspectWithOperation"
+    assert aspect.urn == "urn:samm:org.eclipse.esmf.test:1.0.0#AspectWithOperation"
 
     properties = aspect.properties
     assert len(properties) == 0
@@ -87,7 +87,7 @@ def test_aspect_with_operation():
     preferred_names = operation1.preferred_names
     assert len(preferred_names) == 1
     assert operation1.get_preferred_name("en") == "Test Operation"
-    assert operation1.get_description("en") == "Test Operation description"
+    assert operation1.get_description("en") == "Test Operation description."
     see_list = operation1.see
     assert len(see_list) == 2
     operation1_input_properties = operation1.input_properties
@@ -109,7 +109,7 @@ def test_aspect_with_operation():
     preferred_names = operation2.preferred_names
     assert len(preferred_names) == 1
     assert operation2.get_preferred_name("en") == "Test Operation2"
-    assert operation2.get_description("en") == "Test Operation2 description"
+    assert operation2.get_description("en") == "Test Operation2 description."
     see_list = operation2.see
     assert len(see_list) == 2
     operation2_input_properties = operation2.input_properties
@@ -302,7 +302,7 @@ def test_find_property_characteristic_by_name() -> None:
     assert len(result) == 1
     assert isinstance(result[0], BaseImpl)
     assert result[0].name == "BooleanTestCharacteristic"
-    assert result[0].urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    assert result[0].urn == "urn:samm:org.eclipse.esmf.test:1.0.0#BooleanTestCharacteristic"
     assert len(result[0].preferred_names) == 0
     assert len(result[0].see) == 0
     assert len(result[0].descriptions) == 0
@@ -339,11 +339,11 @@ def test_find_property_characteristic_by_urn() -> None:
     file_path = RESOURCE_PATH / "AspectWithPropertyWithAllBaseAttributes.ttl"
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic")
+    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.test:1.0.0#BooleanTestCharacteristic")
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "BooleanTestCharacteristic"
-    assert result.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#BooleanTestCharacteristic"
+    assert result.urn == "urn:samm:org.eclipse.esmf.test:1.0.0#BooleanTestCharacteristic"
     assert len(result.preferred_names) == 0
     assert len(result.see) == 0
     assert len(result.descriptions) == 0
@@ -378,3 +378,22 @@ def test_load_aspect_from_multiple_files() -> None:
     assert data_type_properties[0].urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#productClass"
     assert data_type_properties[1].urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#productSubClass"
     assert data_type_properties[2].urn == "urn:samm:org.eclipse.esmf.samm.file_path2:0.0.1#statisticsGroup"
+
+
+def test_loading_aspect_with_either():
+    file_path = RESOURCE_PATH / "AspectWithEither.ttl"
+    aspect_loader = AspectLoader()
+    aspect = aspect_loader.load_aspect_model(file_path)
+
+    first_property = aspect.properties[0]
+    either_characteristic = first_property.characteristic
+    assert isinstance(either_characteristic, Either)
+    assert either_characteristic.name == "TestEither"
+
+    left = either_characteristic.left
+    assert left.name == "Text"
+    assert left.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.test:1.0.0#TestEither"
+
+    right = either_characteristic.right
+    assert right.name == "Boolean"
+    assert right.parent_elements[0].urn == "urn:samm:org.eclipse.esmf.test:1.0.0#TestEither"

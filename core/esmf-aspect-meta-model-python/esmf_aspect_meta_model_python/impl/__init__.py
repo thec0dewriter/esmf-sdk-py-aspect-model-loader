@@ -17,7 +17,6 @@ from .characteristics.collection.default_sorted_set import DefaultSortedSet
 from .characteristics.collection.default_time_series import DefaultTimeSeries
 from .characteristics.default_characteristic import DefaultCharacteristic
 from .characteristics.default_code import DefaultCode
-from .characteristics.default_either import DefaultEither
 from .characteristics.default_enumeration import DefaultEnumeration
 from .characteristics.default_single_entity import DefaultSingleEntity
 from .characteristics.default_state import DefaultState
@@ -39,6 +38,7 @@ from .data_types.default_complex_type import DefaultComplexType
 from .data_types.default_entity import DefaultEntity
 from .data_types.default_scalar import DefaultScalar
 from .default_aspect import DefaultAspect
+from .default_either import DefaultEither
 from .default_event import DefaultEvent
 from .default_operation import DefaultOperation
 from .default_property import DefaultProperty

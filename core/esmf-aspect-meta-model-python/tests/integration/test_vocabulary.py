@@ -19,7 +19,7 @@ from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 from esmf_aspect_meta_model_python.vocabulary.SAMME import SAMME
 from esmf_aspect_meta_model_python.vocabulary.UNIT import UNIT
 
-SAMM_VERSION = "2.0.0"
+SAMM_VERSION = "2.1.0"
 UNIT_URN = f"urn:samm:org.eclipse.esmf.samm:unit:{SAMM_VERSION}#referenceUnit"
 SAMME_URN = f"urn:samme:org.eclipse.esmf.samm:meta-model:{SAMM_VERSION}#referenceUnit"
 SAMMC_URN = f"urn:samm:org.eclipse.esmf.samm:characteristic:{SAMM_VERSION}#constraint"
