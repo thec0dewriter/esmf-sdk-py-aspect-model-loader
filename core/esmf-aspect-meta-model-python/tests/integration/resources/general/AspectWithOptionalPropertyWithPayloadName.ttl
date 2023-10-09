@@ -21,7 +21,7 @@
    samm:see <http://example.com/> ;
    samm:properties ( [
                         samm:property :testProperty ;
-                        samm:optional "true"^^xsd:boolean ;
+                        samm:optional true ;
                         samm:payloadName "test"
                      ] ) ;
    samm:operations ( ) .

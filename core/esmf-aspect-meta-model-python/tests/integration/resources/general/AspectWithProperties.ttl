@@ -21,7 +21,7 @@
    samm:description "This is a test description"@en ;
    samm:see <https://eclipse-esmf.github.io> ;
    samm:properties ( :testPropertyOne
-                     [ samm:property :testPropertyTwo ; samm:optional "true"^^xsd:boolean ] ) ;
+                     [ samm:property :testPropertyTwo ; samm:optional true ] ) ;
    samm:operations ( ) .
 
 :testPropertyOne a samm:Property ;

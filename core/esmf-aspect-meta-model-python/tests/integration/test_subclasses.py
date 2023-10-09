@@ -117,7 +117,6 @@ SUBCLASSES: dict[type, list[Any]] = {
         List,
         Set,
         SortedSet,
-        SortedSet,
         TimeSeries,
         Quantifiable,
         Duration,
