@@ -19,7 +19,6 @@ from .characteristics.collection.list import List
 from .characteristics.collection.set import Set
 from .characteristics.collection.sorted_set import SortedSet
 from .characteristics.collection.time_series import TimeSeries
-from .characteristics.either import Either
 from .characteristics.enumeration import Enumeration
 from .characteristics.quantifiable.duration import Duration
 from .characteristics.quantifiable.measurement import Measurement
@@ -41,6 +40,7 @@ from .data_types.complex_type import ComplexType
 from .data_types.data_type import DataType
 from .data_types.entity import Entity
 from .data_types.scalar import Scalar
+from .either import Either
 from .event import Event
 from .operation import Operation
 from .property import Property

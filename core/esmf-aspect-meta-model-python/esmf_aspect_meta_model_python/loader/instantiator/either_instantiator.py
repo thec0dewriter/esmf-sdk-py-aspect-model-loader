@@ -11,8 +11,8 @@
 
 from rdflib.term import Node
 
-from esmf_aspect_meta_model_python.base.characteristics.either import Either
-from esmf_aspect_meta_model_python.impl.characteristics.default_either import DefaultEither
+from esmf_aspect_meta_model_python.base.either import Either
+from esmf_aspect_meta_model_python.impl.default_either import DefaultEither
 from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
@@ -22,9 +22,5 @@ class EitherInstantiator(InstantiatorBase[Either]):
         meta_model_base_attributes = self._get_base_attributes(element_node)
         left = self._get_child(element_node, self._sammc.get_urn(SAMMC.left))
         right = self._get_child(element_node, self._sammc.get_urn(SAMMC.right))
-        data_type = self._get_data_type(element_node)
 
-        if data_type is None:
-            raise TypeError("Data type can't be None.")
-
-        return DefaultEither(meta_model_base_attributes, data_type, left, right)
+        return DefaultEither(meta_model_base_attributes, left, right)

@@ -10,23 +10,21 @@
 #   SPDX-License-Identifier: MPL-2.0
 
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
-from esmf_aspect_meta_model_python.base.characteristics.either import Either
-from esmf_aspect_meta_model_python.base.data_types.data_type import DataType
-from esmf_aspect_meta_model_python.impl.characteristics.default_characteristic import DefaultCharacteristic
+from esmf_aspect_meta_model_python.base.either import Either
+from esmf_aspect_meta_model_python.impl.base_impl import BaseImpl
 from esmf_aspect_meta_model_python.loader.meta_model_base_attributes import MetaModelBaseAttributes
 
 
-class DefaultEither(DefaultCharacteristic, Either):
+class DefaultEither(BaseImpl, Either):
     """Default Either class."""
 
     def __init__(
         self,
         meta_model_base_attributes: MetaModelBaseAttributes,
-        data_type: DataType,
         left: Characteristic,
         right: Characteristic,
     ):
-        super().__init__(meta_model_base_attributes, data_type)
+        super().__init__(meta_model_base_attributes)
 
         left.append_parent_element(self)
         self._left = left

@@ -420,7 +420,7 @@ def test_aspect_with_time_series():
     assert isinstance(time_series_entity, ComplexType)
     assert time_series_entity.is_complex is True
     assert time_series_entity.name == "TestTimeSeriesEntity"
-    assert time_series_entity.urn == "urn:samm:org.eclipse.esmf.samm.test:1.0.0#TestTimeSeriesEntity"
+    assert time_series_entity.urn == "urn:samm:org.eclipse.esmf.test:1.0.0#TestTimeSeriesEntity"
 
     assert len(time_series_entity.properties) == 1
     assert len(time_series_entity.all_properties) == 3

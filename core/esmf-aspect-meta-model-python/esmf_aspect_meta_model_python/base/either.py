@@ -11,10 +11,11 @@
 
 from abc import ABC, abstractmethod
 
+from esmf_aspect_meta_model_python.base.base import Base
 from esmf_aspect_meta_model_python.base.characteristics.characteristic import Characteristic
 
 
-class Either(Characteristic, ABC):
+class Either(Base, ABC):
     """Either interface class.
 
     Describes a property that has exactly one of two possible values.

@@ -158,7 +158,7 @@ def test_loading_aspect_with_range_constraint_incl_bound_definition():
     assert isinstance(base_characteristic, Quantifiable)
     assert hasattr(base_characteristic, "unit")
     assert hasattr(base_characteristic.unit, "urn")
-    assert base_characteristic.unit.urn == "urn:samm:org.eclipse.esmf.samm:unit:2.0.0#metrePerSecond"
+    assert base_characteristic.unit.urn == "urn:samm:org.eclipse.esmf.samm:unit:2.1.0#metrePerSecond"
 
 
 def test_loading_aspect_with_language_constraint():

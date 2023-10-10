@@ -59,7 +59,7 @@
     samm:preferredName "Spatial Position"@en;
     samm:description "Position in space, described along three axis, with the third axis optional, if all positions are in a plane."@en;
     samm:properties (:x :y [
-  samm:optional "true"^^xsd:boolean;
+  samm:optional true;
   samm:property :z
 ]).
 :x a samm:Property;

@@ -108,7 +108,6 @@ SUBCLASSES: dict[type, list[Any]] = {
     Unit: [DefaultUnit],
     Characteristic: [
         Code,
-        Either,
         Enumeration,
         SingleEntity,
         State,
@@ -123,7 +122,6 @@ SUBCLASSES: dict[type, list[Any]] = {
         Duration,
         Measurement,
         DefaultCode,
-        DefaultEither,
         DefaultEnumeration,
         DefaultSingleEntity,
         DefaultState,
@@ -210,7 +208,6 @@ SUBCLASSES: dict[type, list[Any]] = {
     DefaultUnit: [],
     DefaultCharacteristic: [
         DefaultCode,
-        DefaultEither,
         DefaultEnumeration,
         DefaultSingleEntity,
         DefaultState,
