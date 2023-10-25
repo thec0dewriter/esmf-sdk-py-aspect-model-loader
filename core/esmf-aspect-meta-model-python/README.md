@@ -1,12 +1,15 @@
-# Aspect Meta Model
+The aspect model loader as part of the Python SDK provided by the [*Eclipse Semantic Modeling Framework*](
+https://projects.eclipse.org/projects/dt.esmf])
 
-The `esmf-aspect-meta-model-python` package provides the Python implementation for the SAMM Aspect Meta Model, or SAMM.
+# An Aspect of the Meta Model
+
+The `esmf-aspect-model-loader` package provides the Python implementation for the SAMM Aspect Meta Model, or SAMM.
 Each Meta Model element and each Characteristic class is represented by an interface with a corresponding
 implementation.
 
 ## Usage
 
-An Aspect of the Meta Model can be instantiated as follows using the provided `AspectInstantiator`.
+An Aspect of the Meta Model can be created as follows using the provided `AspectInstantiator`.
 
 ```
 aspect_loader = AspectLoader()
@@ -22,15 +25,13 @@ aspect = aspect_loader.load_aspect_model_from_multiple_files(["list/of/paths/to/
 
 ## Automatic Deployment
 
-A [release GitHub action](https://github.com/eclipse-esmf/esmf-sdk-py-aspect-model-loader/actions/workflows/tagged_release.yml)
-has been setup for the
-`esmf-aspect-meta-model` component where the module will be build and checked to ensure code quality by running test
-files and the [static type checker MyPy](https://github.com/python/mypy) and
+A [GitHub action called 'Release'](https://github.com/eclipse-esmf/esmf-sdk-py-aspect-model-loader/actions/workflows/tagged_release.yml)
+has been set up for the `esmf-aspect-model-loader`. This action checks the code quality by running tests, the [static type checker MyPy](https://github.com/python/mypy) and
 the [code formatter 'Black'](https://github.com/psf/black).
 
-## Set Up SAMM Aspect Meta Model für development
+## Set Up a SAMM Aspect Meta Model for development
 
-In order to download the SAMM sources, it is required to run `poetry install` once in the `esmf-aspect-meta-model-python`
+In order to download the SAMM sources, it is required to run `poetry install` once in the `esmf-aspect-model-loader`
 module. There are two possibilities to download the SAMM files and extract the Turtle sources for the Meta Model.
 
 ### Possibility 1 (downloading a release)
