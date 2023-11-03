@@ -29,7 +29,7 @@ A [GitHub action called 'Release'](https://github.com/eclipse-esmf/esmf-sdk-py-a
 has been set up for the `esmf-aspect-model-loader`. This action checks the code quality by running tests, the [static type checker MyPy](https://github.com/python/mypy) and
 the [code formatter 'Black'](https://github.com/psf/black).
 
-## Set Up a SAMM Aspect Meta Model for development
+## Set Up SAMM Aspect Meta Model for development
 
 In order to download the SAMM sources, it is required to run `poetry install` once in the `esmf-aspect-model-loader`
 module. There are two possibilities to download the SAMM files and extract the Turtle sources for the Meta Model.
