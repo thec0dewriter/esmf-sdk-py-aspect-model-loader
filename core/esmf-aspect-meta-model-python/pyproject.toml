@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "esmf-aspect-model-loader"
-version = "0.0.1"
+version = "2.0.0"
 description = "Load Aspect Models based on the Semantic Aspect Meta Model"
 authors = [
     "Eclipse Semantic Modeling Framework",
@@ -13,6 +13,11 @@ authors = [
 packages = [{include = "esmf_aspect_meta_model_python"}]
 include = ["esmf_aspect_meta_model_python/samm_aspect_meta_model/samm/**/*"]
 license = "MPL-2.0"
+classifiers = [
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+]
 readme = "README.md"
 keywords = ["samm", "esmf", "digital twin", "idta", "model loader", "semantic api", "semantics", "aspect"]
 homepage = "https://projects.eclipse.org/projects/dt.esmf"
@@ -20,7 +25,7 @@ repository = "https://github.com/bci-oss/esmf-sdk-py-aspect-model-loader"
 documentation = "https://eclipse-esmf.github.io/python-sdk-guide/index.html"
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = "^3.10"
 rdflib = "^6.2.0"
 requests = "^2.28.1"
 tox = "^4.5.2"

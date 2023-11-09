@@ -1,6 +1,6 @@
 
-# Contribution Guideline ESMF SDK PY Aspect Model loader
-Thank you for your interest in contributing to the ESMF SDK PY Aspect Model loader. Use this repository to contribute to the SDK as easy and 
+# Contribution Guideline ESMF SDK PY Aspect Model Loader
+Thank you for your interest in contributing to the ESMF SDK PY Aspect Model Loader. Use this repository to contribute to the SDK as easy and 
 transparent as possible, whether it is:
 
 * Reporting a bug
@@ -10,17 +10,17 @@ transparent as possible, whether it is:
 
 
 ## IDTA ESMF and Roles
-The ESMF SDK PY Aspect Model loader is developed in the context of the Eclipse Semantic Modeling Framework (ESMF).
+The ESMF SDK PY Aspect Model Loader is developed in the context of the Eclipse Semantic Modeling Framework (ESMF).
 More information about the ESMF is available under
 [https://projects.eclipse.org/projects/dt.esmf](https://projects.eclipse.org/projects/dt.esmf). 
 The overall goal of the ESMF is to work on a Semantic Data Structuring Layer that addresses the needs 
 to share, join, and reuse heterogeneous data of the manufacturing. 
-The ESMF SDK PY Aspect Model loader is based on the Semantic Aspect Meta Model and supports its use. 
+The ESMF SDK PY Aspect Model Loader is based on the Semantic Aspect Meta Model and supports its use. 
 
 # Contributing Source Code (using GitHub)
 * We use this GitHub repository to track issues and feature requests, as well as discuss and manage all PR's related to 
 this project.
-* Opening `Issues` and `PRs` in GitHub is the preferred way to interact with the community around the ESMF SDK PY Aspect Model loader.
+* Opening `Issues` and `PRs` in GitHub is the preferred way to interact with the community around the ESMF SDK PY Aspect Model Loader.
 
 ## Architecture Decision Records
 
@@ -161,7 +161,7 @@ Please also check used third party material for license compatibility with the M
 E.g. software licensed under GPL, AGPL or, a similar strong copy-left license cannot be approved.
 
 # Code Conventions
-The ESMF SDK PY Aspect Model loader is written in the Python Programming Language. Please have a look into our [Code Conventions](CONVENTIONS.md).
+The ESMF SDK PY Aspect Model Loader is written in the Python Programming Language. Please have a look into our [Code Conventions](CONVENTIONS.md).
 
 # Release Process
 The working group may decide that it reached a stable state for the contents of the repository. 
@@ -176,7 +176,7 @@ notified. After that notification, a `maintainer` triggers the release feature f
 which the `v{version_number}-RC` branch is based.
 
 ## Versioning
-We use Semantic Versioning to identify released versions of the ESMF SDK PY Aspect Model loader. Semantic Versioning is documented 
+We use Semantic Versioning to identify released versions of the ESMF SDK PY Aspect Model Loader. Semantic Versioning is documented 
 [here](https://semver.org). It proposes to have a versioning number with the following elements:
 
 ````

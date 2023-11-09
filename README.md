@@ -1,4 +1,4 @@
-# ESMF SDK Python Aspect Model loader
+# ESMF SDK Python Aspect Model Loader
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@
 
 ## Introduction
 
-The ESMF SDK Python Aspect Model loader contains artifacts and resources for all parties that intent to use, extend or
+The ESMF SDK Python Aspect Model Loader contains artifacts and resources for all parties that intent to use, extend or
 integrate with the Semantic Aspect Meta Model, e.g., Solution Developers,
 Domain Experts or OEMs.
 
