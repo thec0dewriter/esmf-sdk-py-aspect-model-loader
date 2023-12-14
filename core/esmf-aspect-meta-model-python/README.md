@@ -1,5 +1,5 @@
-The aspect model loader as part of the Python SDK provided by the [*Eclipse Semantic Modeling Framework*](
-https://projects.eclipse.org/projects/dt.esmf])
+The Aspect Model Loader as part of the Python SDK provided by the [*Eclipse Semantic Modeling Framework*](
+https://projects.eclipse.org/projects/dt.esmf]).
 
 # An Aspect of the Meta Model
 
@@ -49,7 +49,7 @@ Link to all Releases: https://github.com/eclipse-esmf/esmf-semantic-aspect-meta-
 
 ### Possibility 2 (downloading from the repository)
 
-It may happen that there is no .JAR file that is up to date with the changes of the SAMM.
+It may happen that there is no .jar file that is up to date with the changes of the SAMM.
 This script is an alternative to the `download_samm_release.py` and extracts the files from the repository
 directly instead of using the newest release.
 
@@ -62,4 +62,4 @@ This script can be executed with
 ```
 poetry run download-samm-branch
 ```
-
+to download and start working with the Aspect Model Loader.

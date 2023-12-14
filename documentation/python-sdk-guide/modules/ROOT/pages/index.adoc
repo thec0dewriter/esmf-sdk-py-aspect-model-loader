@@ -12,7 +12,7 @@ SPDX-License-Identifier: MPL-2.0
 ////
 
 
-= ESMF SDK Python Aspect Model loader
+= ESMF SDK Python Aspect Model Loader
 
 The Python SDK offers functionality which helps software developers to work with Aspect Models in their Python applications.
 
@@ -101,7 +101,7 @@ Aspect model.
 
 ==== Loading an Aspect Model from one *.ttl file
 
-Import the Aspect Model loader in your Python module
+Import the Aspect Model Loader in your Python module
 [source,python]
 
 ----

@@ -19,14 +19,14 @@ SAMM_VERSION_TO_DOWNLOAD = "2.1.0"
 
 
 def main():
-    """Downloads the release .JAR of the samm for the selected version and extracts the SAMM files"""
+    """Downloads the release .jar of the samm for the selected version and extracts the SAMM files"""
     download_jar(SAMM_VERSION_TO_DOWNLOAD)
     extract_jar(SAMM_VERSION_TO_DOWNLOAD)
     print("current path: ", pathlib.Path().resolve())
 
 
 def download_jar(version):
-    """Downloads the release .JAR of the samm for the selected version"""
+    """Downloads the release .jar of the samm for the selected version"""
 
     print(f"Start downloading SAMM Version {version}")
     url = (

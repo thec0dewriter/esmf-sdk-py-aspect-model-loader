@@ -149,4 +149,4 @@ jobs:
           poetry run download-samm-release
           poetry build
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-#          poetry publish
+          poetry publish
