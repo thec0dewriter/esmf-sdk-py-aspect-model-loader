@@ -1,5 +1,5 @@
 The Aspect Model Loader as part of the Python SDK provided by the [*Eclipse Semantic Modeling Framework*](
-https://projects.eclipse.org/projects/dt.esmf]).
+https://projects.eclipse.org/projects/dt.esmf).
 
 # An Aspect of the Meta Model
 
