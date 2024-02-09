@@ -38,9 +38,10 @@ class AspectLoader:
         self._cache = DefaultElementCache()
 
     def load_aspect_model(self, file_path: Union[str, Path]) -> Aspect:
-        """
-        creates an aspect object with all the including properties and operations with the
-            turtle file
+        """Load aspect model to RDF GRAPH.
+
+        Create an aspect object with all the including properties and operations with the turtle file
+
         :param file_path: path to the turtle file. Can be either a string or a Path object
         :return: instance of the aspect
         """
@@ -48,14 +49,10 @@ class AspectLoader:
 
     @staticmethod
     def _get_additional_files_from_dir(file_path: str) -> list[str]:
-        """
-        extend model paths
+        """Get additional files from specific directory.
 
-        Args:
-            file_paths (list[str]): path list to the turtle files.
-
-        Returns:
-            Aspect: list of the additional turtle files.
+        :param file_path: path list to the turtle files
+        :return: list of the additional turtle files
         """
         additional_files = []
 
@@ -69,7 +66,7 @@ class AspectLoader:
 
     @staticmethod
     def _get_dirs_for_advanced_loading(aspect_graph: rdflib.Graph, base_path: Path) -> list[str]:
-        """Get namespaces for advanced loading
+        """Get directories from graph namespaces for advanced loading.
 
         :param aspect_graph:rdflib.Graph
         :return: list of str path for further advanced files loading
@@ -108,12 +105,10 @@ class AspectLoader:
             aspect_graph.parse(file_path, format="turtle")
 
     def _get_graph(self, file_paths: list[Union[str, Path]]) -> rdflib.Graph:
-        """
-        Args:
-            file_paths (list[Path]): path list to the turtle files.
+        """Get RDF graph object.
 
-        Returns:
-            Aspect: parsed rdflib Graph.
+        :param file_paths: path list to the turtle files.
+        :return: parsed rdflib Graph.
         """
 
         aspect_graph = rdflib.Graph()
@@ -132,17 +127,16 @@ class AspectLoader:
         file_paths: list[Union[str, Path]],
         aspect_urn: rdflib.URIRef | str = "",
     ) -> Aspect:
-        """creates the aspect specified in urn with all the including properties and operations
-        with the turtle files after merge them. an initialize a cached memory to store all
+        """Load aspect model from multiple files.
+
+        Create aspect specified in urn with all the including properties and operations with the turtle files
+        after merge them. Initialize a cached memory to store all
         instance to make querying them more efficient
 
-        Args:
-            file_paths (list[Union[str, Path]]): path/string list to the turtle files.
-
-        Returns:
-            Aspect: instance of the aspect
+        :param file_paths: path/string list to the turtle files
+        :aspect_urn: urn of the Aspect property
+        :return: instance of the aspect graph
         """
-
         self._cache.reset()
         aspect_graph = self._get_graph(file_paths)
         meta_model_version = self.__extract_samm_version(aspect_graph)
@@ -160,7 +154,12 @@ class AspectLoader:
         return model_element_factory.create_element(aspect_urn)  # type: ignore
 
     def __extract_samm_version(self, aspect_graph: rdflib.Graph) -> str:
-        """searches the aspect graph for the currently used version of the SAMM and returns it."""
+        """Get samm version.
+
+        searches the aspect graph for the currently used version of the SAMM and returns it
+
+        :param aspect_graph: RDF graph
+        """
         version = ""
 
         for prefix, namespace in aspect_graph.namespace_manager.namespaces():
@@ -173,34 +172,26 @@ class AspectLoader:
     def find_by_name(self, element_name: str) -> list[Base]:
         """Find a specific model element by name, and returns the found elements
 
-        Args:
-            name (str): name or pyload of element
-
-        Returns:
-            list[Base]: list of found elements
+        :param element_name: name or pyload of element
+        :return: list of found elements
         """
         return self._cache.get_by_name(element_name)
 
     def find_by_urn(self, urn: str) -> Optional[Base]:
         """Find a specific model element, and returns it or undefined.
 
-        Args:
-            urn (str): urn of the model element
-
-        Returns:
-            Optional[Base]: return found element or None
+        :param urn: urn of the model element
+        :return: found element or None
         """
         return self._cache.get_by_urn(urn)
 
     def determine_access_path(self, base_element_name: str) -> list[list[str]]:
-        """search for the element in cache first then call "determine_element_access_path"
-            for every found element
+        """Determine the access path.
 
-        Args:
-            base_element_name (str): name of element
+        Search for the element in cache first then call "determine_element_access_path" for every found element
 
-        Returns:
-            list[list[str]]: list of paths found to access the respective value.
+        :param base_element_name: name of element
+        :return: list of paths found to access the respective value.
         """
         paths: list[list[str]] = []
         base_element_list = self.find_by_name(base_element_name)
@@ -212,11 +203,8 @@ class AspectLoader:
     def determine_element_access_path(self, base_element: Base) -> list[list[str]]:
         """Determine the path to access the respective value in the Aspect JSON object.
 
-        Args:
-            base_element (Base): Element for determine the path
-
-        Returns:
-            list[list[str]]: list of paths found to access the respective value.
+        :param base_element: element for determine the path
+        :return: list of paths found to access the respective value.
         """
         path: list[list[str]] = []
         if isinstance(base_element, Property):
@@ -228,6 +216,11 @@ class AspectLoader:
         return self.__determine_access_path(base_element, path)
 
     def __determine_access_path(self, base_element: Base, path: list[list[str]]) -> list[list[str]]:
+        """Determine access path.
+
+        :param base_element: element for determine the path
+        :return: list of paths found to access the respective value.
+        """
         if base_element is None or base_element.parent_elements is None or len(base_element.parent_elements) == 0:
             return path
 
@@ -247,4 +240,5 @@ class AspectLoader:
                     path[index].insert(0, path_segment)
 
             self.__determine_access_path(parent, path)  # type: ignore
+
         return path
