@@ -14,7 +14,6 @@ from pathlib import Path
 from typing import Optional, Union
 
 import rdflib  # type: ignore
-import subprocess
 
 from esmf_aspect_meta_model_python.base.aspect import Aspect
 from esmf_aspect_meta_model_python.base.base import Base
