@@ -9,10 +9,12 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
+from os.path import exists, join
 from pathlib import Path
 from typing import Optional, Union
 
 import rdflib  # type: ignore
+import subprocess
 
 from esmf_aspect_meta_model_python.base.aspect import Aspect
 from esmf_aspect_meta_model_python.base.base import Base
@@ -44,6 +46,87 @@ class AspectLoader:
         """
         return self.load_aspect_model_from_multiple_files([file_path])
 
+    @staticmethod
+    def _get_additional_files_from_dir(file_path: str) -> list[str]:
+        """
+        extend model paths
+
+        Args:
+            file_paths (list[str]): path list to the turtle files.
+
+        Returns:
+            Aspect: list of the additional turtle files.
+        """
+        additional_files = []
+
+        if not exists(file_path):
+            raise NotADirectoryError(f"Directory not found: {file_path}")
+
+        for additional_file_path in Path(file_path).glob("*.ttl"):
+            additional_files.append(str(additional_file_path))
+
+        return additional_files
+
+    @staticmethod
+    def _get_dirs_for_advanced_loading(aspect_graph: rdflib.Graph, base_path: Path) -> list[str]:
+        """Get namespaces for advanced loading
+
+        :param aspect_graph:rdflib.Graph
+        :return: list of str path for further advanced files loading
+        """
+        paths_for_advanced_loading = []
+
+        for _, namespace in aspect_graph.namespace_manager.namespaces():
+            if namespace.startswith("urn:samm:com."):
+                namespace_path, version = namespace.split(":")[2:4]
+                version = version.replace("#", "")
+                paths_for_advanced_loading.append(join(base_path, namespace_path, version))
+
+        return paths_for_advanced_loading
+
+    def _get_list_of_additional_files(self, aspect_graph: rdflib.Graph, base_path: Path) -> list[str]:
+        """Get a list of additional files for parsing in graph.
+
+        :param aspect_graph: rdflib.Graph
+        :param base_path: base path of the main graph file
+        :return: list of full path to the additional files
+        """
+        additional_files = []
+
+        for file_path in self._get_dirs_for_advanced_loading(aspect_graph, base_path):
+            additional_files += self._get_additional_files_from_dir(file_path)
+
+        return list(set(additional_files))
+
+    def _extend_graph_with_prefix_files(self, aspect_graph: rdflib.Graph, base_path: Path) -> None:
+        """Extend graph with models from prefix namespaces.
+
+        :param aspect_graph: rdflib.Graph
+        :param base_path: base path of the main graph file
+        """
+        for file_path in self._get_list_of_additional_files(aspect_graph, base_path):
+            aspect_graph.parse(file_path, format="turtle")
+
+    def _get_graph(self, file_paths: list[Union[str, Path]]) -> rdflib.Graph:
+        """
+        Args:
+            file_paths (list[Path]): path list to the turtle files.
+
+        Returns:
+            Aspect: parsed rdflib Graph.
+        """
+
+        aspect_graph = rdflib.Graph()
+
+        # Cast file_path to str
+        file_paths = [str(file_path) if isinstance(file_path, Path) else file_path for file_path in file_paths]
+
+        for file_path in file_paths:
+            aspect_graph.parse(file_path, format="turtle")
+            self._extend_graph_with_prefix_files(aspect_graph, Path(file_path).parents[2])
+
+        return aspect_graph
+
     def load_aspect_model_from_multiple_files(
         self,
         file_paths: list[Union[str, Path]],
@@ -61,13 +144,7 @@ class AspectLoader:
         """
 
         self._cache.reset()
-        aspect_graph = rdflib.Graph()
-
-        for file_path in file_paths:
-            if isinstance(file_path, Path):
-                file_path = str(file_path)
-            aspect_graph.parse(file_path, format="turtle")
-
+        aspect_graph = self._get_graph(file_paths)
         meta_model_version = self.__extract_samm_version(aspect_graph)
 
         if aspect_urn == "":
@@ -85,12 +162,12 @@ class AspectLoader:
     def __extract_samm_version(self, aspect_graph: rdflib.Graph) -> str:
         """searches the aspect graph for the currently used version of the SAMM and returns it."""
         version = ""
+
         for prefix, namespace in aspect_graph.namespace_manager.namespaces():
             if prefix == "samm":
                 urn_parts = namespace.split(":")
-                version_part = urn_parts[len(urn_parts) - 1]
-                version = version_part.replace("#", "")
-                return version
+                version = urn_parts[-1].replace("#", "")
+
         return version
 
     def find_by_name(self, element_name: str) -> list[Base]:
