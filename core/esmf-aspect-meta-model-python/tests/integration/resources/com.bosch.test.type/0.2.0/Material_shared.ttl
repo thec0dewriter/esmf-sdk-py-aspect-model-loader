@@ -1,0 +1,25 @@
+#
+# Copyright (c) 2023 Robert Bosch Manufacturing Solutions GmbH, Germany. All rights reserved.
+#
+
+@prefix : <urn:samm:com.bosch.test.type:0.2.0#>.
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.0.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.0.0#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:materialNumber a samm:Property ;
+    samm:preferredName "Material Number"@en ;
+    samm:preferredName "Materialnummer"@de ;
+    samm:description "The identification of the product based on the SAP material number."@en ;
+    samm:exampleValue "F03Z12345602" ;
+    samm:characteristic :MaterialNumber .
+
+:MaterialNumber a samm-c:Trait ;
+    samm-c:baseCharacteristic [
+        a samm-c:Code ;
+        samm:dataType xsd:string
+    ] ;
+    samm-c:constraint [
+        a samm-c:RegularExpressionConstraint ;
+        samm:value "[A-Z0-9]{9,13}"
+    ] .

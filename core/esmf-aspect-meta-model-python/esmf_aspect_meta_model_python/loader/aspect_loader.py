@@ -94,30 +94,46 @@ class AspectLoader:
 
         return list(set(additional_files))
 
-    def _extend_graph_with_prefix_files(self, aspect_graph: rdflib.Graph, base_path: Path) -> None:
+    def _extend_graph_with_prefix_files(self, aspect_graph: rdflib.Graph, file_path: str) -> None:
         """Extend graph with models from prefix namespaces.
 
         :param aspect_graph: rdflib.Graph
-        :param base_path: base path of the main graph file
+        :param file_path: str path of the base graph file
         """
-        for file_path in self._get_list_of_additional_files(aspect_graph, base_path):
+        base_path = Path(file_path).parents[2]
+        additional_files = self._get_list_of_additional_files(aspect_graph, base_path)
+
+        if file_path in additional_files:
+            additional_files.remove(file_path)
+
+        for file_path in additional_files:
             aspect_graph.parse(file_path, format="turtle")
+
+    @staticmethod
+    def _prepare_file_paths(file_paths: list[Union[str, Path]]):
+        """Check and prepare file paths."""
+        prepared_file_paths = []
+
+        for file_path in file_paths:
+            if not exists(Path(file_path)):
+                raise FileNotFoundError(f"Could not find a file {file_path}")
+
+            prepared_file_paths.append(str(file_path))
+
+        return prepared_file_paths
 
     def _get_graph(self, file_paths: list[Union[str, Path]]) -> rdflib.Graph:
         """Get RDF graph object.
 
-        :param file_paths: path list to the turtle files.
+        :param file_paths: list of absolute paths to the turtle files.
         :return: parsed rdflib Graph.
         """
 
         aspect_graph = rdflib.Graph()
 
-        # Cast file_path to str
-        file_paths = [str(file_path) if isinstance(file_path, Path) else file_path for file_path in file_paths]
-
-        for file_path in file_paths:
+        for file_path in self._prepare_file_paths(file_paths):
             aspect_graph.parse(file_path, format="turtle")
-            self._extend_graph_with_prefix_files(aspect_graph, Path(file_path).parents[2])
+            self._extend_graph_with_prefix_files(aspect_graph, file_path)
 
         return aspect_graph
 
@@ -133,7 +149,7 @@ class AspectLoader:
         instance to make querying them more efficient
 
         :param file_paths: path/string list to the turtle files
-        :aspect_urn: urn of the Aspect property
+        :param aspect_urn: urn of the Aspect property
         :return: instance of the aspect graph
         """
         self._cache.reset()
@@ -152,7 +168,8 @@ class AspectLoader:
 
         return model_element_factory.create_element(aspect_urn)  # type: ignore
 
-    def __extract_samm_version(self, aspect_graph: rdflib.Graph) -> str:
+    @staticmethod
+    def __extract_samm_version(aspect_graph: rdflib.Graph) -> str:
         """Get samm version.
 
         searches the aspect graph for the currently used version of the SAMM and returns it

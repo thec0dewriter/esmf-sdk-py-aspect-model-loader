@@ -10,14 +10,14 @@ An Aspect of the Meta Model can be instantiated as follows using the provided `A
 
 ```
 aspect_loader = AspectLoader()
-aspect = aspect_loader.load_aspect_model("path/to/turtle.ttl");
+aspect = aspect_loader.load_aspect_model("absolute/path/to/turtle.ttl");
 ```
 
 or
 
 ```
 aspect_loader = AspectLoader()
-aspect = aspect_loader.load_aspect_model_from_multiple_files(["list/of/paths/to/turtles.ttl"], "aspect_urn");
+aspect = aspect_loader.load_aspect_model_from_multiple_files(["list/of/absolute/paths/to/turtles.ttl"], "aspect_urn");
 ```
 
 ## Automatic Deployment
