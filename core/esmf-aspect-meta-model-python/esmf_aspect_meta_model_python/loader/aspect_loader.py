@@ -64,23 +64,43 @@ class AspectLoader:
         return additional_files
 
     @staticmethod
-    def _get_dirs_for_advanced_loading(aspect_graph: rdflib.Graph, base_path: Path) -> list[str]:
+    def _parse_namespace(prefix_namespace: str) -> tuple[Optional[str], Optional[str]]:
+        """Parse the prefix namespace string.
+
+        :param prefix_namespace: namespace string of the specific prefix
+        :return namespace_specific_str: dir of the namespace
+        :return version: version of the model
+        """
+        namespace_specific_str = None
+        version = None
+
+        namespace_info = prefix_namespace.split(":")
+        if len(namespace_info) == 4:
+            urn, namespace_id, namespace_specific_str, version = namespace_info
+
+            if urn == "urn" and namespace_id == "samm":
+                version = version.replace("#", "")
+
+        return namespace_specific_str, version
+
+    def _get_dirs_for_advanced_loading(self, aspect_graph: rdflib.Graph, file_path: str) -> list[str]:
         """Get directories from graph namespaces for advanced loading.
 
         :param aspect_graph:rdflib.Graph
+        :param file_path: str path to the main file
         :return: list of str path for further advanced files loading
         """
         paths_for_advanced_loading = []
+        base_path = Path(file_path).parents[2]
 
-        for _, namespace in aspect_graph.namespace_manager.namespaces():
-            if namespace.startswith("urn:samm:com."):
-                namespace_path, version = namespace.split(":")[2:4]
-                version = version.replace("#", "")
-                paths_for_advanced_loading.append(join(base_path, namespace_path, version))
+        for prefix, namespace in aspect_graph.namespace_manager.namespaces():
+            namespace_specific_str, version = self._parse_namespace(namespace)
+            if namespace_specific_str and version:
+                paths_for_advanced_loading.append(join(base_path, namespace_specific_str, version))
 
         return paths_for_advanced_loading
 
-    def _get_list_of_additional_files(self, aspect_graph: rdflib.Graph, base_path: Path) -> list[str]:
+    def _get_list_of_additional_files(self, aspect_graph: rdflib.Graph, file_path: str) -> list[str]:
         """Get a list of additional files for parsing in graph.
 
         :param aspect_graph: rdflib.Graph
@@ -89,7 +109,7 @@ class AspectLoader:
         """
         additional_files = []
 
-        for file_path in self._get_dirs_for_advanced_loading(aspect_graph, base_path):
+        for file_path in self._get_dirs_for_advanced_loading(aspect_graph, file_path):
             additional_files += self._get_additional_files_from_dir(file_path)
 
         return list(set(additional_files))
@@ -100,8 +120,7 @@ class AspectLoader:
         :param aspect_graph: rdflib.Graph
         :param file_path: str path of the base graph file
         """
-        base_path = Path(file_path).parents[2]
-        additional_files = self._get_list_of_additional_files(aspect_graph, base_path)
+        additional_files = self._get_list_of_additional_files(aspect_graph, file_path)
 
         if file_path in additional_files:
             additional_files.remove(file_path)

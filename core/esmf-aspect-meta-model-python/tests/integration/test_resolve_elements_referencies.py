@@ -14,41 +14,37 @@ from pathlib import Path
 
 from esmf_aspect_meta_model_python import AspectLoader
 
-RESOURCE_PATH = Path("tests/integration/resources/com.bosch.test.models/0.2.0")
+RESOURCE_PATH = getcwd() / Path("tests/integration/resources/org.eclipse.esmf.test.general_with_references/2.0.0")
 
 
 def test_resolve_elements_references():
-    file_path = getcwd() / RESOURCE_PATH / "AspectWithProperties.ttl"
+    file_path = RESOURCE_PATH / "AspectWithReferences.ttl"
     aspect_loader = AspectLoader()
     aspect = aspect_loader.load_aspect_model(file_path)
 
-    assert aspect.get_preferred_name("en") == "Aspect with properties"
-    assert aspect.name == "ProcessParameters"
-    assert aspect.get_preferred_name("en") == "Aspect with properties"
-    assert aspect.get_description("en") == "Test aspect with properties ifrom different files."
+    assert aspect.name == "test_aspect"
+    assert aspect.get_preferred_name("en") == "Aspect with references"
+    assert aspect.get_description("en") == "Test aspect with references from different files."
 
-    part_identifier = aspect.properties[0]
-    assert part_identifier.name == "ExternalIdentifier"
-    assert part_identifier.get_preferred_name("en") == "External identifier"
-    assert part_identifier.get_description("en") == "External identifier description."
+    property_1 = aspect.properties[0]
+    assert property_1.name == "property_1"
+    assert property_1.get_preferred_name("en") == "Test property"
+    assert property_1.get_description("en") == "Test property description."
 
-    processed_part_id = part_identifier.properties[0]
-    assert processed_part_id.name == "processedPartId"
-    assert processed_part_id.get_preferred_name("en") == "Processed Part ID"
-    assert processed_part_id.get_description("en") == "The identification of the processed part based on part number."
-    assert str(processed_part_id.example_value) == "F03Z1234560213107000283011234567990"
+    property_2 = property_1.properties[0]
+    assert property_2.name == "ExternalPartId"
+    assert property_2.get_preferred_name("en") == "External part id"
+    assert property_2.get_description("en") == "External part id description."
+    assert str(property_2.example_value) == "0123456789"
 
-    part_number = processed_part_id.characteristic
-    assert part_number.name == "PartNumber"
-    assert part_number.see == ["https://inside-docupedia.bosch.com/confluence/x/ssq0O"]
-    assert part_number.base_characteristic.get_preferred_name("en") == "Part Number"
-    assert part_number.constraints[0].value == "[A-Z0-9-]{10,68}"
+    property_3 = property_2.characteristic
+    assert property_3.name == "PartNumber"
+    assert property_3.see == ["https://some_link"]
+    assert property_3.base_characteristic.get_preferred_name("en") == "Part Number"
+    assert property_3.constraints[0].value == "[A-Z0-9-]{10,68}"
 
-    material_number = part_identifier.properties[1]
-    assert material_number.name == "materialNumber"
-    assert material_number.get_preferred_name("en") == "Material Number"
-    assert material_number.get_preferred_name("de") == "Materialnummer"
-    assert material_number.get_description("en") == (
-        "The identification of the product based on the SAP material number."
-    )
-    assert material_number.characteristic.constraints[0].value == "[A-Z0-9]{9,13}"
+    property_4 = property_1.properties[1]
+    assert property_4.name == "TypeList"
+    assert property_4.get_preferred_name("en") == "Test List"
+    assert property_4.get_description("en") == "This is a test list."
+    assert property_4.see == ["http://example.com/"]
