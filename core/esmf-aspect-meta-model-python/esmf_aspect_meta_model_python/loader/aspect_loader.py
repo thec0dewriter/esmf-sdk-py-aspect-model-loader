@@ -44,7 +44,7 @@ class AspectLoader:
         :param file_path: path to the turtle file. Can be either a string or a Path object
         :return: instance of the aspect
         """
-        return self.load_aspect_model_from_multiple_files([file_path])
+        return self._load_aspect_model_from_multiple_files([file_path])
 
     @staticmethod
     def _get_additional_files_from_dir(file_path: str) -> list[str]:
@@ -156,7 +156,7 @@ class AspectLoader:
 
         return aspect_graph
 
-    def load_aspect_model_from_multiple_files(
+    def _load_aspect_model_from_multiple_files(
         self,
         file_paths: list[Union[str, Path]],
         aspect_urn: rdflib.URIRef | str = "",
@@ -184,8 +184,9 @@ class AspectLoader:
 
         AspectMetaModelResolver.resolve_meta_model(aspect_graph, meta_model_version)
         model_element_factory = ModelElementFactory(meta_model_version, aspect_graph, self._cache)
+        aspect_element = model_element_factory.create_element(aspect_urn)  # type: ignore
 
-        return model_element_factory.create_element(aspect_urn)  # type: ignore
+        return aspect_element
 
     @staticmethod
     def __extract_samm_version(aspect_graph: rdflib.Graph) -> str:
