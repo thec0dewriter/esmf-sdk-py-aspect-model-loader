@@ -11,7 +11,7 @@
 
 from os.path import exists, join
 from pathlib import Path
-from typing import Optional, Union
+from typing import Dict, Optional, Union
 
 import rdflib  # type: ignore
 
@@ -100,34 +100,6 @@ class AspectLoader:
 
         return paths_for_advanced_loading
 
-    def _get_list_of_additional_files(self, aspect_graph: rdflib.Graph, file_path: str) -> list[str]:
-        """Get a list of additional files for parsing in graph.
-
-        :param aspect_graph: rdflib.Graph
-        :param base_path: base path of the main graph file
-        :return: list of full path to the additional files
-        """
-        additional_files = []
-
-        for file_path in self._get_dirs_for_advanced_loading(aspect_graph, file_path):
-            additional_files += self._get_additional_files_from_dir(file_path)
-
-        return list(set(additional_files))
-
-    def _extend_graph_with_prefix_files(self, aspect_graph: rdflib.Graph, file_path: str) -> None:
-        """Extend graph with models from prefix namespaces.
-
-        :param aspect_graph: rdflib.Graph
-        :param file_path: str path of the base graph file
-        """
-        additional_files = self._get_list_of_additional_files(aspect_graph, file_path)
-
-        if file_path in additional_files:
-            additional_files.remove(file_path)
-
-        for file_path in additional_files:
-            aspect_graph.parse(file_path, format="turtle")
-
     @staticmethod
     def _prepare_file_paths(file_paths: list[Union[str, Path]]):
         """Check and prepare file paths."""
@@ -141,18 +113,51 @@ class AspectLoader:
 
         return prepared_file_paths
 
+    def get_dependency_folders(self, file_path):
+        """Get dependency folders from file description."""
+        graph = rdflib.Graph()
+        graph.parse(file_path, format="turtle")
+
+        dependency_folders = self._get_dirs_for_advanced_loading(graph, file_path)
+
+        return dependency_folders
+
+    def _get_dependency_files(self, file_dependencies, folder_dependencies, file_path):
+        """Get dependency files with folder dependencies."""
+        file_dependencies[file_path] = self.get_dependency_folders(file_path)
+        for folder in file_dependencies[file_path]:
+            if folder not in folder_dependencies:
+                folder_dependencies[folder] = self._get_additional_files_from_dir(folder)
+
+        files = set()
+        for tmp in folder_dependencies.values():
+            files.update(tmp)
+
+        for file_path in files:
+            if file_path not in file_dependencies:
+                self._get_dependency_files(file_dependencies, folder_dependencies, file_path)
+
+        return file_dependencies
+
+    def _get_all_dependencies(self, file_paths: list[Union[str, Path]]):
+        """Get all dependency files."""
+        file_dependencies: Dict[str, list[str]] = {}
+        folder_dependencies: Dict[str, list[str]] = {}
+        for file_path in file_paths:
+            file_dependencies.update(self._get_dependency_files(file_dependencies, folder_dependencies, file_path))
+
+        return file_dependencies
+
     def _get_graph(self, file_paths: list[Union[str, Path]]) -> rdflib.Graph:
         """Get RDF graph object.
 
         :param file_paths: list of absolute paths to the turtle files.
         :return: parsed rdflib Graph.
         """
-
         aspect_graph = rdflib.Graph()
-
-        for file_path in self._prepare_file_paths(file_paths):
+        file_paths = self._prepare_file_paths(file_paths)
+        for file_path in self._get_all_dependencies(file_paths):
             aspect_graph.parse(file_path, format="turtle")
-            self._extend_graph_with_prefix_files(aspect_graph, file_path)
 
         return aspect_graph
 
@@ -266,7 +271,6 @@ class AspectLoader:
 
         for index, parent in enumerate(base_element.parent_elements):
             if isinstance(parent, Property):
-                path_segment = ""
                 if hasattr(parent, "payload_name") and parent.payload_name is not None:  # type: ignore
                     path_segment = parent.payload_name  # type: ignore
                 else:
