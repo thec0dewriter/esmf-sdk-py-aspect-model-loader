@@ -12,18 +12,25 @@ import requests
 import sys
 import zipfile
 
-BASE_PATH = "https://github.com/eclipse-esmf/esmf-sdk/releases/download/v2.6.1/"
+from string import Template
+
+BASE_PATH = Template("https://github.com/eclipse-esmf/esmf-sdk/releases/download/v$version_number/$file_name")
+LINUX_FILE_NAME = Template("samm-cli-$version_number-linux-x86_64.tar.gz")
+SAMM_CLI_VERSION = "2.6.1"
+WIN_FILE_NAME = Template("samm-cli-$version_number-windows-x86_64.zip")
 
 
 def get_samm_cli_file_name():
     """Get a SAMM CLI file name for the current platform."""
 
     if platform.system() == "Windows":
-        file_name = "samm-cli-2.6.1-windows-x86_64.zip"
+        file_name = WIN_FILE_NAME.substitute(version_number=SAMM_CLI_VERSION)
     elif platform.system() == "Linux":
-        file_name = "samm-cli-2.6.1-linux-x86_64.tar.gz"
+        file_name = LINUX_FILE_NAME.substitute(version_number=SAMM_CLI_VERSION)
     else:
-        raise NotImplementedError(f"Please download a SAMM CLI manually for your operation system from '{BASE_PATH}'")
+        raise NotImplementedError(
+            f"Please download a SAMM CLI manually for your operation system from '{BASE_PATH}'"
+        )
 
     return file_name
 
@@ -60,17 +67,17 @@ def download_samm_cli():
         print(error)
     else:
         print(f"Start downloading SAMM CLI {samm_cli_file_name}")
-        url = BASE_PATH + samm_cli_file_name
-        dir_path = Path(__file__).resolve().parent
-        archive_file = os.path.join(dir_path, f".\\{samm_cli_file_name}")
+        url = BASE_PATH.substitute(version_number=SAMM_CLI_VERSION, file_name=samm_cli_file_name)
+        dir_path = Path(__file__).resolve().parents[1]
+        archive_file = os.path.join(dir_path, samm_cli_file_name)
 
         download_archive_file(url, archive_file)
-        print("SAMM CLI archive file downloaded")
+        print("\nSAMM CLI archive file downloaded")
 
         print("Start extracting files")
         archive = zipfile.ZipFile(archive_file)
         for file in archive.namelist():
-            archive.extract(file, ".\\samm-cli")
+            archive.extract(file, "samm-cli")
         archive.close()
         print("Done extracting files.")
 

@@ -18,9 +18,10 @@ from scripts.download_samm_cli import download_samm_cli
 
 
 class SammCli:
-    """Class to eecute SAMM CLI functions.
+    """Class to execute SAMM CLI functions.
 
-    If there is no downloaded SAMM CLI, code will identify operation system and download a corresponding client.
+    If there is no downloaded SAMM CLI, the code will identify the operating system and download a corresponding
+    SAMM CLI version.
     """
 
     def __init__(self):
@@ -29,23 +30,22 @@ class SammCli:
 
     @staticmethod
     def _get_client_path():
-        """Get path to the SAMM Cli executable file.."""
+        """Get path to the SAMM CLI executable file.."""
         base_path = Path(__file__).resolve()
         cli_path = join(base_path.parents[1], "samm-cli", "samm.exe")
 
         return cli_path
 
     def _validate_client(self):
-        """Validate SAMM Cli.
+        """Validate SAMM CLI.
 
-        If there is no SAMM Cli executable file, run a script for downloading.
+        If there is no SAMM CLI executable file, run a script for downloading.
         """
         if not exists(self._samm):
-            # download SAMM CLI
             download_samm_cli()
 
     def _call_function(self, function_name, path_to_model, *args, **kwargs):
-        """Run a SAMM Cli function as a subprocess."""
+        """Run a SAMM CLI function as a subprocess."""
         call_args = [self._samm, "aspect", path_to_model] + function_name.split()
 
         if args:
@@ -78,7 +78,7 @@ class SammCli:
         param path_to_model: local path to the aspect model file (*.ttl)
         possible arguments:
             - output, o: output file path (default: stdout)
-            - api-base-url, b: the base url for the Aspect API used in the OpenAPI specification, b="http://mysite.de"
+            - api-base-url, b: the base url for the Aspect API used in the OpenAPI specification, b="http://localhost/"
             - json, j: generate a JSON specification for an Aspect Model (default format is YAML)
             - comment, c: only in combination with --json; generates $comment OpenAPI 3.1 keyword for all
                 samm:see attributes
