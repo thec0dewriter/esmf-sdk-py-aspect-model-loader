@@ -13,14 +13,16 @@ An Aspect of the Meta Model can be created as follows using the provided `Aspect
 
 ```
 aspect_loader = AspectLoader()
-aspect = aspect_loader.load_aspect_model("absolute/path/to/turtle.ttl");
+model_elements = aspect_loader.load_aspect_model("absolute/path/to/turtle.ttl");
+aspect = model_elements[0]
 ```
 
 or
 
 ```
 aspect_loader = AspectLoader()
-aspect = aspect_loader.load_aspect_model_from_multiple_files(["list/of/absolute/paths/to/turtles.ttl"], "aspect_urn");
+aspect_urn = "urn:samm:org.eclipse.esmf.samm:aspect.model:0.0.1#AspectName"
+aspect = aspect_loader.load_aspect_model("absolute/path/to/turtle.ttl", aspect_urn);
 ```
 
 ## Automatic Deployment
