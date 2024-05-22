@@ -63,3 +63,29 @@ This script can be executed with
 poetry run download-samm-branch
 ```
 to download and start working with the Aspect Model Loader.
+
+## SAMM meta model
+
+To be able to use "SAMM meta model" classes you need to download "SAMM Aspect Meta Model for development" ([Set Up SAMM Aspect Meta Model for development](#Set Up SAMM Aspect Meta Model for development)).
+
+This module contains classes for working with SAMM data.
+
+SAMM meta model contains:
+- SammUnitsGraph: provide a functionality for working with units([units.ttl](./esmf_aspect_meta_model_python/samm_aspect_meta_model/samm/unit/2.1.0/units.ttl)) data
+
+### SammUnitsGraph
+
+The class contains functions for accessing units of measurement.
+```python 
+from esmf_aspect_meta_model_python.samm_meta_model import SammUnitsGraph
+
+units_graph = SammUnitsGraph()
+unit_data = units_graph.get_description("unit:volt")
+# {'preferredName': rdflib.term.Literal('volt', lang='en'), 'commonCode': rdflib.term.Literal('VLT'), ... }
+
+units_graph.print_description(unit_data)
+# preferredName: volt
+# commonCode: VLT
+# ...
+# symbol: V
+```
