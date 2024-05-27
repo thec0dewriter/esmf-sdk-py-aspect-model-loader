@@ -90,26 +90,26 @@ class TestSammCli:
 
         assert result == ("Unit", "prefix#Unit")
 
-    @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph.get_description")
+    @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph.get_info")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._get_units")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._validate_path")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._get_file_path")
-    def test_get_nested_data_not_unit(self, get_file_path_mock, _, get_units_mock, get_description_mock):
+    def test_get_nested_data_not_unit(self, get_file_path_mock, _, get_units_mock, get_info_mock):
         get_file_path_mock.return_value = "unit_file_path"
         get_units_mock.return_value = "graph"
-        get_description_mock.return_value = "nested_value"
+        get_info_mock.return_value = "nested_value"
         units_graph = SammUnitsGraph()
         result = units_graph._get_nested_data("prefix#unitType")
 
         assert result == ("unitType", "nested_value")
-        get_description_mock.assert_called_once_with("unit:unitType")
+        get_info_mock.assert_called_once_with("unit:unitType")
 
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._get_nested_data")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.isinstance")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._get_units")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._validate_path")
     @mock.patch("esmf_aspect_meta_model_python.samm_meta_model.SammUnitsGraph._get_file_path")
-    def test_get_description(self, get_file_path_mock, _, get_units_mock, isinstance_mock, get_nested_data_mock):
+    def test_get_info(self, get_file_path_mock, _, get_units_mock, isinstance_mock, get_nested_data_mock):
         get_file_path_mock.return_value = "unit_file_path"
         isinstance_mock.side_effect = (False, URIRef, URIRef)
         get_nested_data_mock.side_effect = [("type_key", "type_description"), ("sub_unit", "sub_unit_description")]
@@ -126,7 +126,7 @@ class TestSammCli:
         graph_mock.query.return_value = [row_1_mock, row_2_mock, row_3_mock]
         get_units_mock.return_value = graph_mock
         units_graph = SammUnitsGraph()
-        result = units_graph.get_description("unit:unit_name")
+        result = units_graph.get_info("unit:unit_name")
 
         assert "unitType" in result
         assert result["unitType"] == "unit_1"

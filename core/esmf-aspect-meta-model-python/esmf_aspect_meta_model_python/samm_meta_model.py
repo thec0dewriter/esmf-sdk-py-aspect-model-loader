@@ -1,4 +1,4 @@
-#  Copyright (c) 2023 Robert Bosch Manufacturing Solutions GmbH
+#  Copyright (c) 2024 Robert Bosch Manufacturing Solutions GmbH
 #
 #  See the AUTHORS file(s) distributed with this work for additional
 #  information regarding authorship.
@@ -59,11 +59,11 @@ class SammUnitsGraph:
         node_value: Union[str, Dict] = value
 
         if node_type != "Unit":
-            node_value = self.get_description(f"unit:{node_type}")
+            node_value = self.get_info(f"unit:{node_type}")
 
         return node_type, node_value
 
-    def get_description(self, unit: str) -> Dict:
+    def get_info(self, unit: str) -> Dict:
         """Get a description of the unit."""
         unit_data: Dict = {}
         query = self.QUERY_TEMPLATE.substitute(unit=unit)

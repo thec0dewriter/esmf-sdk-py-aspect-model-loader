@@ -80,7 +80,7 @@ The class contains functions for accessing units of measurement.
 from esmf_aspect_meta_model_python.samm_meta_model import SammUnitsGraph
 
 units_graph = SammUnitsGraph()
-unit_data = units_graph.get_description("unit:volt")
+unit_data = units_graph.get_info("unit:volt")
 # {'preferredName': rdflib.term.Literal('volt', lang='en'), 'commonCode': rdflib.term.Literal('VLT'), ... }
 
 units_graph.print_description(unit_data)
