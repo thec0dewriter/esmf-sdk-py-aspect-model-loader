@@ -64,11 +64,12 @@ poetry run download-samm-branch
 ```
 to download and start working with the Aspect Model Loader.
 
-## SAMM meta model
+## Semantic Aspect Meta Model
 
-To be able to use "SAMM meta model" classes you need to download "SAMM Aspect Meta Model for development" ([Set Up SAMM Aspect Meta Model for development](#Set Up SAMM Aspect Meta Model for development)).
+To be able to use SAMM meta model classes you need to download the corresponding files. 
+Details are described in [Set up SAMM Aspect Meta Model for development](#set-up-samm-aspect-meta-model-for-development).
 
-This module contains classes for working with SAMM data.
+This module contains classes for working with Aspect data.
 
 SAMM meta model contains:
 - SammUnitsGraph: provide a functionality for working with units([units.ttl](./esmf_aspect_meta_model_python/samm_aspect_meta_model/samm/unit/2.1.0/units.ttl)) data
