@@ -366,34 +366,6 @@ def test_find_property_characteristic_by_urn() -> None:
     assert result is None
 
 
-# def test_load_aspect_from_multiple_files() -> None:
-#     file_path1 = RESOURCE_PATH / "ProductTypes.ttl"
-#     file_path2 = RESOURCE_PATH / "ProductType_shared.ttl"
-#     aspect_loader = AspectLoader()
-#     aspect = aspect_loader._load_aspect_model_from_multiple_files(
-#         [file_path1, file_path2],
-#         "urn:samm:org.eclipse.esmf.test.general:2.0.0#ProductTypes",
-#     )
-#
-#     assert aspect.meta_model_version == "2.0.0"
-#     assert aspect.name == "ProductTypes"
-#     assert aspect.urn == "urn:samm:org.eclipse.esmf.test.general:2.0.0#ProductTypes"
-#     assert len(aspect.properties) == 1
-#     assert aspect.properties[0] is not None
-#     first_property = aspect.properties[0]
-#     assert first_property.name == "productTypes"
-#     assert first_property.data_type is not None
-#     data_type = first_property.data_type
-#     assert data_type.is_complex
-#     assert data_type.urn == "urn:samm:org.eclipse.esmf.test.general:2.0.0#ProductType"
-#     assert hasattr(data_type, "properties")
-#     data_type_properties = data_type.properties  # type: ignore
-#     assert len(data_type_properties) == 3
-#     assert data_type_properties[0].urn == "urn:samm:org.eclipse.esmf.test.general:2.0.0#productClass"
-#     assert data_type_properties[1].urn == "urn:samm:org.eclipse.esmf.test.general:2.0.0#productSubClass"
-#     assert data_type_properties[2].urn == "urn:samm:org.eclipse.esmf.test.general:2.0.0#statisticsGroup"
-#
-#
 def test_loading_aspect_with_either():
     file_path = RESOURCE_PATH / "AspectWithEither.ttl"
     aspect_loader = AspectLoader()

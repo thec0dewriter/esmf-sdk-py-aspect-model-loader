@@ -49,10 +49,10 @@
    samm:preferredName "Another test Aspect"@en ;
    samm:description "This is a test description for the second Aspect"@en ;
    samm:see <http://example.com/> ;
-   samm:properties ( :someStrangeProperty ) ;
+   samm:properties ( :someProperty ) ;
    samm:operations ( ) .
 
-:someStrangeProperty a samm:Property ;
+:someProperty a samm:Property ;
    samm:preferredName "Some weird Property"@en ;
    samm:description "This is a property for the test entity 2."@en ;
    samm:characteristic samm-c:Text .
