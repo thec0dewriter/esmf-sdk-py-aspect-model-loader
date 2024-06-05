@@ -3,19 +3,36 @@
 import csv
 
 from glob import glob
-from os.path import join
+from os import listdir
+from os.path import exists, join
 from pathlib import Path
 
 from esmf_aspect_meta_model_python.loader.aspect_loader import AspectLoader
+from scripts.constants import TestModelConstants
+from scripts.download_test_models import download_test_models
 
-SAMM_VERSION = "2.0.0"
+
+def get_resources_folder_path() -> str:
+    """Get a path for storing test models."""
+    base_path = Path(__file__).parents[3].absolute()
+    models_path = join(base_path, TestModelConstants.TEST_MODELS_PATH)
+
+    return models_path
+
+
+def check_resources_folder(test_models_exists: bool = False):
+    """Remove all files to clear test models directory."""
+    resources_folder = get_resources_folder_path()
+
+    if not exists(resources_folder) or len(listdir(resources_folder)) == 0 or not test_models_exists:
+        download_test_models()
 
 
 def get_test_files():
     """Get ttl models for testing."""
-    base_path = Path(__file__).parent.absolute()
-    samm_folder_name = f"samm_{SAMM_VERSION.replace('.', '_')}"
-    search_pattern = join(base_path, "resources", "**", samm_folder_name, "**", "*.ttl")
+    resources_folder = get_resources_folder_path()
+    samm_folder_name = f"samm_{TestModelConstants.SAMM_VERSION.replace('.', '_')}"
+    search_pattern = join(resources_folder, "**", samm_folder_name, "**", "*.ttl")
     test_model_files = glob(search_pattern, recursive=True)
 
     return test_model_files
@@ -24,6 +41,10 @@ def get_test_files():
 def load_test_models():
     """Test for loading Aspect models."""
     test_files = get_test_files()
+    if not test_files:
+        check_resources_folder()
+        test_files = get_test_files()
+
     result = []
     all_test_files = len(test_files)
     i = 0
@@ -57,6 +78,7 @@ def load_test_models():
         result.append(data)
 
     print(f"{i}/{all_test_files}")
+
     return result
 
 

@@ -161,3 +161,131 @@ class TestSAMMGraph:
         get_base_nodes_mock.assert_called_once_with("aspect_urn")
         model_element_factory_mock.assert_called_once_with("samm_version", "graph", "cache")
         model_element_factory_mock.create_all_graph_elements.assert_called_once_with("base_nodes")
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.DefaultElementCache")
+    def test_find_by_name(self, default_element_cache_mock):
+        cache_mock = mock.MagicMock(name="cache")
+        cache_mock.get_by_name.return_value = "graph_node"
+        default_element_cache_mock.return_value = cache_mock
+        samm_graph = SAMMGraph("graph", "resolver")
+        result = samm_graph.find_by_name("element_name")
+
+        assert result == "graph_node"
+        cache_mock.get_by_name.assert_called_once_with("element_name")
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.DefaultElementCache")
+    def test_find_by_urn(self, default_element_cache_mock):
+        cache_mock = mock.MagicMock(name="cache")
+        cache_mock.get_by_urn.return_value = "graph_node"
+        default_element_cache_mock.return_value = cache_mock
+        samm_graph = SAMMGraph("graph", "resolver")
+        result = samm_graph.find_by_urn("urn")
+
+        assert result == "graph_node"
+        cache_mock.get_by_urn.assert_called_once_with("urn")
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.SAMMGraph.determine_element_access_path")
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.SAMMGraph.find_by_name")
+    def test_determine_access_path(
+        self,
+        find_by_name_mock,
+        determine_element_access_path_mock,
+    ):
+        find_by_name_mock.side_effect = (["base_element"], [])
+        determine_element_access_path_mock.return_value = ["access_path"]
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph.determine_access_path("base_element_name")
+
+        assert result == ["access_path"]
+        find_by_name_mock.assert_called_once_with("base_element_name")
+        determine_element_access_path_mock.assert_called_once_with("base_element")
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.SAMMGraph._SAMMGraph__determine_access_path")
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.Property")
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.isinstance")
+    def test_determine_element_access_path_with_payload_name(
+        self,
+        isinstance_mock,
+        property_mock,
+        determine_access_path_mock,
+    ):
+        isinstance_mock.return_value = True
+        base_element_mock = mock.MagicMock(name="base_element")
+        base_element_mock.payload_name = "payload_name"
+        determine_access_path_mock.return_value = "element_access_path"
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph.determine_element_access_path(base_element_mock)
+
+        assert result == "element_access_path"
+        isinstance_mock.assert_called_once_with(base_element_mock, property_mock)
+        determine_access_path_mock.assert_called_once_with(base_element_mock, [["payload_name"]])
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.SAMMGraph._SAMMGraph__determine_access_path")
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.Property")
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.isinstance")
+    def test_determine_element_access_path_base_element_name(
+        self,
+        isinstance_mock,
+        property_mock,
+        determine_access_path_mock,
+    ):
+        isinstance_mock.return_value = True
+        base_element_mock = mock.MagicMock(name="base_element")
+        base_element_mock.name = "base_element_name"
+        base_element_mock.payload_name = None
+        determine_access_path_mock.return_value = "element_access_path"
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph.determine_element_access_path(base_element_mock)
+
+        assert result == "element_access_path"
+        isinstance_mock.assert_called_once_with(base_element_mock, property_mock)
+        determine_access_path_mock.assert_called_once_with(base_element_mock, [["base_element_name"]])
+
+    def test_determine_access_path_base_element_is_none(self):
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph._SAMMGraph__determine_access_path(None, "path")
+
+        assert result == "path"
+
+    def test_determine_access_path_parent_element_is_none(self):
+        base_element_mock = mock.MagicMock(name="base_element")
+        base_element_mock.parent_elements = None
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph._SAMMGraph__determine_access_path(base_element_mock, "path")
+
+        assert result == "path"
+
+    def test_determine_access_path_parent_element_is_empty_list(self):
+        base_element_mock = mock.MagicMock(name="base_element")
+        base_element_mock.parent_elements = []
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph._SAMMGraph__determine_access_path(base_element_mock, "path")
+
+        assert result == "path"
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.isinstance")
+    def test_private_determine_access_path_parent_payload_name(self, isinstance_mock):
+        parent_element_mock = mock.MagicMock(name="parent_element")
+        parent_element_mock.parent_elements = []
+        parent_element_mock.payload_name = "payload_name"
+        base_element_mock = mock.MagicMock(name="base_element")
+        base_element_mock.parent_elements = [parent_element_mock]
+        isinstance_mock.return_value = True
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph._SAMMGraph__determine_access_path(base_element_mock, [["path"]])
+
+        assert result == [["payload_name", "path"]]
+
+    @mock.patch("esmf_aspect_meta_model_python.loader.samm_graph.isinstance")
+    def test_private_determine_access_path_parent_name(self, isinstance_mock):
+        parent_element_mock = mock.MagicMock(name="parent_element")
+        parent_element_mock.parent_elements = []
+        parent_element_mock.payload_name = None
+        parent_element_mock.name = "payload_element_name"
+        base_element_mock = mock.MagicMock(name="base_element")
+        base_element_mock.parent_elements = [parent_element_mock]
+        isinstance_mock.return_value = True
+        samm_graph = SAMMGraph("graph", "resolver", "cache")
+        result = samm_graph._SAMMGraph__determine_access_path(base_element_mock, [["path"]])
+
+        assert result == [["payload_element_name", "path"]]

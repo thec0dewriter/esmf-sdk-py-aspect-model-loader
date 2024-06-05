@@ -9,58 +9,75 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-from os import mkdir, remove
+import shutil
+
+from os import listdir, mkdir, remove
 from os.path import exists, join
 from pathlib import Path
 from zipfile import ZipFile
 
 import requests
 
-
-FOLDER_TO_EXTRACT = "valid"
-TEST_MODELS_PATH = join("tests", "integration", "java_models", "resources")
-VERSION = "2.7.0"
+from scripts.constants import TestModelConstants as Const
 
 
-def get_model_files_path(version: str) -> str:
+def get_resources_folder_path() -> str:
     """Get a path for storing test models."""
     base_path = Path(__file__).parents[1].absolute()
-    models_path = join(base_path, TEST_MODELS_PATH, f"esmf-test-aspect-models-{version}.jar")
+    models_path = join(base_path, Const.TEST_MODELS_PATH)
 
     return models_path
 
 
-def download_test_models(version: str = VERSION):
-    """Downloads and extract the esmf-test-aspect-models."""
-    model_files_path = get_model_files_path(version)
+def clear_folder():
+    """Remove all files to clear test models directory."""
+    resources_folder = get_resources_folder_path()
 
-    print(f"Start downloading esmf-test-aspect-models version {version}")
-    url = (
-        f"https://repo1.maven.org/maven2/org/eclipse/esmf/esmf-test-aspect-models/{version}/"
-        f"esmf-test-aspect-models-{version}.jar"
-    )
+    if exists(resources_folder) or len(listdir(resources_folder)) != 0:
+        shutil.rmtree(resources_folder)
+
+    mkdir(resources_folder)
+
+
+def download_jar_file(jar_file_path: str):
+    """Download JAR with test models."""
+    url = Const.MAVEN_URL.substitute(version_number=Const.JAVA_CLI_VERSION)
     response = requests.get(url, allow_redirects=True)
 
-    resource_folder = Path(model_files_path).parent.absolute()
-    if not exists(resource_folder):
-        mkdir(resource_folder)
-
-    with open(model_files_path, "wb") as f:
+    with open(jar_file_path, "wb") as f:
         f.write(response.content)
-    print("JAR-File Downloaded")
 
-    print(f"Start extracting files from {model_files_path}")
-    extracted_file_path = Path(model_files_path).parents[0].absolute()
-    archive = ZipFile(model_files_path)
+
+def extract_test_models(resources_folder: str, jar_file_path: str):
+    """Unzip and extract test models."""
+    archive = ZipFile(jar_file_path)
     for file_name in archive.namelist():
-        if file_name.startswith(FOLDER_TO_EXTRACT):
-            archive.extract(file_name, extracted_file_path)
+        if file_name.startswith(Const.FOLDER_TO_EXTRACT):
+            archive.extract(file_name, resources_folder)
 
     archive.close()
-    print("Done extracting files.")
 
-    print("Deleting esmf-test-aspect-models JAR file.")
-    remove(model_files_path)
+
+def download_test_models(version: str = Const.JAVA_CLI_VERSION):
+    """Downloads and extract the esmf-test-aspect-models."""
+    print("Start a script to download the JAVA test Aspect Models")
+    resources_folder = get_resources_folder_path()
+    jar_file_name = f"esmf-test-aspect-models-{version}.jar"
+    jar_file_path = join(resources_folder, jar_file_name)
+
+    print(f"Remove previous version of test models from the folder {resources_folder}")
+    clear_folder()
+
+    print(f"Start downloading esmf-test-aspect-models version {version}")
+    download_jar_file(jar_file_path)
+    print("JAR-File Downloaded")
+
+    print(f"Start extracting files from {jar_file_name} to the folder {resources_folder}")
+    extract_test_models(resources_folder, jar_file_path)
+    print("Done extracting files")
+
+    print("Deleting esmf-test-aspect-models JAR file")
+    remove(jar_file_path)
 
 
 if __name__ == "__main__":
