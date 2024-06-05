@@ -20,7 +20,8 @@ RESOURCE_PATH = getcwd() / Path("tests/integration/resources/org.eclipse.esmf.te
 def test_get_access_path():
     file_path = RESOURCE_PATH / "Movement.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model(file_path)
+    model_elements = aspect_loader.load_aspect_model(file_path)
+    aspect = model_elements[0]
     path = aspect_loader.determine_element_access_path(aspect.properties[2].data_type.properties[2])  # type: ignore
 
     assert path[0][0] == "position"
@@ -40,7 +41,8 @@ def test_get_access_path():
 def test_get_access_path_input_property():
     file_path = RESOURCE_PATH / "AspectWithOperationNoOutput.ttl"
     aspect_loader = AspectLoader()
-    aspect = aspect_loader.load_aspect_model(file_path)
+    model_elements = aspect_loader.load_aspect_model(file_path)
+    aspect = model_elements[0]
     path = aspect_loader.determine_element_access_path(aspect.operations[0].input_properties[0])
 
     assert path[0][0] == "input"
