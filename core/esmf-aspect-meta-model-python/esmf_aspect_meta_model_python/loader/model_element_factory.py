@@ -65,6 +65,7 @@ class ModelElementFactory:
                 instance = self.create_element(node)
             except Exception as error:
                 print(f"Could nod translate the node {node} to a Python object. Error: {error}")
+                raise error
             else:
                 all_nodes.append(instance)
 

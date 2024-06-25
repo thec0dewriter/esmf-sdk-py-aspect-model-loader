@@ -282,8 +282,9 @@ def test_find_properties_by_name() -> None:
     file_path = RESOURCE_PATH / "AspectWithProperties.ttl"
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
+    graph = aspect_loader.get_graph()
 
-    result = aspect_loader.find_by_name("testPropertyOne")
+    result = graph.find_by_name("testPropertyOne")
     assert result is not None
     assert len(result) == 1
     assert isinstance(result[0], BaseImpl)
@@ -293,7 +294,7 @@ def test_find_properties_by_name() -> None:
     assert len(result[0].see) == 0
     assert len(result[0].descriptions) == 0
 
-    result = aspect_loader.find_by_name("testPropertyTwo")
+    result = graph.find_by_name("testPropertyTwo")
     assert result is not None
     assert len(result) == 1
     assert isinstance(result[0], BaseImpl)
@@ -303,7 +304,7 @@ def test_find_properties_by_name() -> None:
     assert len(result[0].see) == 0
     assert len(result[0].descriptions) == 0
 
-    result = aspect_loader.find_by_name("Unknown")
+    result = graph.find_by_name("Unknown")
     assert len(result) == 0
 
 
@@ -311,7 +312,9 @@ def test_find_property_characteristic_by_name() -> None:
     file_path = RESOURCE_PATH / "AspectWithPropertyWithAllBaseAttributes.ttl"
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
-    result = aspect_loader.find_by_name("BooleanTestCharacteristic")
+    graph = aspect_loader.get_graph()
+
+    result = graph.find_by_name("BooleanTestCharacteristic")
     assert result is not None
     assert len(result) == 1
     assert isinstance(result[0], BaseImpl)
@@ -326,8 +329,9 @@ def test_find_properties_by_urn() -> None:
     file_path = RESOURCE_PATH / "AspectWithProperties.ttl"
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
+    graph = aspect_loader.get_graph()
 
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.test.general:2.0.0#testPropertyOne")
+    result = graph.find_by_urn("urn:samm:org.eclipse.esmf.test.general:2.0.0#testPropertyOne")
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "testPropertyOne"
@@ -336,7 +340,7 @@ def test_find_properties_by_urn() -> None:
     assert len(result.see) == 0
     assert len(result.descriptions) == 0
 
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.test.general:2.0.0#testPropertyTwo")
+    result = graph.find_by_urn("urn:samm:org.eclipse.esmf.test.general:2.0.0#testPropertyTwo")
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "testPropertyTwo"
@@ -345,7 +349,7 @@ def test_find_properties_by_urn() -> None:
     assert len(result.see) == 0
     assert len(result.descriptions) == 0
 
-    result = aspect_loader.find_by_urn("Unknown")
+    result = graph.find_by_urn("Unknown")
     assert result is None
 
 
@@ -353,7 +357,9 @@ def test_find_property_characteristic_by_urn() -> None:
     file_path = RESOURCE_PATH / "AspectWithPropertyWithAllBaseAttributes.ttl"
     aspect_loader = AspectLoader()
     aspect_loader.load_aspect_model(file_path)
-    result = aspect_loader.find_by_urn("urn:samm:org.eclipse.esmf.test.general:2.0.0#BooleanTestCharacteristic")
+    graph = aspect_loader.get_graph()
+    result = graph.find_by_urn("urn:samm:org.eclipse.esmf.test.general:2.0.0#BooleanTestCharacteristic")
+
     assert result is not None
     assert isinstance(result, BaseImpl)
     assert result.name == "BooleanTestCharacteristic"
@@ -362,7 +368,7 @@ def test_find_property_characteristic_by_urn() -> None:
     assert len(result.see) == 0
     assert len(result.descriptions) == 0
 
-    result = aspect_loader.find_by_urn("Unknown")
+    result = graph.find_by_urn("Unknown")
     assert result is None
 
 

@@ -17,6 +17,8 @@ from typing import List
 
 from rdflib import Graph
 
+from scripts.samm.download_samm_release import main as download_samm_release
+
 
 class BaseMetaModelResolver(ABC):
     """Interface for meta-model resolver class."""
@@ -38,13 +40,27 @@ class AspectMetaModelResolver(BaseMetaModelResolver):
     def __init__(self, base_path: str = ""):
         self._base_path = base_path if base_path else str(Path(__file__).parents[2])
 
-    def get_samm_files(self, meta_model_version: str) -> List[str]:
+    def _get_samm_files_path(self, meta_model_version: str) -> List[str]:
         """Collect all SAMM files.
 
-        :param meta_model_version: Meta model version
+        :param meta_model_version: meta-model version
+        :return: List of all path to SAMM files for the given meta-model version
         """
         path_template = join(self._base_path, self.samm_folder_path, "**", meta_model_version, "*.ttl")
         samm_files = [samm_file for samm_file in glob(path_template, recursive=True)]
+
+        return samm_files
+
+    def get_samm_files(self, meta_model_version: str) -> List[str]:
+        """Check and collect paths to SAMM files.
+
+        :param meta_model_version: meta-model version
+        :return: List of all path to SAMM files for the given meta-model version
+        """
+        samm_files = self._get_samm_files_path(meta_model_version)
+        if not samm_files:
+            download_samm_release()
+            samm_files = self._get_samm_files_path(meta_model_version)
 
         return samm_files
 
@@ -73,7 +89,6 @@ class AspectMetaModelResolver(BaseMetaModelResolver):
         :param aspect_graph: RDF Graph
         :param meta_model_version: version of the meta-model to extract the right SAMM turtle files
         """
-        samm_files = self.get_samm_files(meta_model_version)
-        for file_path in samm_files:
+        for file_path in self.get_samm_files(meta_model_version):
             self.validate_file(file_path)
             aspect_graph.parse(file_path, format="turtle")
