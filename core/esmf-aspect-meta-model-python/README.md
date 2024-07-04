@@ -34,9 +34,6 @@ Required
 - [Install poetry](#install-poetry)
 - [Install project dependencies](#install-project-dependencies)
 - [Download SAMM files](#download-samm-files)
-Optional
-- [Download SAMM CLI](#download-samm-cli) (needed  to use SAMM CLI functions)
-- [Download SAMM test models](#download-test-models) (for running integration tests)
 
 ### Install poetry
 
