@@ -21,8 +21,8 @@ from esmf_aspect_meta_model_python import (
     Enumeration,
     Measurement,
     Quantifiable,
-    StructuredValue,
-    State
+    State,
+    StructuredValue
 )
 
 RESOURCE_PATH = getcwd() / Path("tests/integration/resources/org.eclipse.esmf.test.characteristics/2.0.0")
