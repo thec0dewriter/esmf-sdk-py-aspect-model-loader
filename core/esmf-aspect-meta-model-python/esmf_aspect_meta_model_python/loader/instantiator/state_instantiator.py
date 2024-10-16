@@ -48,7 +48,7 @@ class StateInstantiator(EnumerationInstantiator):
 
     def __to_state_node_value(self, value_node: Optional[Node]) -> Dict:
         """
-        This method instantiates one possible value of an state.
+        This method instantiates one possible value of a state.
         :param value_node:  Node of the Graph that represents one state value.
         The Argument can either be a Literal or a URIRef.
         - If value_node is a Literal it will represent e.g. a string or an integer value
