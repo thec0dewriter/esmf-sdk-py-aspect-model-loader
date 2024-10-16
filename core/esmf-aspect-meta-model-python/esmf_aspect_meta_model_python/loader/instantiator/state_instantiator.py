@@ -9,7 +9,7 @@
 #
 #   SPDX-License-Identifier: MPL-2.0
 
-import typing
+from typing import Any, Dict, Optional
 
 import rdflib  # type: ignore
 
@@ -18,13 +18,13 @@ from rdflib.term import Node
 from esmf_aspect_meta_model_python.base.characteristics.state import State
 from esmf_aspect_meta_model_python.impl.characteristics.default_state import DefaultState
 from esmf_aspect_meta_model_python.loader.instantiator.constants import DATA_TYPE_ERROR_MSG
-from esmf_aspect_meta_model_python.loader.instantiator_base import InstantiatorBase
+from esmf_aspect_meta_model_python.loader.instantiator.enumeration_instantiator import EnumerationInstantiator
 from esmf_aspect_meta_model_python.loader.rdf_helper import RdfHelper
 from esmf_aspect_meta_model_python.vocabulary.SAMM import SAMM
 from esmf_aspect_meta_model_python.vocabulary.SAMMC import SAMMC
 
 
-class StateInstantiator(InstantiatorBase[State]):
+class StateInstantiator(EnumerationInstantiator):
     def _create_instance(self, element_node: Node) -> State:
         data_type = self._get_data_type(element_node)
         if data_type is None:
@@ -46,7 +46,7 @@ class StateInstantiator(InstantiatorBase[State]):
 
         return DefaultState(meta_model_base_attributes, data_type, values, default)
 
-    def __to_state_node_value(self, value_node: Node) -> typing.Dict:
+    def __to_state_node_value(self, value_node: Optional[Node]) -> Dict:
         """
         This method instantiates one possible value of an state.
         :param value_node:  Node of the Graph that represents one state value.
@@ -66,9 +66,9 @@ class StateInstantiator(InstantiatorBase[State]):
             for property_urn, property_value in value_node_properties:
                 if property_urn != rdflib.RDF.type and isinstance(property_urn, str):
                     property_name = property_urn.split("#")[1]
-                    actual_value: typing.Optional[typing.Any]
+                    actual_value: Optional[Any]
                     if self.__is_collection_value(property_urn):
-                        actual_value = self.__instantiate_state_collection(property_value)
+                        actual_value = self.__instantiate_enum_collection(property_value)
                     else:
                         actual_value = self.__to_state_node_value(property_value)
                     value[property_name] = actual_value
@@ -84,20 +84,3 @@ class StateInstantiator(InstantiatorBase[State]):
                 f"Every value of an state must either be a Literal (string, int, etc.) or "
                 f"a URI reference to a ComplexType. Values of type {type(value_node).__name__} are not allowed"
             )
-
-    def __is_collection_value(self, property_subject: str) -> bool:
-        characteristic = self._aspect_graph.value(  # type: ignore
-            subject=property_subject,
-            predicate=self._samm.get_urn(SAMM.characteristic),
-        )
-        characteristic_type = self._aspect_graph.value(subject=characteristic, predicate=rdflib.RDF.type)
-        return characteristic_type in self._sammc.collections_urns()
-
-    def __instantiate_state_collection(self, value_list) -> typing.List[typing.Dict]:
-        """creates a collection as a child for state characteristics"""
-        value_node_list = RdfHelper.get_rdf_list_values(value_list, self._aspect_graph)
-        values = []
-        for value_node in value_node_list:
-            value = self.__to_state_node_value(value_node)
-            values.append(value)
-        return values
